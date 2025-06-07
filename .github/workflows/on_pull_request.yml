@@ -17,5 +17,8 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
-        run: docker build -t my-app-image:pr-${{ github.event.pull_request.number }} .
+      - name: List files in repo
+        run: ls -la
+
+      - name: Build Docker image with debug
+        run: docker build --progress=plain -t my-app-image:pr-${{ github.event.pull_request.number }} .
