@@ -27,7 +27,7 @@
 
 <div *ngIf="prendaEditando">
   <h2>Editar Prenda</h2>
-  <input type="text" [(ngModel)]="prendaEditando.marca" placeholder="Nombre">
+  <input type="text" [(ngModel)]="prendaEditando.nombre" placeholder="Nombre">
   <input type="text" [(ngModel)]="prendaEditando.precio" placeholder="Precio">
    <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
     <label>{{ talle }}:</label>

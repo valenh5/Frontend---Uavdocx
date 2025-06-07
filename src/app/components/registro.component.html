@@ -1,12 +1,17 @@
-<h2>Registro</h2>
-<input type="text" [(ngModel)]="nombre_usuario" placeholder="Usuario">
-<input type="email" [(ngModel)]="email" placeholder="Email">
-<input type="password" [(ngModel)]="contrasenia" placeholder="contrasenia">
-<button (click)="registrar()">Registrarse</button>
+<link rel="stylesheet" href="registro.component.css">
+<div id="registroBox">
+    <h2>Registro</h2>
+    <input type="text" [(ngModel)]="nombre_usuario" placeholder="Usuario">
+    <input type="email" [(ngModel)]="email" placeholder="Email">
+    <input type="password" [(ngModel)]="contrasenia" placeholder="Contraseña">
+    <button (click)="registrar()">Registrarse</button>
 
-<h2>Log In</h2>
-<input type="text" [(ngModel)]="usuario_ingreso" placeholder="Usuario">
-<input type="password" [(ngModel)]="pass_ingreso" placeholder="contraseniaa">
-<button (click)="ingresar()">Ingresar</button>
+    <h2>Log In</h2>
+    <input type="text" [(ngModel)]="usuario_ingreso" placeholder="Usuario">
+    <input type="password" [(ngModel)]="pass_ingreso" placeholder="Contraseña">
+    <button (click)="ingresar()">Ingresar</button>
 
-
+    <h2>Restablecer Contraseña</h2>
+    <input type="email" [(ngModel)]="emailReset" placeholder="Tu email">
+    <button (click)="solicitarReset()">Solicitar Restablecimiento</button>
+</div>

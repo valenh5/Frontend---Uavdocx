@@ -12,8 +12,9 @@ export class RegistroComponent {
   nombre_usuario = '';
   contrasenia = '';
   email = '';
-  usuario_ingreso: string = '';
-  pass_ingreso: string = '';
+  usuario_ingreso = '';
+  pass_ingreso = '';
+  emailReset = '';
 
   constructor(private usuarioService: UsuarioService) {}
 
@@ -38,4 +39,12 @@ export class RegistroComponent {
     }
   }
 
+  async solicitarReset() {
+    try {
+      const respuesta = await this.usuarioService.solicitarResetContrasenia(this.emailReset);
+      alert(respuesta.mensaje);
+    } catch (error: any) {
+      alert(error.response?.data?.mensaje || 'Error al solicitar restablecimiento de contraseña');
+    }
+  }
 }

@@ -18,4 +18,18 @@ export class UsuarioService {
     });
     return response.data;
   }
+ 
+  async solicitarResetContrasenia(email: string) {
+    const respuesta = await axios.post('http://localhost:3000/usuarios/olvide-contrasenia', { email });
+    return respuesta.data;
+  }
+
+  async resetearContrasenia(token: string, nuevaContrasenia: string) {
+  const respuesta = await axios.post(`http://localhost:3000/usuarios/resetear-contrasenia/${token}`, {
+    nuevaContrasenia
+  });
+  return respuesta.data;
+}
+
+
 }
