@@ -20,5 +20,5 @@ jobs:
       - name: List files in repo
         run: ls -la
 
-      - name: Build Docker image with debug
-        run: docker build --progress=plain -t my-app-image:pr-${{ github.event.pull_request.number }} .
+      - name: Build Docker image (frontend)
+        run: docker build --progress=plain -t frontend-app:pr-${{ github.event.pull_request.number }} .
