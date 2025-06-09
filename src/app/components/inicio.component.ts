@@ -9,16 +9,30 @@ const apiUrl = "http://localhost:3000/prendas";
 @Component({
   selector: 'app-prendas',
   standalone: true,
-  imports: [FormsModule, CommonModule], 
+  imports: [FormsModule, CommonModule],
+
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css']
 })
 export class PrendasComponent implements OnInit {
   prendas: any[] = [];
-  prendaNueva: any = { nombre: '', precio: '', talles: { S: 0, M: 0, L: 0, XL: 0 }, categoria: '' };
+
+  prendasFiltradas: any[] = []; 
+  prendaNueva: any = {
+    nombre: '',
+    precio: '',
+    talles: { S: 0, M: 0, L: 0, XL: 0 },
+    categoria: '',
+    imagen: ''
+  };
+
   prendaEditando: any = null;
   mostrarFormulario: boolean = false;
   categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
+
+
+  busqueda: string = '';
+
 
   constructor() {}
 
@@ -27,30 +41,51 @@ export class PrendasComponent implements OnInit {
   }
 
   toggleFormulario(): void {
-    this.mostrarFormulario = !this.mostrarFormulario; 
+
+    this.mostrarFormulario = !this.mostrarFormulario;
+
   }
 
   async cargarPrendas(): Promise<void> {
     try {
-      const response = await axios.get(apiUrl+"/listarPrendas"); 
+
+      const response = await axios.get(apiUrl + "/listarPrendas");
       this.prendas = response.data;
+      this.prendasFiltradas = [...this.prendas];
+
     } catch (error) {
       console.error("Error al cargar prendas:", error);
     }
   }
 
+
+  async cargarPrenda(id : number): Promise<void> {
+    try{
+      const response = await axios.get(apiUrl + `/${id}`)
+    }catch (error){
+      return;
+    }
+    
+  }
+
   async crearPrenda(): Promise<void> {
     try {
-      await axios.post(apiUrl+"/crearPrenda", this.prendaNueva);
+      await axios.post(apiUrl + "/crearPrenda", this.prendaNueva);
       await this.cargarPrendas();
-      this.prendaNueva = { nombre: '', precio: '', talles: '', categoria: '' };
-      alert(`Prenda creada: ${this.prendaNueva.marca} ${this.prendaNueva.modelo}`);
+      alert(`Prenda creada: ${this.prendaNueva.nombre}`);
+      this.prendaNueva = {
+        nombre: '',
+        precio: '',
+        talles: { S: 0, M: 0, L: 0, XL: 0 },
+        categoria: '',
+        imagen: ''
+      };
     } catch (error) {
       console.error("Error al crear prenda:", error);
-      alert("Hubo un error al crear el teléfono. Por favor, intenta de nuevo.");
+      alert("Hubo un error al crear la prenda. Por favor, intenta de nuevo.");
     }
   }
-  
+
 
   editarPrenda(prenda: any): void {
     this.prendaEditando = { ...prenda, talles: { ...prenda.talles } };
@@ -63,27 +98,43 @@ export class PrendasComponent implements OnInit {
           nombre: this.prendaEditando.nombre,
           precio: this.prendaEditando.precio,
           talles: this.prendaEditando.talles,
-          categoria: this.prendaEditando.categoria
+
+          categoria: this.prendaEditando.categoria,
+          imagen: this.prendaEditando.imagen,
         });
         await this.cargarPrendas();
-        this.prendaEditando = null; 
-        alert("Prenda editado")
+        this.prendaEditando = null;
+        alert("Prenda editada");
+
       } catch (error) {
         console.error("Error al guardar cambios:", error);
       }
     } else {
-      console.warn("No se puede guardar cambios: ID invalido.");
+
+      console.warn("No se puede guardar cambios: ID inválido.");
     }
   }
 
-
-    async eliminarPrenda(id: number): Promise<void> {
-      try {
-        await axios.delete(apiUrl + `/${id}`);
-        await this.cargarPrendas();
-        alert("Prenda eliminado");
-      } catch (error) {
-        console.error("Error al eliminar telefono:", error);
-      }
+  async eliminarPrenda(id: number): Promise<void> {
+    try {
+      await axios.delete(apiUrl + `/${id}`);
+      await this.cargarPrendas();
+      alert("Prenda eliminada");
+    } catch (error) {
+      console.error("Error al eliminar prenda:", error);
     }
   }
+
+  realizarBusqueda(): void {
+    const texto = this.busqueda.toLowerCase().trim();
+
+    if (texto === '') {
+      this.prendasFiltradas = [...this.prendas];
+    } else {
+      this.prendasFiltradas = this.prendas.filter(prenda =>
+        prenda.nombre.toLowerCase().includes(texto)
+      );
+    }
+  }
+}
+
