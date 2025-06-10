@@ -10,7 +10,9 @@
     <div class="navbar-menu">
       <a href="/">Inicio</a>
       <a href="/productos">Productos</a>
-      <a href="/sesion">Sesion</a>
+
+      <a href="/login">Iniciar Sesión</a>
+
     </div>
 
     <div class="navbar-search">
@@ -29,13 +31,16 @@
       <h3>{{ prenda.nombre }}</h3>
       <p><strong>Precio:</strong> ${{ prenda.precio }}</p>
       <p><strong>Categoría:</strong> {{ prenda.categoria }}</p>
-      <p><strong>Talles:</strong> {{ prenda.talles | json }}</p>
+
+
       <button class="opciones" id="editar" (click)="editarPrenda(prenda); $event.stopPropagation()">Editar</button>
       <button class="opciones" id="borrar" (click)="eliminarPrenda(prenda.id); $event.stopPropagation()">Eliminar</button>
     </div>
   </div>
 </div>
->>>>>>> inicioAvances
+
+
+
 
 <div *ngIf="prendaEditando">
   <h2>Editar Prenda</h2>

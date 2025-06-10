@@ -1,0 +1,31 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/" class="navbar-logo">
+      UAVDOCX
+    </a>
+
+    <div class="navbar-menu">
+      <a href="/">Inicio</a>
+      <a href="/productos">Productos</a>
+      <a href="./login">Sesion</a>
+    </div>
+
+    <div class="navbar-search">
+      <input type="text" placeholder="Buscar..." [(ngModel)]="busqueda" (input)="realizarBusqueda()">
+      <button class="search-button" (click)="realizarBusqueda()">🔍</button>
+    </div>
+  </div>
+</nav>
+<h2 class="titulo-productos">Productos</h2>
+<div id="prendas-container">
+  <div class="prenda-card" *ngFor="let prenda of prendasFiltradas" (click)="cargarProductos()">
+    <div class="prenda-imagen">
+      <img *ngIf="prenda.imagen" [src]="prenda.imagen" alt="Imagen de la prenda" class="imagen-prenda">
+    </div>
+    <div class="prenda-info">
+      <h3>{{ prenda.nombre }}</h3>
+      <p><strong>Precio:</strong> ${{ prenda.precio }}</p>
+      <p><strong>Categoría:</strong> {{ prenda.categoria }}</p>
+    </div>
+  </div>
+</div>  
