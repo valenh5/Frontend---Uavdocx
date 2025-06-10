@@ -1,0 +1,166 @@
+
+#prendas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-evenly;
+}
+
+.prenda-card {
+  width: 250px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.prenda-card:hover {
+  transform: scale(1.05);
+}
+
+.prenda-imagen {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.imagen-prenda {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prenda-info {
+  padding: 15px;
+  text-align: center;
+}
+
+.prenda-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.prenda-info p {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.opciones {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.opciones:hover {
+  background-color: #0056b3;
+}
+
+input[type="text"], input[type="number"], select {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button#agregar {
+  margin-top: 20px;
+}
+
+.navbar {
+  background-color: #333;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  margin-bottom: 5%;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navbar-logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  size: 10%;
+}
+
+
+.navbar-menu {
+  display: flex;
+  gap: 15px;
+}
+
+.navbar-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 5px 10px;
+  transition: background-color 0.3s;
+}
+
+.navbar-menu a:hover {
+  background-color: #575757;
+  border-radius: 5px;
+}
+
+
+.navbar-search {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 20px;
+  padding: 5px 15px;
+  gap: 5px;
+}
+
+.navbar-search input {
+  border: none;
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 10px;
+  outline: none;
+  width: 200px;
+}
+
+.navbar-search .search-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.navbar-search .search-button:hover {
+  background-color: #0056b3;
+
+}

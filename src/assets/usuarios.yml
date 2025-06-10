@@ -1,0 +1,5 @@
+usuarios:
+  - usuario: "admin"
+    contraseña: "1234"
+  - usuario: "juan"
+    contraseña: "abcd"
