@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { PrendasComponent } from './components/inicio.component';
-import { RegistroComponent } from './components/registro.component';
+import { PrendasComponent } from './components/inicio/inicio.component';
+import { RegistroComponent } from './components/registro/registro.component';
 
-import { LoginComponent } from './components/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { ResetComponent } from './components/reset.component';
 import { ProductoComponent } from './components/productos/productos.component';
 
