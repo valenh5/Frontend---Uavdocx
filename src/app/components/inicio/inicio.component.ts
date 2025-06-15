@@ -125,16 +125,24 @@ export class PrendasComponent implements OnInit {
     }
   }
 
-  realizarBusqueda(): void {
-    const texto = this.busqueda.toLowerCase().trim();
+async realizarBusqueda(): Promise<void> {
+  const texto = this.busqueda.trim();
 
-    if (texto === '') {
-      this.prendasFiltradas = [...this.prendas];
-    } else {
-      this.prendasFiltradas = this.prendas.filter(prenda =>
-        prenda.nombre.toLowerCase().includes(texto)
-      );
-    }
+  if (!texto) {
+    this.prendasFiltradas = [...this.prendas];
+    return;
   }
+
+  try {
+    const response = await axios.get(apiUrl + "/buscarPrendas", {
+      params: { texto }
+    });
+    this.prendasFiltradas = response.data;
+  } catch (error) {
+    console.error("Error al buscar prendas:", error);
+  }
+}
+
+
 }
 

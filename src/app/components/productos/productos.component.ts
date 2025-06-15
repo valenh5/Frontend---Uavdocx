@@ -23,17 +23,38 @@ export class ProductoComponent implements OnInit {
     async ngOnInit(): Promise<void> {
     await this.cargarProductos();
 }
-async cargarProductos(): Promise<void> {
-    try {
+paginaActual = 1;
+limitePorPagina = 2;
+totalPaginas = 1;
 
-      const response = await axios.get(apiUrl + "/productos");
-      this.prendas = response.data;
-      this.prendasFiltradas = [...this.prendas];
-
-    } catch (error) {
-      console.error("Error al cargar prendas:", error);
-    }
+paginaAnterior(): void {
+  if (this.paginaActual > 1) {
+    this.paginaActual--;
+    this.cargarProductos();
+  }
 }
+
+paginaSiguiente(): void {
+  if (this.paginaActual < this.totalPaginas) {
+    this.paginaActual++;
+    this.cargarProductos();
+  }
+}
+
+
+async cargarProductos(): Promise<void> {
+  try {
+    const response = await axios.get(`${apiUrl}/productos?page=${this.paginaActual}&limit=${this.limitePorPagina}`);
+    
+    this.prendas = response.data.data;
+    this.totalPaginas = Math.ceil(response.data.total / this.limitePorPagina);
+    this.prendasFiltradas = [...this.prendas]; 
+
+  } catch (error) {
+    console.error("Error al cargar prendas:", error);
+  }
+}
+
 busqueda: string = '';
 realizarBusqueda(): void {
     const texto = this.busqueda.toLowerCase().trim();
