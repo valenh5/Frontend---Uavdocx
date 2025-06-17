@@ -1,282 +1,159 @@
-.navbar {
-  background-color: #333;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  margin-bottom: 5%;
+/* Reset de márgenes y paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.navbar-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.navbar-logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: white;
-  text-decoration: none;
-  size: 10%;
-}
-
-
-.navbar-menu {
-  display: flex;
-  gap: 15px;
-}
-
-.navbar-menu a {
-  color: white;
-  text-decoration: none;
-  font-size: 1rem;
-  padding: 5px 10px;
-  transition: background-color 0.3s;
-}
-
-.navbar-menu a:hover {
-  background-color: #575757;
-  border-radius: 5px;
-}
-
-
-.navbar-search {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  border-radius: 20px;
-  padding: 5px 15px;
-  gap: 5px;
-}
-
-.navbar-search input {
-  border: none;
-  padding: 5px;
-  font-size: 1rem;
-  border-radius: 10px;
-  outline: none;
-  width: 200px;
-}
-
-.navbar-search .search-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.navbar-search .search-button:hover {
-  background-color: #0056b3;
-
-}
-
-
-/* Contenedor principal de las tarjetas */
-#prendas-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
-  justify-content: center;
-  padding: 40px 20px;
-  background-color: #f5f7fa;
-}
-
-/* Tarjeta de prenda */
-.prenda-card {
-  width: 280px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.prenda-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
-}
-
-/* Imagen de la prenda */
-.prenda-imagen {
-  width: 100%;
-  height: 220px;
-  overflow: hidden;
-}
-h2 {
-    display: block;
-    font-size: 1.5em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-.imagen-prenda {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.prenda-card:hover .imagen-prenda {
-  transform: scale(1.05);
-}
-
-/* Información de la prenda */
-.prenda-info {
-  padding: 20px;
-  text-align: center;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.prenda-info h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 12px;
-}
-
-.prenda-info p {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-/* Botón de acción */
-.opciones {
-  margin-top: auto;
-  padding: 10px 15px;
-  background-color: #1a73e8;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-.opciones:hover {
-  background-color: #0f5dd1;
-}
-
-/* Formularios */
-input[type="text"],
-input[type="number"],
-select {
-  width: 100%;
-  padding: 10px 12px;
-  margin: 12px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-/* Botones generales */
-button {
-  background-color: #1a73e8;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #0f5dd1;
-}
-
-button#agregar {
-  margin-top: 24px;
+body {
+  font-family: 'Inter', sans-serif; /* Tipografía moderna y limpia */
+  background-color: #f8f8f8; /* Fondo claro */
+  color: #333; /* Texto oscuro para buen contraste */
+  line-height: 1.6;
 }
 
 /* Navbar */
 .navbar {
-  background-color: #2d2d2d;
-  padding: 12px 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  margin-bottom: 4%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 15px 30px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
-}
-
-/* Logo */
-.navbar-logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: white;
-  text-decoration: none;
-}
-
-/* Menú de navegación */
-.navbar-menu {
-  display: flex;
-  gap: 20px;
   align-items: center;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-logo:hover {
+  color: #007bff;
 }
 
 .navbar-menu a {
-  color: white;
+  margin-left: 20px;
+  color: #555;
   text-decoration: none;
-  font-size: 1rem;
-  padding: 6px 12px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
+  font-size: 16px;
+  transition: color 0.3s ease;
 }
 
 .navbar-menu a:hover {
-  background-color: #444;
+  color: #007bff;
 }
 
-/* Buscador */
 .navbar-search {
   display: flex;
   align-items: center;
-  background-color: white;
-  border-radius: 20px;
-  padding: 6px 15px;
-  gap: 8px;
 }
 
 .navbar-search input {
-  border: none;
-  padding: 6px;
-  font-size: 1rem;
-  border-radius: 10px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
   outline: none;
   width: 200px;
+  margin-right: 10px;
+  font-size: 14px;
 }
 
-.navbar-search .search-button {
-  background-color: #1a73e8;
+.navbar-search button {
+  background-color: #007bff;
   color: white;
   border: none;
-  padding: 6px 10px;
   border-radius: 50%;
+  padding: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.navbar-search .search-button:hover {
-  background-color: #0f5dd1;
+.navbar-search button:hover {
+  background-color: #0056b3;
+}
+
+/* Productos */
+.titulo-productos {
+  text-align: center;
+  font-size: 36px;
+  margin-top: 80px; /* Para que no se superponga con la navbar */
+  color: #333;
+}
+
+/* Cards de productos */
+#prendas-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.prenda-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.prenda-card:hover {
+  transform: translateY(-10px);
+}
+
+.prenda-imagen img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+}
+
+.prenda-info {
+  padding: 15px;
+}
+
+.prenda-info h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.prenda-info p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Paginación */
+.paginacion {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.paginacion button {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0 10px;
+}
+
+.paginacion button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.paginacion span {
+  font-size: 16px;
+  color: #555;
 }

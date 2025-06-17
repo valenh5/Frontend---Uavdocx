@@ -24,8 +24,9 @@ export class ProductoComponent implements OnInit {
     await this.cargarProductos();
 }
 paginaActual = 1;
-limitePorPagina = 2;
+limitePorPagina = 4;
 totalPaginas = 1;
+busqueda: string = '';
 
 paginaAnterior(): void {
   if (this.paginaActual > 1) {
@@ -55,7 +56,6 @@ async cargarProductos(): Promise<void> {
   }
 }
 
-busqueda: string = '';
 realizarBusqueda(): void {
     const texto = this.busqueda.toLowerCase().trim();
 
