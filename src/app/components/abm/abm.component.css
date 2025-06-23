@@ -81,7 +81,7 @@ body {
   background-color: #0056b3;
 }
 
-/* Cards de productos */
+
 #prendas-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -144,7 +144,6 @@ body {
   color: white;
 }
 
-/* Formularios */
 h2 {
   color: #333;
   font-size: 24px;
@@ -197,11 +196,11 @@ button#crear:hover {
 }
 
 button#editar {
-  background-color: #ffc107;
+  background-color: #82eaee;
 }
 
 button#editar:hover {
-  background-color: #e0a800;
+  background-color: #6db5d6;
 }
 
 button#borrar {

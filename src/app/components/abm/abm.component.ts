@@ -16,7 +16,7 @@ const apiUrl = "http://localhost:3000/prendas";
 })
 export class AbmComponent implements OnInit {
   prendas: any[] = [];
-
+    busqueda: string = '';
   prendasFiltradas: any[] = []; 
   prendaNueva: any = {
     nombre: '',
@@ -31,7 +31,7 @@ export class AbmComponent implements OnInit {
   categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
 
 
-  busqueda: string = '';
+  
 
 
   constructor() {}
@@ -124,24 +124,19 @@ async cargarPrendas(): Promise<void> {
     }
   }
 
-async realizarBusqueda(): Promise<void> {
-  const texto = this.busqueda.trim();
 
-  if (!texto) {
-    this.prendasFiltradas = [...this.prendas];
-    return;
+
+ realizarBusqueda(): void {
+    const texto = this.busqueda.toLowerCase().trim();
+
+    if (texto === '') {
+      this.prendasFiltradas = [...this.prendas];
+    } else {
+      this.prendasFiltradas = this.prendas.filter(prenda =>
+        prenda.nombre.toLowerCase().includes(texto)
+      );
+    }
   }
-
-  try {
-    const response = await axios.get(apiUrl + "/buscarPrendas", {
-      params: { texto }
-    });
-    this.prendasFiltradas = response.data;
-  } catch (error) {
-    console.error("Error al buscar prendas:", error);
-  }
-}
-
 
 }
 
