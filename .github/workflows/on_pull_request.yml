@@ -28,6 +28,8 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
 
       - name: Build Docker image (frontend)
         run: docker build --progress=plain -t ghcr.io/valenh5/Frontend---Uavdocx/frontend-app:pr-${{ github.event.pull_request.number }} .
