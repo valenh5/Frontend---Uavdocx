@@ -1,0 +1,83 @@
+<title>Uavdocx Inicio</title>
+
+
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/" class="navbar-logo">
+      UAVDOCX
+    </a>
+
+    <div class="navbar-menu">
+      <a href="/">Inicio</a>
+      <a href="/productos">Productos</a>
+      <a href="/login">Iniciar Sesión</a>
+      <a href="/abm">ABM</a>
+    </div>
+
+    <div class="navbar-search">
+      <input type="text" placeholder="Buscar..." [(ngModel)]="busqueda">
+      <button class="search-button" (click)="realizarBusqueda()">🔍</button>
+    </div>
+  </div>
+</nav>
+
+
+<div id="prendas-container">
+  <div class="prenda-card" *ngFor="let prenda of prendasFiltradas" (click)="cargarPrenda(prenda.id)">
+    <div class="prenda-imagen">
+      <img *ngIf="prenda.imagen" [src]="prenda.imagen" alt="Imagen de la prenda" class="imagen-prenda">
+    </div>
+    <div class="prenda-info">
+      <h3>{{ prenda.nombre }}</h3>
+      <p><strong>Precio:</strong> ${{ prenda.precio }}</p>
+      <p><strong>Categoría:</strong> {{ prenda.categoria }}</p>
+
+      <div class="prenda-opciones">
+        <button class="opciones" id="editar" (click)="editarPrenda(prenda); $event.stopPropagation()">Editar</button>
+        <button class="opciones" id="borrar" (click)="eliminarPrenda(prenda.id); $event.stopPropagation()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="prendaEditando">
+  <h2>Editar Prenda</h2>
+  <input type="text" [(ngModel)]="prendaEditando.nombre" placeholder="Nombre">
+  <input type="text" [(ngModel)]="prendaEditando.precio" placeholder="Precio">
+
+  <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
+    <label>{{ talle }}:</label>
+    <input type="number" [(ngModel)]="prendaEditando.talles[talle]" name="edit_talle_{{talle}}">
+  </div>
+
+  <select [(ngModel)]="prendaEditando.categoria">
+    <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+  </select>
+
+  <input type="text" [(ngModel)]="prendaEditando.imagen" placeholder="URL de la imagen">
+
+  <div class="form-actions">
+    <button (click)="guardarCambios()">Guardar Cambios</button>
+    <button (click)="prendaEditando = null">Cancelar</button>
+  </div>
+</div>
+
+<button id="agregar" (click)="toggleFormulario()">Agregar Prenda</button>
+
+<div *ngIf="mostrarFormulario">
+  <h2>Agregar Nueva Prenda</h2>
+  <input type="text" [(ngModel)]="prendaNueva.nombre" placeholder="Nombre">
+  <input type="text" [(ngModel)]="prendaNueva.precio" placeholder="Precio">
+
+  <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
+    <label>{{ talle }}:</label>
+    <input type="number" [(ngModel)]="prendaNueva.talles[talle]" name="talle_{{talle}}">
+  </div>
+
+  <select [(ngModel)]="prendaNueva.categoria">
+    <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+  </select>
+  <input type="text" [(ngModel)]="prendaNueva.imagen" placeholder="URL de la imagen">
+
+  <button id="crear" (click)="crearPrenda()">Guardar</button>
+</div>

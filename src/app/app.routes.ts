@@ -5,6 +5,7 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
 import { ResetComponent } from './components/reset.component';
 import { ProductoComponent } from './components/productos/productos.component';
+import { AbmComponent } from './components/abm/abm.component';
 
 
 export const routes: Routes = [
@@ -13,6 +14,7 @@ export const routes: Routes = [
 
   { path: 'usuarios/resetear-contrasenia/:token', component: ResetComponent },
   { path: 'productos', component: ProductoComponent },
-  { path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'abm', component: AbmComponent}
 
 ];
