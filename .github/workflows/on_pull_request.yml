@@ -6,6 +6,10 @@ on:
       - main
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-docker-image:
     runs-on: ubuntu-latest
@@ -20,6 +24,8 @@ jobs:
       - name: List files in repo
         run: ls -la
 
+      - name: Ensure Dockerfile exists
+        run: test -f Dockerfile
 
       - name: Logout from Docker (if logged in previously)
         run: docker logout
@@ -31,10 +37,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
 
-
       - name: Build Docker image (frontend)
-        run: docker build --progress=plain -t ghcr.io/valenh5/frontend---uavdocx/frontend-app:pr-${{ github.event.pull_request.number }} .
-
+        run: docker build --no-cache --progress=plain -t ghcr.io/valenh5/frontend---uavdocx/frontend-app:pr-${{ github.event.pull_request.number }} .
 
       - name: Push Docker image to GHCR
         run: docker push ghcr.io/valenh5/frontend---uavdocx/frontend-app:pr-${{ github.event.pull_request.number }}
