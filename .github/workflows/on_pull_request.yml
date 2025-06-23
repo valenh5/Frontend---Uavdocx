@@ -20,6 +20,7 @@ jobs:
       - name: List files in repo
         run: ls -la
 
+
       - name: Logout from Docker (if logged in previously)
         run: docker logout
 
@@ -32,8 +33,8 @@ jobs:
 
 
       - name: Build Docker image (frontend)
-        run: docker build --progress=plain -t ghcr.io/valenh5/Frontend---Uavdocx/frontend-app:pr-${{ github.event.pull_request.number }} .
+        run: docker build --progress=plain -t ghcr.io/valenh5/frontend---uavdocx/frontend-app:pr-${{ github.event.pull_request.number }} .
 
 
       - name: Push Docker image to GHCR
-        run: docker push ghcr.io/valenh5/Frontend---Uavdocx/frontend-app:pr-${{ github.event.pull_request.number }}
+        run: docker push ghcr.io/valenh5/frontend---uavdocx/frontend-app:pr-${{ github.event.pull_request.number }}
