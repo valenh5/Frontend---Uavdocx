@@ -55,17 +55,21 @@ async cargarProductos(): Promise<void> {
   }
 }
 
-busqueda: string = '';
-realizarBusqueda(): void {
-    const texto = this.busqueda.toLowerCase().trim();
+  busqueda: string = '';
 
-    if (texto === '') {
-      this.prendasFiltradas = [...this.prendas];
-    } else {
-      this.prendasFiltradas = this.prendas.filter(prenda =>
-        prenda.nombre.toLowerCase().includes(texto)
-      );
-    }
+ async realizarBusqueda(): Promise<void> {
+  if (!this.busqueda || this.busqueda.trim() === '') {//si esta vacio o lo borra lo reinicia
+    this.prendasFiltradas = [...this.prendas];
+    return;
+  }
+
+  try {
+    const response = await axios.get(`${apiUrl}/buscarPrendas?nombre=${encodeURIComponent(this.busqueda)}`);
+    this.prendasFiltradas = response.data;
+  } catch (error) {
+    console.error("Error al buscar una prenda:", error);
+    this.prendasFiltradas = [];
   }
 }
 
+};
