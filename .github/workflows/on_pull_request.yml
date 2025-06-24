@@ -37,6 +37,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
 
+
+      - name: Replace API URL with sed
+        run: |
+          echo "Reemplazando URL de la API..."
+          sed -i 's|http://localhost:3000|${{ secrets.API_URL }}|g' ./src/config.js
+        env:
+          API_URL: ${{ secrets.API_URL }}  
       - name: Build Docker image (frontend)
         run: docker build --no-cache --progress=plain -t ghcr.io/valenh5/frontend---uavdocx/frontend-app:pr-${{ github.event.pull_request.number }} .
 
