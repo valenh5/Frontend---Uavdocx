@@ -24,7 +24,7 @@ export class ProductoComponent implements OnInit {
     await this.cargarProductos();
 }
 paginaActual = 1;
-limitePorPagina = 2;
+limitePorPagina = 4;
 totalPaginas = 1;
 
 paginaAnterior(): void {
