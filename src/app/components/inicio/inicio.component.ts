@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import axios from 'axios';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../enviroments/enviroment';
 
-const apiUrl = "http://localhost:3000/prendas";
+
+const apiUrl = environment.apiUrl + "/prendas";
 
 
 @Component({
