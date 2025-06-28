@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { Prenda } from '../modelos/prenda';
+import { environment } from '../../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PrendasSerice {
-  private apiUrl = 'http://localhost:3000/prendas'; 
+export class PrendasService {
+
+  private apiUrl = environment.apiUrl + "/prendas";
 
   async getPrendas(): Promise<Prenda[]> {
     const response = await axios.get<Prenda[]>(this.apiUrl);
