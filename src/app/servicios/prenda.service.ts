@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { Prenda } from '../modelos/prenda';
-import { environment } from '../../enviroments/enviroment';
+import { environment } from '../../environments/enviroment';
 
 @Injectable({
   providedIn: 'root'

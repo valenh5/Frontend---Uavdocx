@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import axios from 'axios';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../enviroments/enviroment';
+import { environment } from '../../../environments/enviroment';
 
 
 const apiUrl = environment.apiUrl + "/prendas";
