@@ -60,7 +60,7 @@ async cargarProductos(): Promise<void> {
   busqueda: string = '';
 
  async realizarBusqueda(): Promise<void> {
-  if (!this.busqueda || this.busqueda.trim() === '') {//si esta vacio o lo borra lo reinicia
+  if (!this.busqueda || this.busqueda.trim() === '') {
     this.prendasFiltradas = [...this.prendas];
     return;
   }
