@@ -4,23 +4,19 @@ import axios from 'axios';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
 
-
 const apiUrl = environment.apiUrl + "/prendas";
-
-
 
 @Component({
   selector: 'app-prendas',
   standalone: true,
   imports: [FormsModule, CommonModule],
-
   templateUrl: './abm.component.html',
   styleUrls: ['./abm.component.css']
 })
 export class AbmComponent implements OnInit {
   prendas: any[] = [];
-    busqueda: string = '';
-  prendasFiltradas: any[] = []; 
+  prendasFiltradas: any[] = [];
+  busqueda: string = '';
   prendaNueva: any = {
     nombre: '',
     precio: '',
@@ -34,8 +30,9 @@ export class AbmComponent implements OnInit {
   categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
 
 
-  
-
+  paginaActual = 1;
+  limitePorPagina = 2;
+  totalPaginas = 2;
 
   constructor() {}
 
@@ -44,30 +41,41 @@ export class AbmComponent implements OnInit {
   }
 
   toggleFormulario(): void {
-
     this.mostrarFormulario = !this.mostrarFormulario;
-
   }
 
-async cargarPrendas(): Promise<void> {
-  try {
-    const response = await axios.get(apiUrl + "/cargarPrendas");
-    console.log("Prendas recibidas:", response.data); 
-    this.prendas = response.data;
-    this.prendasFiltradas = [...this.prendas];
-  } catch (error) {
-    console.error("Error al cargar prendas:", error);
+
+  paginaAnterior(): void {
+    if (this.paginaActual > 1) {
+      this.paginaActual--;
+      this.cargarPrendas();
+    }
   }
-}
 
+  paginaSiguiente(): void {
+    if (this.paginaActual < this.totalPaginas) {
+      this.paginaActual++;
+      this.cargarPrendas();
+    }
+  }
 
-  async cargarPrenda(id : number): Promise<void> {
-    try{
-      const response = await axios.get(apiUrl + `/${id}`)
-    }catch (error){
+  async cargarPrendas(): Promise<void> {
+    try {
+      const response = await axios.get(`${apiUrl}/productos?page=${this.paginaActual}&limit=${this.limitePorPagina}`);
+      this.prendas = response.data.data;
+      this.totalPaginas = Math.ceil(response.data.total / this.limitePorPagina);
+      this.prendasFiltradas = [...this.prendas];
+    } catch (error) {
+      console.error("Error al cargar prendas:", error);
+    }
+  }
+
+  async cargarPrenda(id: number): Promise<void> {
+    try {
+      const response = await axios.get(apiUrl + `/${id}`);
+    } catch (error) {
       return;
     }
-    
   }
 
   async crearPrenda(): Promise<void> {
@@ -88,7 +96,6 @@ async cargarPrendas(): Promise<void> {
     }
   }
 
-
   editarPrenda(prenda: any): void {
     this.prendaEditando = { ...prenda, talles: { ...prenda.talles } };
   }
@@ -100,19 +107,16 @@ async cargarPrendas(): Promise<void> {
           nombre: this.prendaEditando.nombre,
           precio: this.prendaEditando.precio,
           talles: this.prendaEditando.talles,
-
           categoria: this.prendaEditando.categoria,
           imagen: this.prendaEditando.imagen,
         });
         await this.cargarPrendas();
         this.prendaEditando = null;
         alert("Prenda editada");
-
       } catch (error) {
         console.error("Error al guardar cambios:", error);
       }
     } else {
-
       console.warn("No se puede guardar cambios: ID inválido.");
     }
   }
@@ -128,18 +132,18 @@ async cargarPrendas(): Promise<void> {
   }
 
 
-
- realizarBusqueda(): void {
-    const texto = this.busqueda.toLowerCase().trim();
-
-    if (texto === '') {
+  async realizarBusqueda(): Promise<void> {
+    if (!this.busqueda || this.busqueda.trim() === '') {
       this.prendasFiltradas = [...this.prendas];
-    } else {
-      this.prendasFiltradas = this.prendas.filter(prenda =>
-        prenda.nombre.toLowerCase().includes(texto)
-      );
+      return;
+    }
+
+    try {
+      const response = await axios.get(`${apiUrl}/buscarPrendas?nombre=${encodeURIComponent(this.busqueda)}`);
+      this.prendasFiltradas = response.data;
+    } catch (error) {
+      console.error("Error al buscar una prenda:", error);
+      this.prendasFiltradas = [];
     }
   }
-
 }
-

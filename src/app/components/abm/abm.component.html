@@ -1,11 +1,8 @@
-<title>Uavdocx Inicio</title>
-
+<title>Uavdocx ABM</title>
 
 <nav class="navbar">
   <div class="navbar-container">
-    <a href="/" class="navbar-logo">
-      UAVDOCX
-    </a>
+    <a href="/" class="navbar-logo">UAVDOCX</a>
 
     <div class="navbar-menu">
       <a href="/">Inicio</a>
@@ -13,18 +10,17 @@
       <a href="/login">Iniciar Sesión</a>
       <a href="/abm">ABM</a>
     </div>
+
     <div class="navbar-search">
       <input type="text" placeholder="Buscar..." [(ngModel)]="busqueda" (input)="realizarBusqueda()">
       <button class="search-button" (click)="realizarBusqueda()">🔍</button>
     </div>
-
   </div>
-  
 </nav>
 
 
 <div id="prendas-container">
-  <div class="prenda-card" *ngFor="let prenda of prendasFiltradas" (click)="cargarPrenda(prenda.id)">
+  <div class="prenda-card" *ngFor="let prenda of prendasFiltradas">
     <div class="prenda-imagen">
       <img *ngIf="prenda.imagen" [src]="prenda.imagen" alt="Imagen de la prenda" class="imagen-prenda">
     </div>
@@ -40,6 +36,14 @@
     </div>
   </div>
 </div>
+
+
+<div class="paginacion">
+  <button (click)="paginaAnterior()" [disabled]="paginaActual === 1">Anterior</button>
+  <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+  <button (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+</div>
+
 
 <div *ngIf="prendaEditando">
   <h2>Editar Prenda</h2>
@@ -63,7 +67,9 @@
   </div>
 </div>
 
+
 <button id="agregar" (click)="toggleFormulario()">Agregar Prenda</button>
+
 
 <div *ngIf="mostrarFormulario">
   <h2>Agregar Nueva Prenda</h2>
