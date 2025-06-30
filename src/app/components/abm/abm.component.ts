@@ -96,9 +96,14 @@ export class AbmComponent implements OnInit {
     }
   }
 
-  editarPrenda(prenda: any): void {
+ editarPrenda(prenda: any): void {
+  if (this.prendaEditando && this.prendaEditando.id === prenda.id) {
+    this.prendaEditando = null;
+  } else {
     this.prendaEditando = { ...prenda, talles: { ...prenda.talles } };
   }
+}
+
 
   async guardarCambios(): Promise<void> {
     if (this.prendaEditando?.id !== undefined && this.prendaEditando?.id !== 0) {

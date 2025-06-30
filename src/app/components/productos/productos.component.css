@@ -9,10 +9,9 @@ body {
   background-color: #f8f8f8;
   color: #333;
   line-height: 1.6;
-  padding-top: 80px; /* Evita que el contenido se oculte debajo del navbar */
+  padding-top: 80px; 
 }
 
-/* Navbar */
 .navbar {
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -82,7 +81,6 @@ body {
   background-color: #0056b3;
 }
 
-/* Main content */
 main {
   padding: 20px;
 }
@@ -95,7 +93,6 @@ h2.titulo-productos {
   color: #333;
 }
 
-/* Cards de productos */
 #prendas-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

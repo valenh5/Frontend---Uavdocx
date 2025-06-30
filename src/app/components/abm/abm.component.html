@@ -18,7 +18,6 @@
   </div>
 </nav>
 
-
 <div id="prendas-container">
   <div class="prenda-card" *ngFor="let prenda of prendasFiltradas">
     <div class="prenda-imagen">
@@ -33,10 +32,31 @@
         <button class="opciones" id="editar" (click)="editarPrenda(prenda); $event.stopPropagation()">Editar</button>
         <button class="opciones" id="borrar" (click)="eliminarPrenda(prenda.id); $event.stopPropagation()">Eliminar</button>
       </div>
+
+      <!-- Formulario de edición embebido -->
+      <div *ngIf="prendaEditando?.id === prenda.id" class="form-edicion">
+        <input type="text" [(ngModel)]="prendaEditando.nombre" placeholder="Nombre">
+        <input type="text" [(ngModel)]="prendaEditando.precio" placeholder="Precio">
+
+        <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
+          <label>{{ talle }}:</label>
+          <input type="number" [(ngModel)]="prendaEditando.talles[talle]" name="edit_talle_{{talle}}">
+        </div>
+
+        <select [(ngModel)]="prendaEditando.categoria">
+          <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+        </select>
+
+        <input type="text" [(ngModel)]="prendaEditando.imagen" placeholder="URL de la imagen">
+
+        <div class="form-actions">
+          <button (click)="guardarCambios()">Guardar Cambios</button>
+          <button (click)="prendaEditando = null">Cancelar</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
 
 <div class="paginacion">
   <button (click)="paginaAnterior()" [disabled]="paginaActual === 1">Anterior</button>
@@ -44,32 +64,7 @@
   <button (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">Siguiente</button>
 </div>
 
-
-<div *ngIf="prendaEditando">
-  <h2>Editar Prenda</h2>
-  <input type="text" [(ngModel)]="prendaEditando.nombre" placeholder="Nombre">
-  <input type="text" [(ngModel)]="prendaEditando.precio" placeholder="Precio">
-
-  <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
-    <label>{{ talle }}:</label>
-    <input type="number" [(ngModel)]="prendaEditando.talles[talle]" name="edit_talle_{{talle}}">
-  </div>
-
-  <select [(ngModel)]="prendaEditando.categoria">
-    <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
-  </select>
-
-  <input type="text" [(ngModel)]="prendaEditando.imagen" placeholder="URL de la imagen">
-
-  <div class="form-actions">
-    <button (click)="guardarCambios()">Guardar Cambios</button>
-    <button (click)="prendaEditando = null">Cancelar</button>
-  </div>
-</div>
-
-
 <button id="agregar" (click)="toggleFormulario()">Agregar Prenda</button>
-
 
 <div *ngIf="mostrarFormulario">
   <h2>Agregar Nueva Prenda</h2>
@@ -84,6 +79,7 @@
   <select [(ngModel)]="prendaNueva.categoria">
     <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
   </select>
+
   <input type="text" [(ngModel)]="prendaNueva.imagen" placeholder="URL de la imagen">
 
   <button id="crear" (click)="crearPrenda()">Guardar</button>
