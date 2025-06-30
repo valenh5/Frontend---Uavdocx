@@ -90,6 +90,7 @@ export class AbmComponent implements OnInit {
         categoria: '',
         imagen: ''
       };
+      this.mostrarFormulario = false;
     } catch (error) {
       console.error("Error al crear prenda:", error);
       alert("Hubo un error al crear la prenda. Por favor, intenta de nuevo.");
