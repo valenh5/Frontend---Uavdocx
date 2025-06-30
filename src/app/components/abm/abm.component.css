@@ -11,7 +11,7 @@ body {
   line-height: 1.6;
 }
 
-/* Navbar */
+
 .navbar {
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -209,4 +209,33 @@ button#borrar {
 
 button#borrar:hover {
   background-color: #c82333;
+}
+
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.paginacion button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.paginacion button:hover {
+  background-color: #0056b3;
+}
+
+.paginacion button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
 }
