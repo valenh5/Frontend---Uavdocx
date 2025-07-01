@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import axios from 'axios';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../environments/enviroment';
 import { PrendasService } from '../../servicios/prenda.service';
+import axios from 'axios';
 
-const apiUrl = environment.apiUrl + "/prendas";
+const apiUrl = 'http://localhost:3000/prendas'; 
 
 @Component({
   selector: 'app-prendas',
@@ -30,12 +29,11 @@ export class AbmComponent implements OnInit {
   mostrarFormulario: boolean = false;
   categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
 
-
   paginaActual = 1;
-  limitePorPagina = 2;
+  limitePorPagina = 1;
   totalPaginas = 2;
 
-  constructor(private prendasService : PrendasService) {}
+  constructor(private prendasService: PrendasService) {}
 
   async ngOnInit(): Promise<void> {
     await this.cargarPrendas();
@@ -44,7 +42,6 @@ export class AbmComponent implements OnInit {
   toggleFormulario(): void {
     this.mostrarFormulario = !this.mostrarFormulario;
   }
-
 
   paginaAnterior(): void {
     if (this.paginaActual > 1) {
@@ -60,9 +57,9 @@ export class AbmComponent implements OnInit {
     }
   }
 
+ 
   async cargarPrendas(): Promise<void> {
     try {
-      //const response = await this.prendasService.getPrendas();
       const response = await axios.get(`${apiUrl}/productos?page=${this.paginaActual}&limit=${this.limitePorPagina}`);
       this.prendas = response.data.data;
       this.totalPaginas = Math.ceil(response.data.total / this.limitePorPagina);
@@ -72,19 +69,11 @@ export class AbmComponent implements OnInit {
     }
   }
 
-  async cargarPrenda(id: number): Promise<void> {
-    try {
-      const response = await axios.get(apiUrl + `/${id}`);
-    } catch (error) {
-      return;
-    }
-  }
-
   async crearPrenda(): Promise<void> {
     try {
-      await this.prendasService.agregarPrenda(this.prendaNueva);
+      const nuevaPrenda = await this.prendasService.agregarPrenda(this.prendaNueva);
       await this.cargarPrendas();
-      alert(`Prenda creada: ${this.prendaNueva.nombre}`);
+      alert(`Prenda creada: ${nuevaPrenda.nombre}`);
       this.prendaNueva = {
         nombre: '',
         precio: '',
@@ -99,33 +88,29 @@ export class AbmComponent implements OnInit {
     }
   }
 
- editarPrenda(prenda: any): void {
-  if (this.prendaEditando && this.prendaEditando.id === prenda.id) {
-    this.prendaEditando = null;
-  } else {
-    this.prendaEditando = { ...prenda, talles: { ...prenda.talles } };
-  }
-}
-
-
-async guardarCambios(): Promise<void> {
-  if (this.prendaEditando && this.prendaEditando.id !== undefined && this.prendaEditando.id !== 0) {
-    try {
-      await this.prendasService.actualizarPrenda({
-        ...this.prendaEditando,
-
-      });
-      await this.cargarPrendas();
+  editarPrenda(prenda: any): void {
+    if (this.prendaEditando && this.prendaEditando.id === prenda.id) {
       this.prendaEditando = null;
-      alert("Prenda editada");
-    } catch (error) {
-      console.error("Error al guardar cambios:", error);
-      alert("Error al guardar cambios");
+    } else {
+      this.prendaEditando = { ...prenda, talles: { ...prenda.talles } };
     }
-  } else {
-    alert("No se puede guardar cambios: ID inválido.");
   }
-}
+
+  async guardarCambios(): Promise<void> {
+    if (this.prendaEditando && this.prendaEditando.id !== undefined && this.prendaEditando.id !== 0) {
+      try {
+        await this.prendasService.actualizarPrenda(this.prendaEditando);
+        await this.cargarPrendas();
+        this.prendaEditando = null;
+        alert("Prenda editada");
+      } catch (error) {
+        console.error("Error al guardar cambios:", error);
+        alert("Error al guardar cambios");
+      }
+    } else {
+      alert("No se puede guardar cambios: ID inválido.");
+    }
+  }
 
   async eliminarPrenda(id: number): Promise<void> {
     try {
@@ -137,18 +122,17 @@ async guardarCambios(): Promise<void> {
     }
   }
 
-
   async realizarBusqueda(): Promise<void> {
     if (!this.busqueda || this.busqueda.trim() === '') {
       this.prendasFiltradas = [...this.prendas];
       return;
     }
-
+  
     try {
-      const response = await axios.get(`${apiUrl}/buscarPrendas?nombre=${encodeURIComponent(this.busqueda)}`);
-      this.prendasFiltradas = response.data;
+      const prendas = await this.prendasService.buscarPrendasPorNombre(this.busqueda);
+      this.prendasFiltradas = prendas;
     } catch (error) {
-      console.error("Error al buscar una prenda:", error);
+      console.error("Error al buscar prendas:", error);
       this.prendasFiltradas = [];
     }
   }
