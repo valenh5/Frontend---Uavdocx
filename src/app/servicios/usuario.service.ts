@@ -6,6 +6,9 @@ import { environment } from '../../environments/enviroment';
 export class UsuarioService {
   private apiUrl = environment.apiUrl + '/usuarios';
 
+
+
+
   async registrarUsuario(nombre_usuario: string, email: string, contrasenia: string) {
     const response = await axios.post(`${this.apiUrl}/registro`, {
       usuario: nombre_usuario,

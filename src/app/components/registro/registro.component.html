@@ -1,13 +1,71 @@
 <link rel="stylesheet" href="registro.component.css">
 
-<div id="registroBox">
-    <h2>Registro</h2>
-    <input type="text" [(ngModel)]="nombre_usuario" placeholder="Usuario">
-    <input type="email" [(ngModel)]="email" placeholder="Email">
-    <input type="password" [(ngModel)]="contrasenia" placeholder="Contraseña">
-    <button (click)="registrar()">Registrarse</button>
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/" class="navbar-logo">
+      UAVDOCX
+    </a>
+    <div class="navbar-menu">
+      <a href="/">Inicio</a>
+      <a href="/productos">Productos</a>
+      <a href="/login">Iniciar Sesión</a>
+      <a href="/abm">ABM</a>
+    </div>
+  </div>
+</nav>
 
+<div id="registroBox">
+  <form class="form" (ngSubmit)="registrar()">
+    <h2>Registro</h2>
+    <span class="input-span">
+      <label for="nombre_usuario" class="label">Usuario</label>
+      <input
+        type="text"
+        id="nombre_usuario"
+        [(ngModel)]="nombre_usuario"
+        name="nombre_usuario"
+        placeholder="Usuario"
+        required
+      />
+    </span>
+    <span class="input-span">
+      <label for="email" class="label">Email</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Email"
+        required
+      />
+    </span>
+    <span class="input-span">
+      <label for="contrasenia" class="label">Contraseña</label>
+      <input
+        type="password"
+        id="contrasenia"
+        [(ngModel)]="contrasenia"
+        name="contrasenia"
+        placeholder="Contraseña"
+        required
+      />
+    </span>
+    <input class="submit" type="submit" value="Registrarse" />
+  </form>
+
+  <form class="form" (ngSubmit)="solicitarReset()">
     <h2>Restablecer Contraseña</h2>
-    <input type="email" [(ngModel)]="emailReset" placeholder="Tu email">
-    <button (click)="solicitarReset()">Solicitar Restablecimiento</button>
+    <span class="input-span">
+      <label for="emailReset" class="label">Tu email</label>
+      <input
+        type="email"
+        id="emailReset"
+        [(ngModel)]="emailReset"
+        name="emailReset"
+        placeholder="Tu email"
+        required
+      />
+    </span>
+    <input class="submit" type="submit" value="Solicitar Restablecimiento" />
+  </form>
 </div>

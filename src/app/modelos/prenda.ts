@@ -21,5 +21,6 @@ export interface Prenda {
     nombre: String;
     precio: number;
     talles: Record<talle, number>
-    categoria: categoria
+    categoria: categoria;
+    imagen: string;
 }

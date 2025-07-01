@@ -5,23 +5,47 @@
     <a href="/" class="navbar-logo">
       UAVDOCX
     </a>
-
     <div class="navbar-menu">
       <a href="/">Inicio</a>
       <a href="/productos">Productos</a>
       <a href="/login">Iniciar Sesión</a>
       <a href="/abm">ABM</a>
     </div>
-
-
   </div>
 </nav>
 
-
 <div id="registroBox">
-    <h2>Log In</h2>
-    <input type="text" [(ngModel)]="usuario_ingreso" placeholder="Usuario">
-    <input type="password" [(ngModel)]="pass_ingreso" placeholder="Contraseña">
-    <button (click)="ingresar()">Ingresar</button>
-    <a href="/sesion">Registrarse</a>
+  <form class="form" (ngSubmit)="ingresar()">
+    <h2 style="margin-bottom: 10px;">Log In</h2>
+    <span class="input-span">
+      <label for="usuario" class="label">Usuario</label>
+      <input
+        type="text"
+        id="usuario"
+        [(ngModel)]="usuario_ingreso"
+        name="usuario_ingreso"
+        placeholder="Usuario"
+        required
+      />
+    </span>
+    <span class="input-span">
+      <label for="password" class="label">Contraseña</label>
+      <input
+        type="password"
+        id="password"
+        [(ngModel)]="pass_ingreso"
+        name="pass_ingreso"
+        placeholder="Contraseña"
+        required
+      />
+    </span>
+    <span class="span">
+      <a href="/sesion">¿Olvidaste tu contraseña?</a>
+    </span>
+    <input class="submit" type="submit" value="Ingresar" />
+    <span class="span">
+      ¿No tenes cuenta?
+      <a href="/sesion">Registrate</a>
+    </span>
+  </form>
 </div>
