@@ -21,3 +21,19 @@
 </nav>
 
 
+
+<div class="carrusel-container">
+  <div class="carrusel">
+    <button class="carrusel-btn left" (click)="anteriorImagen()">&#10094;</button>
+    <img [src]="imagenesCarrusel[imagenActual]" alt="Carrusel" class="carrusel-img">
+    <button class="carrusel-btn right" (click)="siguienteImagen()">&#10095;</button>
+  </div>
+  <div class="carrusel-indicadores">
+    <span 
+      *ngFor="let img of imagenesCarrusel; let i = index" 
+      [class.activo]="i === imagenActual"
+      (click)="irAImagen(i)">
+    </span>
+  </div>
+</div>
+
