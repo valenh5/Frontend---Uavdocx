@@ -3,7 +3,7 @@ import { PrendasComponent } from './components/inicio/inicio.component';
 import { RegistroComponent } from './components/registro/registro.component';
 
 import { LoginComponent } from './components/login/login.component';
-import { ResetComponent } from './components/reset.component';
+import { ResetComponent } from './components/resetContra/reset.component';
 import { ProductoComponent } from './components/productos/productos.component';
 import { AbmComponent } from './components/abm/abm.component';
 

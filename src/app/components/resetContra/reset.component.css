@@ -1,67 +1,15 @@
-#registroBox {
+body, :host {
+  background: linear-gradient(120deg, #f8f8f8 60%, #e3f0ff 100%);
+  min-height: 100vh;
+}
+
+#resetBox {
   background-color: #c0c0c049;
   max-width: 400px;
-  margin: 60px auto;
+  margin: 100px auto 0 auto;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  margin-top: 100px; 
-}
-
-h2 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 30px;
-}
-
-label {
-  margin: 5px 0 5px 0;
-  font-weight: bold;
-  color: #34495e;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
-  box-sizing: border-box;
-  transition: border 0.3s ease;
-}
-
-input:focus {
-  border: 1px solid #3498db;
-  outline: none;
-}
-
-button {
-  background-color: #3498db;
-  color: white;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #2980b9;
-}
-
-hr {
-  margin: 30px 0;
-  border: none;
-  border-top: 1px solid #ddd;
 }
 
 .form {
@@ -75,7 +23,7 @@ hr {
   gap: 1rem;
   width: 100%;
   max-width: 300px;
-  margin: 0 auto 30px auto;
+  margin: 0 auto;
 }
 
 .form .input-span {
@@ -85,8 +33,6 @@ hr {
   gap: 0.5rem;
 }
 
-.form input[type="text"],
-.form input[type="email"],
 .form input[type="password"] {
   border-radius: 0.5rem;
   padding: 1rem 0.75rem;
@@ -99,8 +45,6 @@ hr {
   outline: 2px solid var(--bg-dark);
 }
 
-.form input[type="text"]:focus,
-.form input[type="email"]:focus,
 .form input[type="password"]:focus {
   outline: 2px solid var(--clr);
 }
@@ -132,8 +76,7 @@ hr {
   color: var(--bg-dark);
 }
 
-
-
+/* Navbar */
 .navbar {
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);

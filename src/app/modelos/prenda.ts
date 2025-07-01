@@ -1,25 +1,27 @@
-export enum talle{
-    S,
-    M,
-    L,
-    XL,
-    XXL,
-    XXXL
-}
-
-export enum categoria{
-    JEAN,
-    BUZO,
-    CAMPERA,
-    REMERA,
-    SHORT,
-    OTRO
-}
-
-export interface Prenda {
+export enum Talle {
+    S = 'S',
+    M = 'M',
+    L = 'L',
+    XL = 'XL',
+    XXL = 'XXL',
+    XXXL = 'XXXL'
+  }
+  
+  export enum Categoria {
+    JEAN = 'JEAN',
+    BUZO = 'BUZO',
+    CAMPERA = 'CAMPERA',
+    REMERA = 'REMERA',
+    SHORT = 'SHORT',
+    OTRO = 'OTRO'
+  }
+  
+  export interface Prenda {
     id: number;
-    nombre: String;
+    nombre: string;
     precio: number;
-    talles: Record<talle, number>
-    categoria: categoria
-}
+    talles: Record<Talle, number>;
+    categoria: Categoria;
+    imagen: string;
+  }
+  

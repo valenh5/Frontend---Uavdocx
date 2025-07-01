@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="reset.component.css">
+
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/" class="navbar-logo">
+      UAVDOCX
+    </a>
+    <div class="navbar-menu">
+      <a href="/">Inicio</a>
+      <a href="/productos">Productos</a>
+      <a href="/login">Iniciar Sesión</a>
+      <a href="/abm">ABM</a>
+    </div>
+  </div>
+</nav>
+
+<div id="resetBox">
+  <form class="form" (ngSubmit)="resetearContrasenia()">
+    <h2>Restablecer Contraseña</h2>
+    <span class="input-span">
+      <label for="nuevaContrasenia" class="label">Nueva Contraseña</label>
+      <input
+        type="password"
+        id="nuevaContrasenia"
+        [(ngModel)]="nuevaContrasenia"
+        name="nuevaContrasenia"
+        placeholder="Nueva Contraseña"
+        required
+      />
+    </span>
+    <input class="submit" type="submit" value="Restablecer" />
+  </form>
+</div>
