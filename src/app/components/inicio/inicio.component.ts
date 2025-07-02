@@ -42,6 +42,8 @@ export class PrendasComponent implements OnInit {
 
 
   busqueda: string = '';
+  usuarioLogueado: string | null = null;
+
 
 
   constructor() {}
@@ -49,6 +51,11 @@ export class PrendasComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.cargarPrendas();
     this.iniciarCarrusel();
+    this.obtenerUsuarioLogueado();
+  }
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
   }
 
     iniciarCarrusel() {

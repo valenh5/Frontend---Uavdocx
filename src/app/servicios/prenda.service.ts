@@ -21,7 +21,6 @@ export class PrendasService {
 
 
   async getPrendas(): Promise<any> {
-    //falta paginacion
     const response = await axios.get(this.apiUrl, this.getHeaders());
     return response.data;
   }
@@ -49,7 +48,7 @@ export class PrendasService {
     try {
       const response = await axios.get(`${this.apiUrl}/buscarPrendas`, {
         params: { nombre },
-        ...this.getHeaders(),
+       
       });
       return response.data;
     } catch (error) {

@@ -32,11 +32,17 @@ export class AbmComponent implements OnInit {
   paginaActual = 1;
   limitePorPagina = 1;
   totalPaginas = 2;
+    usuarioLogueado: string | null = null;
+
+      obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
 
   constructor(private prendasService: PrendasService) {}
 
   async ngOnInit(): Promise<void> {
     await this.cargarPrendas();
+    this.obtenerUsuarioLogueado();
   }
 
   toggleFormulario(): void {
@@ -69,24 +75,24 @@ export class AbmComponent implements OnInit {
     }
   }
 
-  async crearPrenda(): Promise<void> {
-    try {
-      const nuevaPrenda = await this.prendasService.agregarPrenda(this.prendaNueva);
-      await this.cargarPrendas();
-      alert(`Prenda creada: ${nuevaPrenda.nombre}`);
-      this.prendaNueva = {
-        nombre: '',
-        precio: '',
-        talles: { S: 0, M: 0, L: 0, XL: 0 },
-        categoria: '',
-        imagen: ''
-      };
-      this.mostrarFormulario = false;
-    } catch (error) {
-      console.error("Error al crear prenda:", error);
-      alert("Hubo un error al crear la prenda. Por favor, intenta de nuevo.");
-    }
+async crearPrenda(): Promise<void> {
+  try {
+    const nuevaPrenda = await this.prendasService.agregarPrenda(this.prendaNueva);
+    await this.cargarPrendas();
+    alert(`Prenda creada: ${nuevaPrenda.nombre}`);
+    this.prendaNueva = {
+      nombre: '',
+      precio: '',
+      talles: { S: 0, M: 0, L: 0, XL: 0 },
+      categoria: '',
+      imagen: ''
+    };
+    this.mostrarFormulario = false;
+  } catch (error: any) {
+    console.error("Error al crear prenda:", error);
+    alert("No tiene los permisos necesarios o falta iniciar sesión");
   }
+}
 
   editarPrenda(prenda: any): void {
     if (this.prendaEditando && this.prendaEditando.id === prenda.id) {
@@ -105,7 +111,7 @@ export class AbmComponent implements OnInit {
         alert("Prenda editada");
       } catch (error) {
         console.error("Error al guardar cambios:", error);
-        alert("Error al guardar cambios");
+        alert("No tiene los permisos necesarios o falta iniciar sesión");
       }
     } else {
       alert("No se puede guardar cambios: ID inválido.");
@@ -119,6 +125,7 @@ export class AbmComponent implements OnInit {
       alert("Prenda eliminada");
     } catch (error) {
       console.error("Error al eliminar prenda:", error);
+      alert("No tiene los permisos necesarios o falta iniciar sesión");
     }
   }
 
