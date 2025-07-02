@@ -8,6 +8,7 @@
       <a href="/">Inicio</a>
       <a href="/productos">Productos</a>
       <a href="/login">Iniciar Sesión</a>
+      <span *ngIf="usuarioLogueado">| {{ usuarioLogueado }}</span>
       <a href="/abm">ABM</a>
     </div>
 
@@ -33,7 +34,7 @@
         <button class="opciones" id="borrar" (click)="eliminarPrenda(prenda.id); $event.stopPropagation()">Eliminar</button>
       </div>
 
-      <!-- Formulario de edición embebido -->
+
       <div *ngIf="prendaEditando?.id === prenda.id" class="form-edicion">
         <input type="text" [(ngModel)]="prendaEditando.nombre" placeholder="Nombre">
         <input type="text" [(ngModel)]="prendaEditando.precio" placeholder="Precio">
@@ -77,6 +78,7 @@
   </div>
 
   <select [(ngModel)]="prendaNueva.categoria">
+    <option value="" disabled selected hidden>Seleccione Categoria</option>
     <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
   </select>
 

@@ -33,6 +33,7 @@ export class LoginComponent {
       alert(respuesta.mensaje);
       if (respuesta.token) {
         localStorage.setItem('token', respuesta.token);
+        localStorage.setItem('usuario', this.usuario_ingreso);
       }
     } catch (error: any) {
       alert(error.response?.data?.mensaje || 'Error al ingresar usuario');
