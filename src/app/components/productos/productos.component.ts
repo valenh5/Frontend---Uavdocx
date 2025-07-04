@@ -24,10 +24,16 @@ export class ProductoComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
     await this.cargarProductos();
+    await this.obtenerUsuarioLogueado();
 }
 paginaActual = 1;
-limitePorPagina = 4;
+limitePorPagina = 1;
 totalPaginas = 1;
+usuarioLogueado: string | null = null;
+
+      obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
 
 paginaAnterior(): void {
   if (this.paginaActual > 1) {
