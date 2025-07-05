@@ -35,19 +35,6 @@ usuarioLogueado: string | null = null;
     this.usuarioLogueado = localStorage.getItem('usuario');
   }
 
-paginaAnterior(): void {
-  if (this.paginaActual > 1) {
-    this.paginaActual--;
-    this.cargarProductos();
-  }
-}
-
-paginaSiguiente(): void {
-  if (this.paginaActual < this.totalPaginas) {
-    this.paginaActual++;
-    this.cargarProductos();
-  }
-}
 
 
 async cargarProductos(): Promise<void> {
@@ -80,4 +67,10 @@ async cargarProductos(): Promise<void> {
   }
 }
 
+  irAPagina(pagina: number): void {
+    if (pagina !== this.paginaActual) {
+      this.paginaActual = pagina;
+      this.cargarProductos();
+    }
+  }
 };
