@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 <nav class="navbar">
   <div class="navbar-container">
     <a href="/" class="navbar-logo">
@@ -8,7 +9,6 @@
       <a href="/">Inicio</a>
       <a href="/productos">Productos</a>
       <a href="./login">Sesion</a>
-      <span *ngIf="usuarioLogueado">| {{ usuarioLogueado }}</span>
       <a href="./abm">ABM</a>
     </div>
 
@@ -30,13 +30,25 @@
     name="searchbar"
      [(ngModel)]="busqueda" (input)="realizarBusqueda()"
   />
+  <span *ngIf="usuarioLogueado"> {{ usuarioLogueado }}</span>
+
 </div>
+
 
   </div>
 </nav>
 
 <main>
-  
+  <div class="encabezado">
+    <h1>Productos</h1>
+    <div class="filtrar">
+      <p id="filtrar-txt">FILTRAR</p>
+      <span class="material-icons">list</span>
+    </div>
+  </div>
+
+
+
   <div id="prendas-container">
     <div class="prenda-card" *ngFor="let prenda of prendasFiltradas" (click)="cargarProductos()">
       <div class="prenda-imagen">

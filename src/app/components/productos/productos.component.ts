@@ -27,7 +27,7 @@ export class ProductoComponent implements OnInit {
     await this.obtenerUsuarioLogueado();
 }
 paginaActual = 1;
-limitePorPagina = 1;
+limitePorPagina = 3;
 totalPaginas = 1;
 usuarioLogueado: string | null = null;
 
