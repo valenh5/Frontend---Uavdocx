@@ -1,3 +1,21 @@
+.pagina-btn {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #0c151f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 0 6px;
+  cursor: pointer;
+  transition:  0.2s, color 0.2s;
+}
+.pagina-btn.activa {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 1000;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.15);
+  border: 2px solid #58bc82;
+}
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Urbanist:wght@400;700&display=swap');
 
 body {
@@ -280,4 +298,30 @@ h2.titulo-productos {
   height: 1rem;
   pointer-events: none;
   z-index: 1;
+}
+
+
+footer a{
+  color: rgb(255, 255, 255);
+}
+footer span{
+  color: rgb(255, 255, 255);
+}
+
+footer {
+  margin-top: 12%;
+  background-color: #000000;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  position: relative;
+}
+
+.footer-links{
+  margin-top: 2%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 2%;
 }
