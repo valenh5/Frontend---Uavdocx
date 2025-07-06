@@ -1,5 +1,13 @@
 <title>Uavdocx Inicio</title>
 
+<div class="announcement-bar">
+  <div class="announcement-track">
+    <span *ngFor="let oferta of ofertas; let i = index" [style.animation-delay]="(i * 4) + 's'">
+      {{ oferta }}
+    </span>
+  </div>
+</div>
+
 <nav class="navbar">
   <div class="navbar-container">
     <a href="/" class="navbar-logo">
@@ -9,32 +17,40 @@
     <div class="navbar-menu">
       <a href="/">Inicio</a>
       <a href="/productos">Productos</a>
-      <a href="/login">Iniciar Sesión</a>
-      <span *ngIf="usuarioLogueado">| {{ usuarioLogueado }}</span>
-      <a href="/abm">ABM</a>
+      <a href="./login">Sesion</a>
+      <a href="./abm">ABM</a>
     </div>
 
-    <div class="navbar-search">
-      <input type="text" placeholder="Buscar..." [(ngModel)]="busqueda">
-      <button class="search-button" (click)="realizarBusqueda()">🔍</button>
-    </div>
+    
+  <span *ngIf="usuarioLogueado"> {{ usuarioLogueado }}</span>
+
+
   </div>
 </nav>
-
-
-
-<div class="carrusel-container">
-  <div class="carrusel">
-    <button class="carrusel-btn left" (click)="anteriorImagen()">&#10094;</button>
-    <img [src]="imagenesCarrusel[imagenActual]" alt="Carrusel" class="carrusel-img">
-    <button class="carrusel-btn right" (click)="siguienteImagen()">&#10095;</button>
+<main>
+  <div class="carrusel-container">
+    <button class="carrusel-btn carrusel-btn-prev" (click)="cambiarImagen(-1)">&#10094;</button>
+    <img 
+      [src]="imagenCarrusel[imagenActual]" 
+      alt="Imagen carrusel" 
+      class="carrusel-img"
+      [ngClass]="{ 'slide-enter': animando, 'slide-enter-active': animando, 'slide-exit': !animando }"
+      (load)="animando = false"
+    />
+    <button class="carrusel-btn carrusel-btn-next" (click)="cambiarImagen(1)">&#10095;</button>
   </div>
-  <div class="carrusel-indicadores">
-    <span 
-      *ngFor="let img of imagenesCarrusel; let i = index" 
-      [class.activo]="i === imagenActual"
-      (click)="irAImagen(i)">
-    </span>
+</main>
+
+<footer class="footer">
+  <div class="footer-container">
+    <span class="footer-logo">UAVDOCX</span>
+    <span class="footer-text">© 2025 UAVDOCX. Todos los derechos reservados.</span>
+    <div class="footer-links">
+      <a href="/" class="footer-link">Inicio</a>
+      <a href="/productos" class="footer-link">Productos</a>
+      <a href="/login" class="footer-link">Sesión</a>
+      <a href="/abm" class="footer-link">ABM</a>
+    </div>
   </div>
-</div>
+</footer>
 
