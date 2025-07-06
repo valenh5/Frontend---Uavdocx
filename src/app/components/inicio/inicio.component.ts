@@ -37,9 +37,7 @@ export class PrendasComponent implements OnInit {
   ];
 
   imagenActual: number = 0;
-
-
-
+  animando: boolean = false;
   intervalId: any;
 
   constructor() {}
@@ -51,8 +49,24 @@ export class PrendasComponent implements OnInit {
 
   iniciarCarrusel() {
     this.intervalId = setInterval(() => {
-      this.imagenActual = (this.imagenActual + 1) % this.imagenCarrusel.length;
-    }, 3000);
+      this.siguienteImagen();
+    }, 8000);
+  }
+
+  cambiarImagen(direccion: number) {
+    this.animando = true;
+    setTimeout(() => {
+      if (direccion === 1) {
+        this.siguienteImagen();
+      } else {
+        this.imagenActual = (this.imagenActual - 1 + this.imagenCarrusel.length) % this.imagenCarrusel.length;
+      }
+      this.animando = false;
+    }, 100);
+  }
+
+  siguienteImagen() {
+    this.imagenActual = (this.imagenActual + 1) % this.imagenCarrusel.length;
   }
 
   obtenerUsuarioLogueado() {

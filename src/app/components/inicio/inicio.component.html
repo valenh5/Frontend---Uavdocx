@@ -29,7 +29,15 @@
 </nav>
 <main>
   <div class="carrusel-container">
-    <img [src]="imagenCarrusel[imagenActual]" alt="Imagen carrusel" class="carrusel-img" />
+    <button class="carrusel-btn carrusel-btn-prev" (click)="cambiarImagen(-1)">&#10094;</button>
+    <img 
+      [src]="imagenCarrusel[imagenActual]" 
+      alt="Imagen carrusel" 
+      class="carrusel-img"
+      [ngClass]="{ 'slide-enter': animando, 'slide-enter-active': animando, 'slide-exit': !animando }"
+      (load)="animando = false"
+    />
+    <button class="carrusel-btn carrusel-btn-next" (click)="cambiarImagen(1)">&#10095;</button>
   </div>
 </main>
 

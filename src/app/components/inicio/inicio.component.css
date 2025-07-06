@@ -157,15 +157,21 @@ h2.titulo-productos {
 }
 
 footer a{
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #007bff;
+  text-decoration: none;
 }
 footer span{
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 footer {
   margin-top: 12%;
-  background-color: #000000;
+  background-color: #ffffff;
   padding: 20px;
   text-align: center;
   font-size: 14px;
@@ -183,7 +189,7 @@ footer {
 }
 
 .carrusel-container {
-  width: 100vw;
+  width: 97vw;
   max-width: 100vw;
   overflow: hidden;
   margin: 0;
@@ -191,10 +197,16 @@ footer {
   position: relative;
   z-index: 1;
   margin-top: 3%;
+  height: 70vh;
+  min-height: 340px;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .carrusel-img {
   width: 100vw;
-  height: 50vh;
+  height: 70vh;
   min-height: 340px;
   max-height: 90vh;
   object-fit: cover;
@@ -202,5 +214,38 @@ footer {
   margin: 0 auto;
   border-radius: 0;
   box-shadow: none;
+  transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+
+.carrusel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 2rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carrusel-container:hover .carrusel-btn {
+  opacity: 1;
+}
+.carrusel-btn-prev {
+  left: 24px;
+}
+.carrusel-btn-next {
+  right: 24px;
+}
+.carrusel-btn:active {
+  background: rgba(0,0,0,0.7);
 }
 
