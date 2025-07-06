@@ -24,24 +24,17 @@ export class ProductoComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
     await this.cargarProductos();
+    await this.obtenerUsuarioLogueado();
 }
 paginaActual = 1;
-limitePorPagina = 4;
+limitePorPagina = 3;
 totalPaginas = 1;
+usuarioLogueado: string | null = null;
 
-paginaAnterior(): void {
-  if (this.paginaActual > 1) {
-    this.paginaActual--;
-    this.cargarProductos();
+      obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
   }
-}
 
-paginaSiguiente(): void {
-  if (this.paginaActual < this.totalPaginas) {
-    this.paginaActual++;
-    this.cargarProductos();
-  }
-}
 
 
 async cargarProductos(): Promise<void> {
@@ -74,4 +67,10 @@ async cargarProductos(): Promise<void> {
   }
 }
 
+  irAPagina(pagina: number): void {
+    if (pagina !== this.paginaActual) {
+      this.paginaActual = pagina;
+      this.cargarProductos();
+    }
+  }
 };
