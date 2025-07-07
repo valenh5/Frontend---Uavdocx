@@ -30,13 +30,13 @@ export class AbmComponent implements OnInit {
   categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
 
   paginaActual = 1;
-  limitePorPagina = 1;
+  limitePorPagina = 4;
   totalPaginas = 2;
     usuarioLogueado: string | null = null;
 
       obtenerUsuarioLogueado() {
     this.usuarioLogueado = localStorage.getItem('usuario');
-  }
+  } 
 
   constructor(private prendasService: PrendasService) {}
 
