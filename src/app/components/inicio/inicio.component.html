@@ -9,26 +9,21 @@
 </div>
 
 <nav class="navbar">
-  <div class="navbar-container">
+  <div class="navbar-container navbar-column">
     <a href="/" class="navbar-logo">
       UAVDOCX
     </a>
-
     <div class="navbar-menu">
       <a href="/">Inicio</a>
       <a href="/productos">Productos</a>
       <a href="./login">Sesion</a>
       <a href="./abm">ABM</a>
     </div>
-
-    
-  <span *ngIf="usuarioLogueado"> {{ usuarioLogueado }}</span>
-
-
   </div>
+
 </nav>
 <main>
-  <div class="carrusel-container">
+  <div class="carrusel-container">  
     <button class="carrusel-btn carrusel-btn-prev" (click)="cambiarImagen(-1)">&#10094;</button>
     <img 
       [src]="imagenCarrusel[imagenActual]" 
