@@ -83,8 +83,10 @@ body {
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;   
+  justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .navbar-logo {
@@ -93,52 +95,36 @@ body {
   color: #000000;
   text-decoration: none;
   transition: color 0.3s ease;
+  display: block;
+  margin: 0 auto 4px auto;
+  text-align: center;
 }
 
-.navbar-logo:hover {
-  color: #007bff;
+.navbar-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+  gap: 20px;
 }
 
-.navbar-menu a, span {
+.navbar-menu a, .navbar-container > span {
   font-weight: 600;
-  margin-left: 20px;
   color: #000000;
   text-decoration: none;
   font-size: 16px;
   transition: color 0.3s ease;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .navbar-menu a:hover {
   color: #007bff;
 }
 
-.navbar-search {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-search input {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  outline: none;
-  width: 200px;
-  margin-right: 10px;
-  font-size: 14px;
-}
-
-.navbar-search button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  padding: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.navbar-search button:hover {
-  background-color: #0056b3;
+.navbar-container > span {
+  margin-top: 8px;
+  text-align: center;
 }
 
 main {
