@@ -38,13 +38,11 @@ jobs:
           registry: ghcr.io
 
       - name: Reemplazar la URL de la API en environment.prod.ts
-         run: |
+        run: |
           echo "Reemplazando URL de la API..."
-          safe_url=$(printf '%s\n' "$API_URL" | sed 's/[&/\]/\\&/g')
-          sed -i "s|URL_UAVDOCXXXX|$safe_url|g" ./src/environments/environment.prod.ts
+          sed -i 's|URL_UAVDOCXXXX|'"$API_URL"'|g' ./src/environments/environment.prod.ts
         env:
           API_URL: ${{ secrets.API_URL }}
-
 
       - name: Construir la imagen de Docker del frontend
         run: docker build --no-cache --progress=plain -t ghcr.io/valenh5/frontend---uavdocx/frontend-app:pr-${{ github.event.pull_request.number }} .
