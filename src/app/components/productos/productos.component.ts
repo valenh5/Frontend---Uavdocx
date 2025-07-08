@@ -27,15 +27,18 @@ export class ProductoComponent implements OnInit {
     await this.obtenerUsuarioLogueado();
 }
 paginaActual = 1;
-limitePorPagina = 4;
+limitePorPagina = 2;
 totalPaginas = 1;
 usuarioLogueado: string | null = null;
 
       obtenerUsuarioLogueado() {
     this.usuarioLogueado = localStorage.getItem('usuario');
   }
-
-
+async logout(){
+  localStorage.removeItem('token');
+  localStorage.removeItem('usuario');
+  window.location.reload()
+}
 
 async cargarProductos(): Promise<void> {
   try {

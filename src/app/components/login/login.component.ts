@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -15,6 +17,7 @@ export class LoginComponent {
   usuario_ingreso = '';
   pass_ingreso = '';
   emailReset = '';
+  router: any;
 
   constructor(private usuarioService: UsuarioService) {}
 
