@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,7 @@ export class LoginComponent {
   pass_ingreso = '';
   emailReset = '';
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService,  private router: Router) {}
 
   async registrar() {
     try {
@@ -34,6 +36,7 @@ export class LoginComponent {
       if (respuesta.token) {
         localStorage.setItem('token', respuesta.token);
         localStorage.setItem('usuario', this.usuario_ingreso);
+        this.router.navigate(['']);
       }
     } catch (error: any) {
       alert(error.response?.data?.mensaje || 'Error al ingresar usuario');
