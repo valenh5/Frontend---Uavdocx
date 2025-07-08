@@ -30,7 +30,7 @@ export class AbmComponent implements OnInit {
   categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
 
   paginaActual = 1;
-  limitePorPagina = 4;
+  limitePorPagina = 2;
   totalPaginas = 2;
     usuarioLogueado: string | null = null;
 
@@ -68,7 +68,7 @@ export class AbmComponent implements OnInit {
     try {
       const response = await axios.get(`${apiUrl}/productos?page=${this.paginaActual}&limit=${this.limitePorPagina}`);
       this.prendas = response.data.data;
-      this.totalPaginas = Math.ceil(response.data.total / this.limitePorPagina);
+        
       this.prendasFiltradas = [...this.prendas];
     } catch (error) {
       console.error("Error al cargar prendas:", error);
@@ -79,7 +79,7 @@ async crearPrenda(): Promise<void> {
   try {
     const nuevaPrenda = await this.prendasService.agregarPrenda(this.prendaNueva);
     await this.cargarPrendas();
-    alert(`Prenda creada: ${nuevaPrenda.nombre}`);
+    alert(`Prenda creada: ${nuevaPrenda.nombre}`); 
     this.prendaNueva = {
       nombre: '',
       precio: '',
