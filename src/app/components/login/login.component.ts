@@ -17,9 +17,8 @@ export class LoginComponent {
   usuario_ingreso = '';
   pass_ingreso = '';
   emailReset = '';
-  router: any;
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService,  private router: Router) {}
 
   async registrar() {
     try {
@@ -37,6 +36,7 @@ export class LoginComponent {
       if (respuesta.token) {
         localStorage.setItem('token', respuesta.token);
         localStorage.setItem('usuario', this.usuario_ingreso);
+        this.router.navigate(['']);
       }
     } catch (error: any) {
       alert(error.response?.data?.mensaje || 'Error al ingresar usuario');

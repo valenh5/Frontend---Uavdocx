@@ -16,7 +16,7 @@ const apiUrl = environment.apiUrl + "/prendas";
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css']
 })
-export class PrendasComponent implements OnInit {
+export class inicio implements OnInit {
 
 
 

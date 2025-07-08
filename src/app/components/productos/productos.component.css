@@ -93,8 +93,7 @@ body {
   color: #ffffff;
   text-decoration: none;
   font-size: 16px;
-  transition: color 0.3s ease;
-  
+  transition: color 0.3s ease;  
 }
 .navbar-menu button {
   font-weight: 600;
@@ -103,6 +102,7 @@ body {
   text-decoration: none;
   font-size: 16px;
   transition: color 0.3s ease;
+  
 }
 
 .navbar-menu a:hover {
@@ -383,4 +383,9 @@ footer {
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+
+.filtros{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

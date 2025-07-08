@@ -30,6 +30,7 @@ paginaActual = 1;
 limitePorPagina = 2;
 totalPaginas = 1;
 usuarioLogueado: string | null = null;
+mostrarFiltro: boolean = false;
 
       obtenerUsuarioLogueado() {
     this.usuarioLogueado = localStorage.getItem('usuario');
@@ -39,6 +40,10 @@ async logout(){
   localStorage.removeItem('usuario');
   window.location.reload()
 }
+
+  toggleFormulario(): void {
+    this.mostrarFiltro = !this.mostrarFiltro;
+  }
 
 async cargarProductos(): Promise<void> {
   try {

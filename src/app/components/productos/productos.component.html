@@ -43,8 +43,20 @@
   <div class="encabezado">
     <h1>Productos</h1>
     <div class="filtrar">
-      <p id="filtrar-txt">FILTRAR</p>
+      <button id="filtrar-txt" (click)="toggleFormulario()">FILTRAR</button>
       <span class="material-icons">list</span>
+    </div>
+    <div class="filtros" *ngIf="mostrarFiltro">
+      <div class="filtrarPrecios">  
+        <input type="number" placeholder="Minimo">
+        <input type="number" placeholder="Maximo">
+      </div>
+      <div class="filtrarTalles">
+        <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
+          <label>{{ talle }}:</label>
+          <input type="number" name="talle_{{talle}}">
+        </div>
+      </div>
     </div>
   </div>
 
