@@ -40,7 +40,8 @@ jobs:
       - name: Reemplazar la URL de la API en environment.prod.ts
         run: |
           echo "Reemplazando URL de la API..."
-          sed -i 's|URL_UAVDOCXXXX|'"$API_URL"'|g' ./src/environments/environment.prod.ts
+          run: |  sed -i "s|URL_UAVDOCXXXX|${API_URL}|g" ./src/environments/environment.prod.ts
+
         env:
           API_URL: ${{ secrets.API_URL }}
 
