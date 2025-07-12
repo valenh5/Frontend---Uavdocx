@@ -389,3 +389,12 @@ footer {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+#filtrar-txt{
+   background: none;
+  border: none;
+  padding: 0;
+  color: black;
+  font: inherit;
+  cursor: pointer;
+}

@@ -40,7 +40,7 @@
     <h1>Productos</h1>
     <div class="filtrar">
       <button id="filtrar-txt" (click)="toggleFormulario()">FILTRAR</button>
-      <span class="material-icons">list</span>
+      <span class="material-icons" (click)="toggleFormulario()">list</span>
     </div>
     <div class="filtros" *ngIf="mostrarFiltro">
       <div class="filtrarPrecios">  
