@@ -2,18 +2,30 @@
 
 <nav class="navbar">
   <div class="navbar-container">
-    <a href="/" class="navbar-logo">UAVDOCX</a>
+    <a href="/" class="navbar-logo">
+      UAVDOCX
+    </a>
 
     <div class="navbar-menu">
       <a href="/">Inicio</a>
       <a href="/productos">Productos</a>
-      <a href="/login">Iniciar Sesión</a>
-      <span *ngIf="usuarioLogueado">| {{ usuarioLogueado }}</span>
-      <a href="/abm">ABM</a>
+      <a href="./login">Sesion</a>
+      <a *ngIf="usuarioLogueado" href="./abm">ABM</a>
+
     </div>
 
-    <div class="navbar-search">
-      <input type="text" placeholder="Buscar..." [(ngModel)]="busqueda" (input)="realizarBusqueda()">
+    <div class="group">
+
+
+      <input
+        id="query"
+        class="input"
+        type="text"
+        placeholder="Buscar..."
+        name="searchbar"
+        [(ngModel)]="busqueda" (input)="realizarBusqueda()"
+      />
+      <span *ngIf="usuarioLogueado"> {{ usuarioLogueado }}</span>
     </div>
   </div>
 </nav>
