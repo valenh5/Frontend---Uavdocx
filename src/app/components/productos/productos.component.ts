@@ -31,10 +31,15 @@ limitePorPagina = 2;
 totalPaginas = 1;
 usuarioLogueado: string | null = null;
 mostrarFiltro: boolean = false;
+categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
 
       obtenerUsuarioLogueado() {
     this.usuarioLogueado = localStorage.getItem('usuario');
   }
+
+async filtrar(){
+
+}
 async logout(){
   localStorage.removeItem('token');
   localStorage.removeItem('usuario');
@@ -74,6 +79,7 @@ async cargarProductos(): Promise<void> {
     this.prendasFiltradas = [];
   }
 }
+
 
   irAPagina(pagina: number): void {
     if (pagina !== this.paginaActual) {
