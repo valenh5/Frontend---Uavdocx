@@ -8,7 +8,7 @@ import { environment } from '../../environments/enviroment';
 })
 export class PrendasService {
 
-  getHeaders() {
+  obtenerToken() {
     const token = localStorage.getItem('token');
     return {
       headers: {
@@ -21,13 +21,13 @@ export class PrendasService {
 
 
   async getPrendas(): Promise<any> {
-    const response = await axios.get(this.apiUrl, this.getHeaders());
+    const response = await axios.get(this.apiUrl, this.obtenerToken());
     return response.data;
   }
 
   async agregarPrenda(prenda: Prenda): Promise<Prenda> {
     try {
-      const response = await axios.post(`${this.apiUrl}/crearPrenda`, prenda, this.getHeaders());
+      const response = await axios.post(`${this.apiUrl}/crearPrenda`, prenda, this.obtenerToken());
       return response.data;
     } catch (error) {
       console.error("Error al agregar prenda:", error);
@@ -36,11 +36,11 @@ export class PrendasService {
   }
 
   async eliminarPrenda(id: number): Promise<void> {
-    await axios.delete(`${this.apiUrl}/${id}`, this.getHeaders());
+    await axios.delete(`${this.apiUrl}/${id}`, this.obtenerToken());
   }
 
   async actualizarPrenda(prenda: Prenda): Promise<Prenda> {
-    const response = await axios.put<Prenda>(`${this.apiUrl}/${prenda.id}`, prenda, this.getHeaders());
+    const response = await axios.put<Prenda>(`${this.apiUrl}/${prenda.id}`, prenda, this.obtenerToken());
     return response.data;
   }
 
@@ -56,4 +56,5 @@ export class PrendasService {
       throw error;
     }
   }
+  
 }
