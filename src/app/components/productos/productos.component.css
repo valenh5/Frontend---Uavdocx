@@ -398,3 +398,14 @@ footer {
   font: inherit;
   cursor: pointer;
 }
+
+#aplicar{
+  color: rgb(58, 56, 56);
+  padding: 1%;
+}
+
+#categoria{
+  background-color: white;
+  color: black;
+  padding: 1%;
+}
