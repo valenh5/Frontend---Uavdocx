@@ -44,22 +44,17 @@
     </div>
     <div class="filtros" *ngIf="mostrarFiltro">
       <div class="filtrarPrecios">  
-        <input type="number" placeholder="Minimo">
-        <input type="number" placeholder="Maximo">
+        <input type="number" placeholder="Minimo" [(ngModel)]="precioMinimo">
+        <input type="number" placeholder="Maximo" [(ngModel)]="precioMaximo">
       </div>
-      <div class="filtrarTalles">
-        <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
-          <label>{{ talle }}:</label>
-          <input type="number" name="talle_{{talle}}">
-        </div>
-      </div>
+      
       <div>
-          <select id="categoria">
+          <select [(ngModel)]= "categoriaFiltrar" id="categoria">
             <option value="" disabled selected hidden>Categoria</option>
             <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
           </select>
       </div>
-      <button id="aplicar" click="filtrar()">Aplicar</button>
+      <button id="aplicar" (click)="filtrar()">Aplicar</button>
     </div>
   </div>
 
