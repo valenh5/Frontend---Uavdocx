@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,15 +10,23 @@ import { Router } from '@angular/router';
   imports: [FormsModule], 
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   nombre_usuario = '';
   contrasenia = '';
   email = '';
   usuario_ingreso = '';
   pass_ingreso = '';
   emailReset = '';
-
+  usuarioLogueado: string | null = null;
   constructor(private usuarioService: UsuarioService,  private router: Router) {}
+
+    obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
+
+    async ngOnInit(): Promise<void> {
+    this.obtenerUsuarioLogueado();
+  }
 
   async registrar() {
     try {
