@@ -32,14 +32,30 @@ totalPaginas = 1;
 usuarioLogueado: string | null = null;
 mostrarFiltro: boolean = false;
 categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
+categoriaFiltrar : string | null = null;
+precioMinimo: number | null = 0;
+precioMaximo: number | null = 0;
+
 
       obtenerUsuarioLogueado() {
     this.usuarioLogueado = localStorage.getItem('usuario');
   }
 
-async filtrar(){
+async filtrar() {
+  try {
+    const response = await axios.post(apiUrl + '/filtrar', {
+      categoria: this.categoriaFiltrar,
+      minimo: this.precioMinimo,
+      maximo: this.precioMaximo
+    });
 
+    this.prendasFiltradas = response.data;
+  } catch (error) {
+    console.error("Error al filtrar prendas:", error);
+    this.prendasFiltradas = [];
+  }
 }
+
 async logout(){
   localStorage.removeItem('token');
   localStorage.removeItem('usuario');
