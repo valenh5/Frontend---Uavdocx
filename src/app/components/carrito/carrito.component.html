@@ -1,1 +1,6 @@
-<h1>lucio gordo</h1>
+<h1>Carrito</h1>
+<ul>
+  <li *ngFor="let item of carrito">
+    <strong>{{ item.nombre }}</strong> - Cantidad: {{ item.cantidad }} - Precio: ${{ item.precio }}
+  </li>
+</ul>
