@@ -235,3 +235,16 @@ footer {
   background: rgba(0,0,0,0.7);
 }
 
+
+.material-symbols-outlined {
+  size: 245px;
+  vertical-align: middle;
+  color: #000;
+  margin-left: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.material-symbols-outlined:hover {
+  color: #007bff;
+}

@@ -147,7 +147,7 @@ h2.titulo-productos {
   font-weight: 600;
   margin-bottom: 30px;
   text-align: center;
-  color: #333;
+  color: #333;  
 }
 
 #prendas-container {
@@ -408,4 +408,14 @@ footer {
   background-color: white;
   color: black;
   padding: 1%;
+}
+
+#boton-AgregarCarrito {
+  background-color: #333436;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }

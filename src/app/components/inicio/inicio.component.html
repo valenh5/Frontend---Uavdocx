@@ -1,5 +1,7 @@
 <title>Uavdocx Inicio</title>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=shopping_cart" />
+
 <div class="announcement-bar">
   <div class="announcement-track">
     <span *ngFor="let oferta of ofertas; let i = index" [style.animation-delay]="(i * 4) + 's'">
@@ -19,8 +21,8 @@
       <a href="./login">Sesion</a>
       <a *ngIf="usuarioLogueado" href="./abm">ABM</a>
     </div>
+      <a href="/carrito" class="material-symbols-outlined">shopping_cart</a>
   </div>
-
 </nav>
 <main>
   <div class="carrusel-container">  
