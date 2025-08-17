@@ -1,6 +1,9 @@
 <h1>Carrito</h1>
+<pre>{{ carrito | json }}</pre>
 <ul>
   <li *ngFor="let item of carrito">
-    <strong>{{ item.nombre }}</strong> - Cantidad: {{ item.cantidad }} - Precio: ${{ item.precio }}
+    <strong>ID: {{ item.id }}</strong> - Cantidad: {{ item.cantidad }} - Precio: ${{ item.precio }}
   </li>
 </ul>
+<p *ngIf="carrito.length">Total: ${{ precioTotal }}</p>
+<p *ngIf="!carrito.length">El carrito está vacío.</p>

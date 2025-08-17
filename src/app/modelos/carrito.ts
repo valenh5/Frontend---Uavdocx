@@ -1,3 +1,4 @@
 export interface Carrito {
-  data: any;
+  productos: any[];
+  precioTotal: number;
 }
