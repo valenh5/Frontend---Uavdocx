@@ -1,9 +1,30 @@
-<h1>Carrito</h1>
-<pre>{{ carrito | json }}</pre>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
+<h1>Inicio - Carrito de Compras</h1>
+
+<div class="carrito-header">
+  <span>Producto</span>
+  <span>Cantidad</span>
+  <span>Precio</span>
+  <span>Subtotal</span>
+  <span style="flex:0 0 60px"></span>
+</div>
 <ul>
   <li *ngFor="let item of carrito">
-    <strong>ID: {{ item.id }}</strong> - Cantidad: {{ item.cantidad }} - Precio: ${{ item.precio }}
+    <span>{{ item.id }}</span>
+    <div>
+      <button (click)="disminuirCantidad(item.id)">-</button>
+      <span>{{ item.cantidad }}</span> 
+      <button (click)="aumentarCantidad(item.id)">+</button>
+    </div>
+    <span>${{ item.precio }}</span>
+    <span>${{ item.cantidad * item.precio }}</span>
+    <span class="acciones">
+      <span (click)="eliminarDelCarrito(item.id)" class="material-symbols-outlined">delete</span>
+    </span>
   </li>
 </ul>
-<p *ngIf="carrito.length">Total: ${{ precioTotal }}</p>
-<p *ngIf="!carrito.length">El carrito está vacío.</p>
+<p *ngIf="carrito.length" class="subtotal">Subtotal: ${{ precioTotal }}</p>
+<p class="envio">Envío: ${{ calcularEnvio() }}</p>
+<p *ngIf="carrito.length" class="total">Total: </p>
+<p *ngIf="!carrito.length && usuarioLogueado">El carrito está vacío.</p>
+<p *ngIf="!usuarioLogueado">Inicia Sesion para tener carrito</p>

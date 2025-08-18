@@ -67,7 +67,7 @@
         <h3>{{ prenda.nombre }}</h3>
         <p><strong>Precio:</strong> ${{ prenda.precio }}</p>
       </div>
-      <button id="boton-AgregarCarrito" >Agregar al carrito</button>
+      <button (click)="agregarAlCarrito(prenda.id, 1)" id="boton-AgregarCarrito">Agregar al carrito</button>
     </div>
     
   </div>  

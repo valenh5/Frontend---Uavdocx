@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import axios from 'axios';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
+import { CarritoService } from '../../servicios/carrito.service';
+
 
 
 const apiUrl = environment.apiUrl + "/prendas";
@@ -21,6 +23,11 @@ const apiUrl = environment.apiUrl + "/prendas";
 export class ProductoComponent implements OnInit {
     prendasFiltradas: any[] = []; 
     prendas: any[] = [];
+  carrito: any;
+  precioTotal: any;
+  router: any;
+    constructor(public carritoService: CarritoService) {} 
+
 
     async ngOnInit(): Promise<void> {
     await this.cargarProductos();
@@ -39,6 +46,16 @@ precioMaximo: number | null = 0;
 
       obtenerUsuarioLogueado() {
     this.usuarioLogueado = localStorage.getItem('usuario');
+  }
+
+  async agregarAlCarrito(productoId: number, cantidad: number) {
+    try {
+      const response = await this.carritoService.agregarAlCarrito(productoId, cantidad);
+      this.carrito = response.productos;
+      this.precioTotal = response.precioTotal;
+    } catch (error) {
+      console.error('Error al agregar al carrito:', error);
+    }
   }
 
 async filtrar() {
