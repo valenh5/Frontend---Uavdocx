@@ -6,25 +6,53 @@
   <span>Cantidad</span>
   <span>Precio</span>
   <span>Subtotal</span>
+  <span>Eliminar</span>
   <span style="flex:0 0 60px"></span>
 </div>
 <ul>
-  <li *ngFor="let item of carrito">
+  <li class="producto"*ngFor="let item of carrito">
     <span>{{ item.id }}</span>
-    <div>
-      <button (click)="disminuirCantidad(item.id)">-</button>
-      <span>{{ item.cantidad }}</span> 
-      <button (click)="aumentarCantidad(item.id)">+</button>
+    <div class="cantidad-container">
+      <span class="cantidad-borde">
+        <button class="cantidad" (click)="disminuirCantidad(item.id)">-</button>
+      <span>{{ item.cantidad }}</span>
+        <button class="cantidad" (click)="aumentarCantidad(item.id)">+</button>
+      </span>
     </div>
     <span>${{ item.precio }}</span>
     <span>${{ item.cantidad * item.precio }}</span>
-    <span class="acciones">
-      <span (click)="eliminarDelCarrito(item.id)" class="material-symbols-outlined">delete</span>
-    </span>
+
+    <button (click)="eliminarDelCarrito(item.id)" class="btn">
+      <svg viewBox="0 0 15 17.5" height="17.5" width="15" xmlns="http://www.w3.org/2000/svg" class="icon">
+      <path transform="translate(-2.5 -1.25)" d="M15,18.75H5A1.251,1.251,0,0,1,3.75,17.5V5H2.5V3.75h15V5H16.25V17.5A1.251,1.251,0,0,1,15,18.75ZM5,5V17.5H15V5Zm7.5,10H11.25V7.5H12.5V15ZM8.75,15H7.5V7.5H8.75V15ZM12.5,2.5h-5V1.25h5V2.5Z" id="Fill"></path>
+    </svg>
+    </button>
   </li>
 </ul>
-<p *ngIf="carrito.length" class="subtotal">Subtotal: ${{ precioTotal }}</p>
-<p class="envio">Envío: ${{ calcularEnvio() }}</p>
-<p *ngIf="carrito.length" class="total">Total: </p>
-<p *ngIf="!carrito.length && usuarioLogueado">El carrito está vacío.</p>
-<p *ngIf="!usuarioLogueado">Inicia Sesion para tener carrito</p>
+<div class="resumen">
+  <div class="envio-opciones">
+    <div class="envio-item">
+      <p class="envio-titulo">Medios de envio</p>
+      <input type="text" placeholder="Ingrese su codigo postal" class="envio-input" />
+      <button>+</button>
+    </div>
+    <div class="envio-item local">
+  <p class="envio-titulo">Nuestro Local</p>
+  <div class="local-checkbox-info">
+<input type="checkbox" id="localCheck" [(ngModel)]="envioLocal" (change)="calcularEnvio()"/>
+    <label for="localCheck" class="local-info">
+      Uavdocx - Store - 3014 Catamarca - Quilmes<br>
+      Horarios de atencion: Lun a Vie de 8:30 - 16:30 hs<br>
+      Sábado de 9:00 - 14:00 hs
+    </label>
+  </div>
+</div>
+  </div>
+  <div>
+    <p *ngIf="carrito.length" class="subtotal">Subtotal: ${{ precioTotal }}</p>
+    <p class="envio">Envío: ${{ envio }}</p>
+    <p *ngIf="carrito.length" class="total">Total: ${{ precioTotal + envio }}</p>
+    <p *ngIf="!carrito.length && usuarioLogueado">El carrito está vacío.</p>
+    <p *ngIf="!usuarioLogueado">Inicia Sesion para tener carrito</p>
+  </div>
+</div>

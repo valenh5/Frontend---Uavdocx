@@ -17,6 +17,9 @@ export class CarritoComponent implements OnInit {
   carrito: any[] = [];
   precioTotal: number = 0;
   usuarioLogueado: string | null | undefined;
+  envioLocal: boolean = false;
+  envio: number = 0;
+  
 
   constructor(private carritoService: CarritoService) {
   }
@@ -24,8 +27,19 @@ export class CarritoComponent implements OnInit {
   async ngOnInit() {
     await this.obtenerCarrito();
     await this.obtenerUsuarioLogueado();
+    await this.calcularEnvio();
   }
-
+   async calcularEnvio() {
+    try {
+      const result = await this.carritoService.calcularEnvio(this.envioLocal);
+      this.envio = result.envio;
+    } catch (error) {
+      console.error('Error al calcular el envío:', error);
+      this.envioLocal = false; 
+      this.envio = 100;
+    }
+  }
+    
   obtenerUsuarioLogueado() {
     this.usuarioLogueado = localStorage.getItem('usuario');
   }
@@ -89,13 +103,5 @@ export class CarritoComponent implements OnInit {
       console.error('Error al disminuir cantidad:', error);
     }
   }
-  async calcularEnvio(): Promise<number> {
-    try {
-      const response = await this.carritoService.calcularEnvio();
-      return response.envio || 0; // Asegurarse de que el valor de envío sea un número
-    } catch (error) {
-      console.error('Error al calcular el envío:', error);
-      return 0; // Retornar 0 en caso de error
-    }
-  }
+
 }

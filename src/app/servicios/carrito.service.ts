@@ -8,13 +8,11 @@ import { environment } from '../../environments/enviroment';
 })
 export class CarritoService {
 
-  calcularEnvio() {
-    return axios.get(`${this.apiUrl}/envio`, this.obtenerToken())
-      .then(response => response.data)
-      .catch(error => {
-        console.error('Error al calcular el envío:', error);
-        return { envio: 0 }; // Retornar un valor por defecto en caso de error
-      });
+    calcularEnvio(envioLocal: boolean = false) {
+    if (envioLocal) {
+      return Promise.resolve({ envio: 0 });
+    }
+    return Promise.resolve({ envio: 100 });
   }
 
   obtenerToken() {
