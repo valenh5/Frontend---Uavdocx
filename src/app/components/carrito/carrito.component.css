@@ -1,0 +1,279 @@
+h1 {
+  text-align: left;
+  color: #2d3748;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  font-size: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 500px;
+  margin: 0 auto 24px auto;
+}
+
+li {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.item-info {
+  flex: 1;
+}
+
+button {
+  background: #7f7f80;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  margin-left: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+
+
+
+p {
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+p[ng-reflect-ng-if="false"] {
+  color: #718096;
+}
+
+.material-symbols-outlined{
+ cursor: pointer;
+}
+
+.total {
+  font-weight: bold;
+  color: #2f855a;
+  font-size: 1.2rem;
+}
+
+
+
+
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 100%;
+  margin: 0 0 24px 0;
+  width: 100%;
+  background: none;
+  border: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;        
+  border: none;            
+  border-bottom: 1px solid #e2e8f0; 
+  border-radius: 0;
+  margin-bottom: 0;
+  padding: 16px 0;
+  box-shadow: none;        
+  font-size: 1rem;
+  gap: 12px;
+}
+
+li:last-child {
+  border-bottom: none;     
+}
+
+
+li > span,
+li > div {
+  flex: 1 1 0;
+  text-align: left;
+}
+
+li .acciones {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+li > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+@media (max-width: 700px) {
+  .carrito-header, ul, li {
+    max-width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .carrito-header, li {
+    font-size: 0.95rem;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+}
+
+.btn {
+  background-color: transparent;
+  position: relative;
+  border: none;
+}
+
+.btn::after {
+  
+  position: absolute;
+  top: -130%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(168, 7, 7);
+  padding: 4px 8px;
+  border-radius: 5px;
+  transition: .2s linear;
+  transition-delay: .2s;
+  color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.icon {
+  transform: scale(1.2);
+  transition: .2s linear;
+}
+
+.btn:hover > .icon {
+  transform: scale(1.5);
+}
+
+  
+
+.btn:hover::after {
+  visibility: visible;
+  opacity: 1;
+  top: -160%;
+}
+
+.cantidad{
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #000000;
+}
+
+.cantidad-container {
+  display: flex;
+  align-items: center;
+  gap: 0; 
+  border: none;
+}
+
+.cantidad-borde {
+  border: 1px solid #8f8e8e;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 0 2px; 
+  gap: 0;
+  background: none;
+}
+
+.resumen {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.envio-opciones {
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 600px;
+  gap: 0; 
+}
+
+.envio-item {
+  flex: 1 1 0;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.envio-titulo {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.envio-input {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 220px;
+  text-align: center;
+}
+
+.local-checkbox-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-top: 0.5rem;
+}
+
+.local-info {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.3;
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.producto{
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+}
+
+.carrito-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  background: none;       
+  border-radius: 0;
+  border: none;           
+  max-width: 100%;        
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  padding: 0 0 8px 0;
+  border-bottom: 1px solid #e2e8f0; 
+}

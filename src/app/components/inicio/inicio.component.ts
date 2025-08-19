@@ -22,7 +22,7 @@ export class inicio implements OnInit {
   usuarioLogueado: string | null = null;
 
   ofertas: string[] = [
-    '2x1 en remeras urbanas',
+    'Importado Premium',
     'Envío gratis en compras mayores a $30.000',
     '10% OFF pagando en efectivo',
     '¡Nuevas camperas edición limitada!',
