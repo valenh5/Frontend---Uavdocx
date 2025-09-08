@@ -7,7 +7,7 @@ import { ProductoComponent } from './components/productos/productos.component';
 import { AbmComponent } from './components/abm/abm.component';
 import { inicio } from './components/inicio/inicio.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
-
+import { CompraComponent } from './components/compra/compra.component';
 
 export const routes: Routes = [
   { path: '', component: inicio },
@@ -18,5 +18,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'abm', component: AbmComponent},
   { path: 'carrito', component: CarritoComponent },
+  { path: 'compra', component: CompraComponent },
 
 ];

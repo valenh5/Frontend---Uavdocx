@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import { CarritoService } from '../../servicios/carrito.service';
+import { Router } from '@angular/router';
 
 console.log('[CarritoComponent] Archivo cargado');
 
@@ -19,10 +20,11 @@ export class CarritoComponent implements OnInit {
   usuarioLogueado: string | null | undefined;
   envioLocal: boolean = false;
   envio: number = 0;
+  constructor(private carritoService: CarritoService, private router: Router) {
+  }
   
 
-  constructor(private carritoService: CarritoService) {
-  }
+
 
   async ngOnInit() {
     await this.obtenerCarrito();
@@ -104,4 +106,8 @@ export class CarritoComponent implements OnInit {
     }
   }
 
-}
+  async comprar(){
+    await this.router.navigate(['/compra']);
+  }
+
+}                                                                                                                                 
