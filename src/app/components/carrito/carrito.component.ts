@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import { CarritoService } from '../../servicios/carrito.service';
+import { Router } from '@angular/router';
+import { PrendasService } from '../../servicios/prenda.service';
 
 console.log('[CarritoComponent] Archivo cargado');
 
@@ -19,10 +21,11 @@ export class CarritoComponent implements OnInit {
   usuarioLogueado: string | null | undefined;
   envioLocal: boolean = false;
   envio: number = 0;
+  constructor(private carritoService: CarritoService, private router: Router, private PrendasService: PrendasService) {
+  }
   
 
-  constructor(private carritoService: CarritoService) {
-  }
+
 
   async ngOnInit() {
     await this.obtenerCarrito();
@@ -44,12 +47,41 @@ export class CarritoComponent implements OnInit {
     this.usuarioLogueado = localStorage.getItem('usuario');
   }
 
+  async cargarPrenda(id: number) {
+    try {
+      const prenda = await this.PrendasService.cargarPrenda(id);
+      return prenda;
+    } catch (error) {
+      console.error('Error al cargar la prenda:', error);
+      return null;
+    }
+  }
+
   async obtenerCarrito() {
     try {
       const response = await this.carritoService.obtenerCarrito();
 
       if (response && Array.isArray(response.productos)) {
-        this.carrito = response.productos;
+        // Para cada producto, obtener nombre e imagen
+        const productosConDatos = await Promise.all(
+          response.productos.map(async (item: any) => {
+            try {
+              const prenda = await this.PrendasService.cargarPrenda(item.id);
+              return {
+                ...item,
+                nombre: prenda?.nombre || 'Sin nombre',
+                imagen: prenda?.imagen || '',
+              };
+            } catch (e) {
+              return {
+                ...item,
+                nombre: 'Sin nombre',
+                imagen: '',
+              };
+            }
+          })
+        );
+        this.carrito = productosConDatos;
       } else {
         this.carrito = [];
       }
@@ -104,4 +136,8 @@ export class CarritoComponent implements OnInit {
     }
   }
 
-}
+  async comprar(){
+    await this.router.navigate(['/compra']);
+  }
+
+}                                                                                                                                 
