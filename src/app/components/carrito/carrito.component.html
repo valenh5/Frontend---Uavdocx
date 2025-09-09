@@ -10,12 +10,15 @@
   <span style="flex:0 0 60px"></span>
 </div>
 <ul>
-  <li class="producto"*ngFor="let item of carrito">
-    <span>{{ item.id }}</span>
+  <li class="producto" *ngFor="let item of carrito">
+    <span>
+      <img *ngIf="item.imagen" [src]="item.imagen" alt="Imagen de {{item.nombre}}" style="width:40px;height:40px;object-fit:cover;margin-right:8px;vertical-align:middle;">
+      <span style="vertical-align:middle;">{{ item.nombre || item.id }}</span>
+    </span>
     <div class="cantidad-container">
       <span class="cantidad-borde">
         <button class="cantidad" (click)="disminuirCantidad(item.id)">-</button>
-      <span>{{ item.cantidad }}</span>
+        <span>{{ item.cantidad }}</span>
         <button class="cantidad" (click)="aumentarCantidad(item.id)">+</button>
       </span>
     </div>
@@ -29,30 +32,6 @@
     </button>
   </li>
 </ul>
-<div class="resumen">
-  <div class="envio-opciones">
-    <div class="envio-item">
-      <p class="envio-titulo">Medios de envio</p>
-      <input type="text" placeholder="Ingrese su codigo postal" class="envio-input" />
-      <button>+</button>
-    </div>
-    <div class="envio-item local">
-  <p class="envio-titulo">Nuestro Local</p>
-  <div class="local-checkbox-info">
-<input type="checkbox" id="localCheck" [(ngModel)]="envioLocal" (change)="calcularEnvio()"/>
-    <label for="localCheck" class="local-info">
-      Uavdocx - Store - 3014 Catamarca - Quilmes<br>
-      Horarios de atencion: Lun a Vie de 8:30 - 16:30 hs<br>
-      Sábado de 9:00 - 14:00 hs
-    </label>
-  </div>
-</div>
-  </div>
-  <div>
-    <p *ngIf="carrito.length" class="subtotal">Subtotal: ${{ precioTotal }}</p>
-    <p class="envio">Envío: ${{ envio }}</p>
-    <p *ngIf="carrito.length" class="total">Total: ${{ precioTotal + envio }}</p>
-    <p *ngIf="!carrito.length && usuarioLogueado">El carrito está vacío.</p>
-    <p *ngIf="!usuarioLogueado">Inicia Sesion para tener carrito</p>
-  </div>
-</div>
+
+
+  <button (click)="comprar()">Iniciar Compra</button>

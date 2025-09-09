@@ -1,0 +1,136 @@
+
+h1 {
+	text-align: center;
+	font-size: 2.2rem;
+	margin-bottom: 1.5rem;
+	color: #2d2d2d;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto 2rem auto;
+	max-width: 600px;
+}
+
+.producto {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: #f8f8f8;
+	border-radius: 10px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+	padding: 1rem 1.5rem;
+	margin-bottom: 1rem;
+	font-size: 1.1rem;
+}
+
+.cantidad-container {
+	display: flex;
+	align-items: center;
+}
+
+.cantidad-borde {
+	border: 1.5px solid #bdbdbd;
+	border-radius: 6px;
+	padding: 0.2rem 0.7rem;
+	background: #fff;
+	font-weight: 500;
+	margin: 0 0.7rem;
+}
+
+.subtotal, .total, .envio {
+	font-size: 1.2rem;
+	margin: 0.5rem 0;
+}
+
+.subtotal {
+	color: #333;
+	font-weight: 500;
+}
+
+.total {
+	color: #1976d2;
+	font-weight: bold;
+	font-size: 1.4rem;
+}
+
+.envio {
+	color: #757575;
+}
+
+.resumen {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	justify-content: center;
+	align-items: flex-start;
+	margin-top: 2rem;
+	background: #f4f7fa;
+	border-radius: 12px;
+	padding: 2rem 1.5rem;
+	box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.envio-opciones {
+	min-width: 260px;
+	max-width: 320px;
+}
+
+.envio-item {
+	margin-bottom: 1.5rem;
+	background: #fff;
+	border-radius: 8px;
+	padding: 1rem;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.envio-titulo {
+	font-weight: 600;
+	margin-bottom: 0.7rem;
+	color: #1976d2;
+}
+
+.envio-input {
+	width: 70%;
+	padding: 0.4rem 0.7rem;
+	border: 1px solid #bdbdbd;
+	border-radius: 5px;
+	margin-right: 0.5rem;
+}
+
+.envio-item button {
+	background: #1976d2;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	padding: 0.4rem 0.8rem;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.envio-item button:hover {
+	background: #125ea2;
+}
+
+.local-checkbox-info {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.7rem;
+}
+
+.local-info {
+	font-size: 0.98rem;
+	color: #444;
+	line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+	.resumen {
+		flex-direction: column;
+		padding: 1rem 0.5rem;
+	}
+	ul {
+		max-width: 98vw;
+	}
+}

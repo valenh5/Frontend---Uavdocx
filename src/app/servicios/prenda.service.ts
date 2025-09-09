@@ -21,7 +21,7 @@ export class PrendasService {
 
 
   async getPrendas(): Promise<any> {
-    const response = await axios.get(this.apiUrl, this.obtenerToken());
+    const response = await axios.get(`${this.apiUrl}/listarPrendas`, this.obtenerToken());
     return response.data;
   }
 
@@ -55,6 +55,11 @@ export class PrendasService {
       console.error("Error al buscar prendas por nombre:", error);
       throw error;
     }
+  }
+
+  async cargarPrenda(id: number): Promise<Prenda> {
+    const response = await axios.get<Prenda>(`${this.apiUrl}/${id}`, this.obtenerToken());
+    return response.data;
   }
   
 }

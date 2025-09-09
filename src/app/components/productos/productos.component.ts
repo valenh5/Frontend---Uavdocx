@@ -85,12 +85,10 @@ async logout(){
 
 async cargarProductos(): Promise<void> {
   try {
-    const response = await axios.get(`${apiUrl}/productos?page=${this.paginaActual}&limit=${this.limitePorPagina}`);
-    
-    this.prendas = response.data.data;
-    this.totalPaginas = Math.ceil(response.data.total / this.limitePorPagina);
-    this.prendasFiltradas = [...this.prendas]; 
-
+    const response = await axios.get(`${apiUrl}/listarPrendas?page=${this.paginaActual}&limit=${this.limitePorPagina}`);
+    this.prendas = response.data.data || response.data;
+    this.totalPaginas = response.data.total ? Math.ceil(response.data.total / this.limitePorPagina) : 1;
+    this.prendasFiltradas = [...this.prendas];
   } catch (error) {
     console.error("Error al cargar prendas:", error);
   }
@@ -114,10 +112,15 @@ async cargarProductos(): Promise<void> {
 }
 
 
+
   irAPagina(pagina: number): void {
     if (pagina !== this.paginaActual) {
       this.paginaActual = pagina;
       this.cargarProductos();
     }
   }
-};
+
+  verProducto(id: number): void {
+    window.location.href = `/producto/${id}`;
+  }
+}
