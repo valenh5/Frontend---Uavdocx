@@ -21,7 +21,7 @@ export class PrendasService {
 
 
   async getPrendas(): Promise<any> {
-    const response = await axios.get(this.apiUrl, this.obtenerToken());
+    const response = await axios.get(`${this.apiUrl}/listarPrendas`, this.obtenerToken());
     return response.data;
   }
 

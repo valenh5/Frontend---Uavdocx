@@ -1,0 +1,73 @@
+.producto-detalle-container{
+    display: grid;
+    grid-template-columns: 0.8fr 1fr;
+    gap: 16px;
+}
+
+#nombre{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.guia-talles-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin: 12px 0;
+  user-select: none;
+  color: #1976d2;
+  font-weight: 500;
+  width: fit-content;
+}
+.guia-talles-container:focus {
+  outline: 2px solid #1976d2;
+}
+.guia-talles-text {
+  font-size: 16px;
+}
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.popup-content {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cerrar-popup {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.cerrar-popup:hover {
+  background: #125ea2;
+}
