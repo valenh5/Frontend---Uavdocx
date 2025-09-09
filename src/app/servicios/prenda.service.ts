@@ -56,5 +56,10 @@ export class PrendasService {
       throw error;
     }
   }
+
+  async cargarPrenda(id: number): Promise<Prenda> {
+    const response = await axios.get<Prenda>(`${this.apiUrl}/${id}`, this.obtenerToken());
+    return response.data;
+  }
   
 }

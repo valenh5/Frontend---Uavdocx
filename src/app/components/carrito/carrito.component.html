@@ -10,12 +10,15 @@
   <span style="flex:0 0 60px"></span>
 </div>
 <ul>
-  <li class="producto"*ngFor="let item of carrito">
-    <span>{{ item.id }}</span>
+  <li class="producto" *ngFor="let item of carrito">
+    <span>
+      <img *ngIf="item.imagen" [src]="item.imagen" alt="Imagen de {{item.nombre}}" style="width:40px;height:40px;object-fit:cover;margin-right:8px;vertical-align:middle;">
+      <span style="vertical-align:middle;">{{ item.nombre || item.id }}</span>
+    </span>
     <div class="cantidad-container">
       <span class="cantidad-borde">
         <button class="cantidad" (click)="disminuirCantidad(item.id)">-</button>
-      <span>{{ item.cantidad }}</span>
+        <span>{{ item.cantidad }}</span>
         <button class="cantidad" (click)="aumentarCantidad(item.id)">+</button>
       </span>
     </div>
