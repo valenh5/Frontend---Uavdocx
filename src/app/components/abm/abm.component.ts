@@ -33,6 +33,8 @@ export class AbmComponent implements OnInit {
   limitePorPagina = 2;
   totalPaginas = 2;
     usuarioLogueado: string | null = null;
+    esAdmin: boolean = false;
+
 
       obtenerUsuarioLogueado() {
     this.usuarioLogueado = localStorage.getItem('usuario');
@@ -41,7 +43,10 @@ export class AbmComponent implements OnInit {
   constructor(private prendasService: PrendasService) {}
 
   async ngOnInit(): Promise<void> {
+      this.esAdmin = localStorage.getItem('esAdmin') === 'true';
+      if (this.esAdmin) {
     await this.cargarPrendas();
+  }
     this.obtenerUsuarioLogueado();
   }
 
@@ -66,7 +71,7 @@ export class AbmComponent implements OnInit {
  
   async cargarPrendas(): Promise<void> {
     try {
-      const response = await axios.get(`${apiUrl}/productos?page=${this.paginaActual}&limit=${this.limitePorPagina}`);
+      const response = await axios.get(`${apiUrl}/listarPrendas?page=${this.paginaActual}&limit=${this.limitePorPagina}`);
       this.prendas = response.data.data;
         
       this.prendasFiltradas = [...this.prendas];

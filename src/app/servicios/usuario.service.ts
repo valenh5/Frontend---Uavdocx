@@ -6,7 +6,10 @@ import { environment } from '../../environments/enviroment';
 export class UsuarioService {
   private apiUrl = environment.apiUrl + '/usuarios';
 
-
+  async verificarAdmin(id_usuario: number) {
+    const response = await axios.get(`${this.apiUrl}/admin/${id_usuario}`);
+    return response.data;
+  }
 
 
   async registrarUsuario(nombre_usuario: string, email: string, contrasenia: string) {

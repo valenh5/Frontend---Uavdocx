@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -16,12 +17,13 @@ export class RegistroComponent {
   pass_ingreso = '';
   emailReset = '';
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService, private router: Router) {}
 
   async registrar() {
     try {
       const respuesta = await this.usuarioService.registrarUsuario(this.nombre_usuario, this.email, this.contrasenia);
       alert(respuesta.mensaje);
+      this.router.navigate(['/login']); 
     } catch (error: any) {
       alert(error.response?.data?.mensaje || 'Error al registrar usuario');
     }

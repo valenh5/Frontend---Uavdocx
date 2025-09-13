@@ -62,7 +62,6 @@ export class CarritoComponent implements OnInit {
       const response = await this.carritoService.obtenerCarrito();
 
       if (response && Array.isArray(response.productos)) {
-        // Para cada producto, obtener nombre e imagen
         const productosConDatos = await Promise.all(
           response.productos.map(async (item: any) => {
             try {
