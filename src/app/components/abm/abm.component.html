@@ -1,6 +1,11 @@
 <title>Uavdocx ABM</title>
 
-<nav class="navbar">
+<div *ngIf="!esAdmin">
+  <h2 style="color: red;">NoNoNo solo los administradores pueden acceder a esta sección.</h2>
+</div>
+
+<div *ngIf="esAdmin">
+  <nav class="navbar">
   <div class="navbar-container">
     <a href="/" class="navbar-logo">
       UAVDOCX
@@ -98,3 +103,7 @@
 
   <button id="crear" (click)="crearPrenda()">Guardar</button>
 </div>
+
+</div>
+
+
