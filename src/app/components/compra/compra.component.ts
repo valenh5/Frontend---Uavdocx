@@ -70,21 +70,27 @@ export class CompraComponent implements OnInit {
     }
   }
 
-  async createPreference() {
-    try {
-      const response = await axios.post('http://localhost:3000/create-preference', {
-        carrito: this.carrito,
-        precioTotal: this.precioTotal + this.envio
-      });
-      if (response.status === 200) {
-        const data = response.data;
-        this.preferenceId = data.preference_id;
-        this.renderMercadoPagoButton();
+async createPreference() {
+  try {
+    const token = localStorage.getItem('token'); 
+    const response = await axios.post(
+      'http://localhost:3000/create-preference',
+      {}, 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }
-    } catch (error) {
-      console.error('Error al crear la preferencia:', error);
+    );
+    if (response.status === 200) {
+      const data = response.data;
+      this.preferenceId = data.preference_id;
+      this.renderMercadoPagoButton();
     }
+  } catch (error) {
+    console.error('Error al crear la preferencia:', error);
   }
+}
 
   renderMercadoPagoButton() {
     if (!this.preferenceId) return;
