@@ -43,3 +43,9 @@
     <p *ngIf="!carrito.length && usuarioLogueado">El carrito está vacío.</p>
     <p *ngIf="!usuarioLogueado">Inicia Sesion para tener carrito</p>
   </div>
+
+<div id="walletBrick_container"></div>
+
+<button (click)="createPreference()" [disabled]="!carrito.length || !usuarioLogueado">
+  Pagar con Mercado Pago
+</button>
