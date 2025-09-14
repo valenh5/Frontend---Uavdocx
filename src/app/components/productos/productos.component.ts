@@ -76,6 +76,8 @@ async filtrar() {
 async logout(){
   localStorage.removeItem('token');
   localStorage.removeItem('usuario');
+  localStorage.removeItem('esAdmin');
+  localStorage.removeItem('id_usuario');
   window.location.reload()
 }
 

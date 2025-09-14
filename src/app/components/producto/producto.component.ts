@@ -50,7 +50,7 @@ export class ProductoDetalleComponent implements OnInit {
         await this.carritoService.agregarAlCarrito(this.producto.id, 1);
         alert('Producto agregado al carrito');
       } catch (e) {
-        alert('Error al agregar el producto al carrito');
+        alert('Error al agregar el producto al carritooo');
       }
     }   
 }
