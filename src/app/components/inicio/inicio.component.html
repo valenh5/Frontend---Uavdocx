@@ -18,7 +18,7 @@
     <div class="navbar-menu">
       <a href="/">Inicio</a>
       <a href="/productos">Productos</a>
-      <a href="./login">Sesion</a>
+      <a [routerLink]="usuarioLogueado ? '/usuario' : '/login'">Sesion</a>
       <a *ngIf="usuarioLogueado" href="./abm">ABM</a>
     </div>
     <div class="logos">

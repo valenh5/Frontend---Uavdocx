@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
 import axios from 'axios';
+import { RouterModule } from '@angular/router';
 
 
 const apiUrl = environment.apiUrl + "/prendas";
@@ -11,7 +12,7 @@ const apiUrl = environment.apiUrl + "/prendas";
 @Component({
   selector: 'app-prendas',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
 
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css']
