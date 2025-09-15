@@ -25,6 +25,7 @@ export class UsuarioComponent implements OnInit {
     localStorage.removeItem('email');
     localStorage.removeItem('esAdmin');
     localStorage.removeItem('token');
+    localStorage.removeItem('id_usuario');
     this.router.navigate(['']);
   }
 }
