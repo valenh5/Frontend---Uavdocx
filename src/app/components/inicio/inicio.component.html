@@ -18,12 +18,13 @@
     <div class="navbar-menu">
       <a href="/">Inicio</a>
       <a href="/productos">Productos</a>
-      <a href="./login">Sesion</a>
+      <a [routerLink]="usuarioLogueado ? '/usuario' : '/login'">Sesion</a>
       <a *ngIf="usuarioLogueado" href="./abm">ABM</a>
     </div>
     <div class="logos">
       <a href="/carrito" class="material-symbols-outlined">shopping_cart</a>
       <a href="/usuario" class="material-symbols-outlined">person</a>
+      <a href="/reclamo" class="material-symbols-outlined">sentiment_extremely_dissatisfied</a>
     </div>
   </div>
 </nav>
@@ -39,18 +40,47 @@
     />
     <button class="carrusel-btn carrusel-btn-next" (click)="cambiarImagen(1)">&#10095;</button>
   </div>
+
+
+    <div id="prendas-container">
+  <div class="prenda-card" *ngFor="let prenda of prendasFiltradas" >
+      <div class="prenda-imagen">
+        <img *ngIf="prenda.imagen" [src]="prenda.imagen" alt="Imagen de la prenda" class="imagen-prenda">
+      </div>
+      <div class="prenda-info">
+        <h3>{{ prenda.nombre }}</h3>
+        <p><strong>Precio:</strong> ${{ prenda.precio }}</p>
+      </div>
+    </div>
+    
+  </div>  
 </main>
+
+
+
 
 <footer class="footer">
   <div class="footer-container">
-    <span class="footer-logo">UAVDOCX</span>
-    <span class="footer-text">© 2025 UAVDOCX. Todos los derechos reservados.</span>
     <div class="footer-links">
-      <a href="/" class="footer-link">Inicio</a>
-      <a href="/productos" class="footer-link">Productos</a>
-      <a href="/login" class="footer-link">Sesión</a>
-      <a href="/abm" class="footer-link">ABM</a>
+      <div>
+        <p class="titulo-footer">AYUDA</p>
+        <p>Preguntas Frecuentes</p>
+        <p>Política de Privacidad</p>
+        <p>Terminos y Condiciones</p>
+      </div>
+      <div>
+        <p class="titulo-footer">UAVDOCX</p>
+        <p>Inicio</p>
+        <p>Local</p>
+      </div>
+      <div>
+        <p class="titulo-footer">CONTACTO</p>
+        <p>+54 9 11 2688-3073</p>
+        <p>uavdocx.gmail.com</p>
+        <p>Provincia de Buenos Aires</p>
+      </div>
     </div>
+      <span class="footer-text">© 2025 UAVDOCX. Todos los derechos reservados.</span>
   </div>
 </footer>
 
