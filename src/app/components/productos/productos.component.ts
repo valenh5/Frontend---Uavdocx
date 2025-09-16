@@ -31,7 +31,6 @@ export class ProductoComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
     await this.cargarProductos();
-    await this.obtenerUsuarioLogueado();
 }
 paginaActual = 1;
 limitePorPagina = 2;
@@ -44,9 +43,7 @@ precioMinimo: number | null = 0;
 precioMaximo: number | null = 0;
 
 
-      obtenerUsuarioLogueado() {
-    this.usuarioLogueado = localStorage.getItem('usuario');
-  }
+
 
   async agregarAlCarrito(productoId: number, cantidad: number) {
     try {
@@ -73,13 +70,7 @@ async filtrar() {
   }
 }
 
-async logout(){
-  localStorage.removeItem('token');
-  localStorage.removeItem('usuario');
-  localStorage.removeItem('esAdmin');
-  localStorage.removeItem('id_usuario');
-  window.location.reload()
-}
+
 
   toggleFormulario(): void {
     this.mostrarFiltro = !this.mostrarFiltro;

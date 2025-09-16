@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  padding: 2rem 1rem 1rem 2rem;
+  background: #f7f9fb;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+p {
+  margin: 0.5rem 0;
+  color: #222;
+  
+}
+
+h1 {
+  font-size: 1.7rem;
+  color: #000000;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+hr {
+  border: none;
+  border-top: 1.5px solid #e3e3e3;
+  margin: 1rem 0;
+}
+
+button {
+  background: #ffffff;
+  color: #000000;
+  border: solid 1px black;
+  border-radius: 5px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  margin-top: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: left;
+}
+
+button:hover {
+  background: #b9bdd6;
+}
+
+@media (max-width: 600px) {
+  :host {
+    padding: 1rem 0.5rem;
+  }
+  h1 {
+    font-size: 1.2rem;
+  }
+  button {
+    width: 100%;
+    padding: 0.7rem 0;
+  }
+}

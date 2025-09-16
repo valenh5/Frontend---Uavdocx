@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
+import axios from 'axios';
+import { RouterModule } from '@angular/router';
 
 
 const apiUrl = environment.apiUrl + "/prendas";
@@ -10,7 +12,7 @@ const apiUrl = environment.apiUrl + "/prendas";
 @Component({
   selector: 'app-prendas',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
 
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css']
@@ -38,12 +40,29 @@ export class inicio implements OnInit {
   imagenActual: number = 0;
   animando: boolean = false;
   intervalId: any;
+  paginaActual = 1;
+limitePorPagina = 8;
+totalPaginas = 1;
+prendasFiltradas: any[] = []; 
+    prendas: any[] = [];
+
+async cargarProductos(): Promise<void> {
+  try {
+    const response = await axios.get(`${apiUrl}/listarPrendas?page=${this.paginaActual}&limit=${this.limitePorPagina}`);
+    this.prendas = response.data.data || response.data;
+    this.totalPaginas = response.data.total ? Math.ceil(response.data.total / this.limitePorPagina) : 1;
+    this.prendasFiltradas = [...this.prendas];
+  } catch (error) {
+    console.error("Error al cargar prendas:", error);
+  }
+}
 
   constructor() {}
 
   async ngOnInit(): Promise<void> {
     this.obtenerUsuarioLogueado();
     this.iniciarCarrusel();
+    this.cargarProductos();
   }
 
   iniciarCarrusel() {
