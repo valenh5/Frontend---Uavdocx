@@ -28,7 +28,12 @@ export class ReclamoService {
 
   async agregarReclamo(reclamo: Reclamo): Promise<Reclamo> {
     try {
-      const response = await axios.post(`${this.apiUrl}/crearReclamo`, reclamo, this.obtenerToken());
+      const data = {
+        idUsuario: reclamo.id_usuario,
+        tipo: reclamo.tipo,
+        descripcion: reclamo.descripcion
+      };
+      const response = await axios.post(`${this.apiUrl}/crearReclamo`, data, this.obtenerToken());
       return response.data;
     } catch (error) {
       console.error("Error al agregar reclamo:", error);

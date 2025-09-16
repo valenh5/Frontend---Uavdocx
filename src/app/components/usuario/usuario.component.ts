@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ReclamoService } from '../../servicios/reclamo.service';
+import { Reclamo } from '../../modelos/reclamo';
 
 @Component({
   selector: 'app-usuario',
@@ -10,11 +12,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./usuario.component.css'],   
 })
 export class UsuarioComponent implements OnInit {
-  constructor(private router: Router) {}
+  reclamos: Reclamo[] = [];
+  usuarioId: number = 0;
+
+  constructor(private router: Router, private reclamoService: ReclamoService) {}
 
   ngOnInit(): void {
     this.nombre = localStorage.getItem('usuario') || '';
     this.email = localStorage.getItem('email') || '';
+    const id = localStorage.getItem('id_usuario');
+    this.usuarioId = id ? parseInt(id) : 0;
+    this.cargarReclamosUsuario();
+  }
+
+  cargarReclamosUsuario() {
+    this.reclamoService.getReclamos()
+      .then((todos: Reclamo[]) => {
+  this.reclamos = todos.filter(r => r.id_usuario === this.usuarioId);
+      })
+      .catch(() => {
+        this.reclamos = [];
+      });
   }
 
   nombre: string = '';
