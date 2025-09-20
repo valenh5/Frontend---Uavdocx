@@ -22,6 +22,7 @@ export class inicio implements OnInit {
 
 
   usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
 
   ofertas: string[] = [
     'Importado Premium',
@@ -63,6 +64,12 @@ async cargarProductos(): Promise<void> {
     this.obtenerUsuarioLogueado();
     this.iniciarCarrusel();
     this.cargarProductos();
+    this.esAdmin();
+  }
+
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
   }
 
   iniciarCarrusel() {

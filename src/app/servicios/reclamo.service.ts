@@ -22,7 +22,7 @@ export class ReclamoService {
 
 
   async getReclamos(): Promise<any> {
-    const response = await axios.get(`${this.apiUrl}/obtenerReclamos`, this.obtenerToken());
+    const response = await axios.get(`${this.apiUrl}`, this.obtenerToken());
     return response.data;
   }
 

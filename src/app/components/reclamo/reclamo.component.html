@@ -28,9 +28,3 @@
 	<button type="submit" [disabled]="cargando">Enviar Reclamo</button>
 </form>
 
-<h2>Reclamos enviados</h2>
-<ul>
-	<li *ngFor="let reclamo of reclamos">
-		{{ reclamo.descripcion }} - {{ reclamo.tipo }} - {{ reclamo.categoria }}
-	</li>
-</ul>

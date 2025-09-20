@@ -1,0 +1,33 @@
+<div *ngIf="!esAdmin">
+  <h2 style="color: red;">NoNoNo solo los administradores pueden acceder a esta sección.</h2>
+</div>
+
+<div *ngIf="esAdmin">
+  <h1>Usuarios</h1>
+  <div class="usuarios-lista">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Email</th>
+          <th>Verificado</th>
+          <th>Admin</th>
+          <th>Creado</th>
+          <th>Actualizado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.id }}</td>
+          <td>{{ usuario.usuario }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.verificado ? 'Sí' : 'No' }}</td>
+          <td>{{ usuario.admin ? 'Sí' : 'No' }}</td>
+          <td>{{ usuario.createdAt }}</td>
+          <td>{{ usuario.updatedAt }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
