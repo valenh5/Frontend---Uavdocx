@@ -45,15 +45,15 @@ precioMaximo: number | null = 0;
 
 
 
-  async agregarAlCarrito(productoId: number, cantidad: number) {
-    try {
-      const response = await this.carritoService.agregarAlCarrito(productoId, cantidad);
-      this.carrito = response.productos;
-      this.precioTotal = response.precioTotal;
-    } catch (error) {
-      console.error('Error al agregar al carrito:', error);
-    }
+async agregarAlCarrito(productoId: number, cantidad: number, talle: string) {
+  try {
+    const response = await this.carritoService.agregarAlCarrito(productoId, cantidad, talle);
+    this.carrito = response.productos;
+    this.precioTotal = response.precioTotal;
+  } catch (error) {
+    console.error('Error al agregar al carrito:', error);
   }
+}
 
 async filtrar() {
   try {

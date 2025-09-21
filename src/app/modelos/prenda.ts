@@ -3,8 +3,6 @@ export enum Talle {
     M = 'M',
     L = 'L',
     XL = 'XL',
-    XXL = 'XXL',
-    XXXL = 'XXXL'
   }
   
   export enum Categoria {

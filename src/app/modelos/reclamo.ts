@@ -18,6 +18,6 @@ export enum Tipo {
     id_usuario: number;
     descripcion: string;
     tipo: Tipo;
-    categoria: Estado;
+    estado: Estado;
   }
   

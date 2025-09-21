@@ -12,6 +12,11 @@ p {
   
 }
 
+.info{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 h1 {
   font-size: 1.7rem;
   color: #000000;
@@ -53,4 +58,34 @@ button:hover {
     width: 100%;
     padding: 0.7rem 0;
   }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reclamo-card {
+  background: #fff;
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.reclamo-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+.reclamo-card p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+}
+
+.reclamo-estado {
+  font-weight: bold;
+  color: #000000;
 }

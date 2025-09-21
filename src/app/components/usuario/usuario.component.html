@@ -1,10 +1,43 @@
+
+
 <p>Inicio    -   Mi cuenta</p>
 
-<div ngIf="logeado">
-    <h1>Mi cuenta</h1>
-    <p>Datos Personales</p>
-    <hr>
-    <p>{{ nombre }}</p>
-    <p>{{ email }}</p>
-    <button (click)="cerrarSesion()">Cerrar Sesion</button>
+<div *ngIf="!logeado">
+    <h1>Debe Iniciar Sesion</h1>
+    <button (click)="redirigirLogin()">Ir a Iniciar Sesion</button>
+</div>
+
+<div class="info" *ngIf="logeado">
+    <div>
+        <h1>Mi cuenta</h1>
+        <p>Datos Personales</p>
+        <hr>
+        <p>{{ nombre }}</p>
+        <p>{{ email }}</p>
+        <button (click)="cerrarSesion()">Cerrar Sesion</button>
+    </div>
+    <div>
+        <h1>Reclamos</h1>
+        <p>Reclamos realizados por el usuario</p>
+        <hr>
+        <div *ngIf="reclamos.length === 0">
+            <p>No tienes reclamos. <a href="/reclamo">Hacer uno</a></p>
+        </div>
+        <div *ngIf="reclamos.length > 0">
+            <ul>
+            <li *ngFor="let reclamo of reclamos" class="reclamo-card">
+                <p>{{ reclamo.tipo }}</p>
+                <p>{{ reclamo.descripcion }}</p>
+                <p class="reclamo-estado">Estado: {{ reclamo.estado }}</p>
+                <button (click)="eliminarReclamo(reclamo.id)">Eliminar Reclamo</button>
+            </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h1>Compras</h1>
+        <p>Compras realizadas por el usuario</p>
+        <hr>
+        <p>No tienes compras. <a href="/carrito">Hacer una</a></p>
+    </div>
 </div>
