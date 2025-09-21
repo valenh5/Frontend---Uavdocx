@@ -22,7 +22,7 @@ export class ReclamoService {
 
 
   async getReclamos(): Promise<any> {
-    const response = await axios.get(`${this.apiUrl}/obtenerReclamos`, this.obtenerToken());
+    const response = await axios.get(`${this.apiUrl}`, this.obtenerToken());
     return response.data;
   }
 
@@ -54,6 +54,9 @@ export class ReclamoService {
     const response = await axios.get<Reclamo>(`${this.apiUrl}/${id}`, this.obtenerToken());
     return response.data;
   }
-
+  async buscarReclamosPorUsuario(idUsuario: number): Promise<any> {
+    const response = await axios.get(`${this.apiUrl}/reclamosUsuario/${idUsuario}`, this.obtenerToken());
+    return response.data;
+  }
   
 }

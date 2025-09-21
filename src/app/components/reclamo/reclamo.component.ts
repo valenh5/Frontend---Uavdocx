@@ -22,9 +22,10 @@ import { Reclamo, Tipo, Estado } from '../../modelos/reclamo';
 
 export class ReclamoComponent implements OnInit {
   reclamos: Reclamo[] = [];
-  nuevoReclamo: Reclamo = { id: 0, id_usuario: 0, descripcion: '', tipo: Tipo.PRODUCTO, categoria: Estado.PENDIENTE };
+  nuevoReclamo: Reclamo = { id: 0, id_usuario: 0, descripcion: '', tipo: Tipo.PRODUCTO, estado: Estado.PENDIENTE };
   cargando: boolean = false;
   error: string = '';
+  exito: string = '';
 
   tipoOptions = Object.values(Tipo);
   categoriaOptions = Object.values(Estado);
@@ -41,15 +42,17 @@ export class ReclamoComponent implements OnInit {
     this.nuevoReclamo.id_usuario = this.usuarioId ?? 0;
   }
 
-  agregarReclamo() {
+ agregarReclamo() {
     this.cargando = true;
     this.error = '';
+    this.exito = '';
     this.nuevoReclamo.id_usuario = this.usuarioId ?? 0;
     this.reclamoService.agregarReclamo(this.nuevoReclamo)
-      .then(reclamoAgregado => {
-        this.reclamos.push(reclamoAgregado);
-        this.nuevoReclamo = { id: 0, id_usuario: this.usuarioId ?? 0, descripcion: '', tipo: Tipo.PRODUCTO, categoria: Estado.PENDIENTE };
+      .then(() => {
+        this.exito = '¡Reclamo enviado correctamente!';
         this.cargando = false;
+        this.nuevoReclamo.descripcion = '';
+        this.nuevoReclamo.tipo = Tipo.PRODUCTO;
       })
       .catch(() => {
         this.error = 'Error al agregar reclamo';

@@ -11,6 +11,20 @@ export class UsuarioService {
     return response.data;
   }
 
+    obtenerToken() {
+    const token = localStorage.getItem('token');
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  }
+
+  async obtenerTodosUsuarios() {
+    const response = await axios.get(`${this.apiUrl}/todos`, this.obtenerToken());
+    return response.data;
+  }
+
 
   async registrarUsuario(nombre_usuario: string, email: string, contrasenia: string) {
     const response = await axios.post(`${this.apiUrl}/registro`, {
