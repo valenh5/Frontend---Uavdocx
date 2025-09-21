@@ -3,17 +3,19 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReclamoService } from '../../servicios/reclamo.service';
 import { Reclamo } from '../../modelos/reclamo';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-usuario',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule], 
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css'],   
 })
 export class UsuarioComponent implements OnInit {
   reclamos: Reclamo[] = [];
   usuarioId: number = 0;
+  reclamoId: number = 0;
 
   constructor(private router: Router, private reclamoService: ReclamoService) {}
 
@@ -25,18 +27,20 @@ export class UsuarioComponent implements OnInit {
     this.cargarReclamosUsuario();
   }
 
-  cargarReclamosUsuario() {
-    this.reclamoService.getReclamos()
-      .then((todos: Reclamo[]) => {
-  this.reclamos = todos.filter(r => r.id_usuario === this.usuarioId);
-      })
-      .catch(() => {
-        this.reclamos = [];
-      });
+  async cargarReclamosUsuario() {
+    try {
+      this.reclamos = await this.reclamoService.buscarReclamosPorUsuario(this.usuarioId);
+    } catch (error) {
+      console.error("Error al cargar reclamos del usuario:", error);
+      this.reclamos = [];
+    }
   }
-
+  logeado: boolean = !!localStorage.getItem('token');
   nombre: string = '';
   email: string = '';
+  redirigirLogin() {
+    this.router.navigate(['login']);
+  }
 
   cerrarSesion() {
     localStorage.removeItem('usuario');
@@ -45,5 +49,14 @@ export class UsuarioComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('id_usuario');
     this.router.navigate(['']);
+  }
+
+  async eliminarReclamo(id: number) {
+    try {
+      await this.reclamoService.eliminarReclamo(id);
+      this.cargarReclamosUsuario();
+    } catch (error) {
+      console.error("Error al eliminar reclamo:", error);
+    }
   }
 }

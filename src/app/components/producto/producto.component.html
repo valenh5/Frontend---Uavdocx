@@ -1,5 +1,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=straighten" />
 
+
+<div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
+<div *ngIf="mensajeExito" class="exito">{{ mensajeExito }}</div>
+
 <div class="producto-detalle-container">
 	<div *ngIf="cargando">Cargando producto...</div>
 	<ng-container *ngIf="!cargando && producto; else noProducto">
@@ -10,14 +14,19 @@
         <div>
             		<h1 id="nombre">{{ producto.nombre }}</h1>
 		<p> ${{ producto.precio }}</p>
-		    <div>
-                <strong>Talle</strong>
-                <ul>
-                    <li *ngFor="let talle of (producto.talles | keyvalue)">
-                        {{ talle.key }}: {{ talle.value }} unidades
-                    </li>
-                </ul>
-		    </div>
+<div>
+    <strong>Talle</strong>
+    <div class="talles-fila">
+        <button 
+            *ngFor="let talle of (producto.talles | keyvalue)" 
+            type="button"
+            [class.talle-seleccionado]="talleSeleccionado === talle.key"
+            class="talle-cuadro"
+            (click)="talleSeleccionado = talle.key">
+            {{ talle.key }}
+        </button>
+    </div>
+</div>
             <div class="guia-talles-container" (click)="abrirGuiaTalles()" tabindex="0" role="button" aria-label="Guía de talles">
                 <span class="material-symbols-outlined">straighten</span>
                 <span class="guia-talles-text">Guía de talles</span>
@@ -28,8 +37,15 @@
                     <button class="cerrar-popup" (click)="cerrarGuiaTalles()">Cerrar</button>
                 </div>
             </div>
-            <button (click)="agregarAlCarrito()">Agregar al carrito</button>
-            <button class="volver" (click)="volver()">Volver</button>
+<div style="display: flex; align-items: center; gap: 12px; margin-top: 18px;">
+    <div class="cantidad-selector">
+        <button type="button" class="cantidad-btn" (click)="bajarCantidad()">-</button>
+        <div class="cantidad-valor">{{ cantidad }}</div>
+        <button type="button" class="cantidad-btn" (click)="subirCantidad()">+</button>
+    </div>
+    <button class="agregar-carrito" (click)="agregarAlCarrito()">Agregar al carrito</button>
+    <button class="volver" (click)="volver()">Volver</button>
+</div>
         </div>
 	</ng-container>
 	<ng-template #noProducto>

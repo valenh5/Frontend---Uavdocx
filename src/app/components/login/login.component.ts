@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit{
     }
   }
 
-  async ingresar() {
+    async ingresar() {
   try {
     const respuesta = await this.usuarioService.comprobarUsuario(this.usuario_ingreso, this.pass_ingreso);
     console.log('Respuesta login:', respuesta);
@@ -47,32 +47,31 @@ export class LoginComponent implements OnInit{
 
       const id_usuario = respuesta.id_usuario || respuesta.id || null;
       console.log('id_usuario:', id_usuario);
+
+      let esAdmin = false;
       if (id_usuario) {
         try {
           const adminRes = await this.usuarioService.verificarAdmin(id_usuario);
           console.log('adminRes:', adminRes, typeof adminRes);
 
-          // Universal: soporta true, "true", {esAdmin: true}, etc.
-          let esAdmin = false;
-          if (adminRes === true || adminRes === 'true') {
-            esAdmin = true;
-          } else if (
-            typeof adminRes === 'object' &&
-            (adminRes.esAdmin === true ||
-              adminRes.admin === true ||
-              adminRes.esAdmin === 'true' ||
-              adminRes.admin === 'true')
+          if (
+            adminRes === true || adminRes === 'true' ||
+            (typeof adminRes === 'object' &&
+              (adminRes.esAdmin === true ||
+                adminRes.admin === true ||
+                adminRes.esAdmin === 'true' ||
+                adminRes.admin === 'true'))
           ) {
             esAdmin = true;
           }
-          localStorage.setItem('esAdmin', esAdmin ? 'true' : 'false');
-          localStorage.setItem('id_usuario', id_usuario.toString());
         } catch (e) {
           console.log('Error en verificarAdmin:', e);
-          localStorage.setItem('esAdmin', 'false');
         }
-      } else {
-        localStorage.setItem('esAdmin', 'false');
+      }
+
+      localStorage.setItem('esAdmin', esAdmin ? 'true' : 'false');
+      if (id_usuario) {
+        localStorage.setItem('id_usuario', id_usuario.toString());
       }
 
       this.router.navigate(['']);

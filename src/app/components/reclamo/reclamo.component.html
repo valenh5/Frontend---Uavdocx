@@ -1,16 +1,15 @@
 <h1>Reclamo</h1>
 
 <div *ngIf="error" class="error">{{ error }}</div>
+<div *ngIf="exito" class="exito">{{ exito }}</div>
+
 
 <form (ngSubmit)="agregarReclamo()" #reclamoForm="ngForm">
 		<div>
 			<label>Usuario:</label>
 			<span>{{ usuarioNombre }}</span>
 		</div>
-		<div>
-			<label>ID Usuario:</label>
-			<span>{{ usuarioId }}</span>
-		</div>
+		
 	<div>
 		<label>Descripción:</label>
 		<input type="text" [(ngModel)]="nuevoReclamo.descripcion" name="descripcion" required>
@@ -23,14 +22,8 @@
 	</div>
 		<div>
 			<label>Estado:</label>
-			<span>{{ nuevoReclamo.categoria }}</span>
+			<span>{{ nuevoReclamo.estado }}</span>
 		</div>
 	<button type="submit" [disabled]="cargando">Enviar Reclamo</button>
 </form>
 
-<h2>Reclamos enviados</h2>
-<ul>
-	<li *ngFor="let reclamo of reclamos">
-		{{ reclamo.descripcion }} - {{ reclamo.tipo }} - {{ reclamo.categoria }}
-	</li>
-</ul>

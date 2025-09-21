@@ -25,6 +25,11 @@ export class PrendasService {
     return response.data;
   }
 
+  async verificarTalle(prendaId: number, talle: string, cantidad: number): Promise<boolean> {
+    const response = await axios.get(`${this.apiUrl}/talleDisponible/${prendaId}/${talle}/${cantidad}`, this.obtenerToken());
+  return response.data.disponible;
+  }
+
   async agregarPrenda(prenda: Prenda): Promise<Prenda> {
     try {
       const response = await axios.post(`${this.apiUrl}/crearPrenda`, prenda, this.obtenerToken());

@@ -31,41 +31,43 @@ export class CarritoService {
     return response.data;
   }
 
-  async agregarAlCarrito(productoId: number, cantidad: number): Promise<Carrito> {
-    const response = await axios.post(
-      `${this.apiUrl}/agregar`,
-      { productos: [{ id: productoId, cantidad }] },
-      this.obtenerToken()
-    );
-    return response.data;
-  }
 
-  async eliminarDelCarrito(productoId: number): Promise<Carrito> {
-    const response = await axios.delete(
-      `${this.apiUrl}/eliminar`,
-      {
-        ...this.obtenerToken(),
-        data: { productoId }
-      }
-    );
-    return response.data;
-  }
+async agregarAlCarrito(productoId: number, cantidad: number, talle: string): Promise<Carrito> {
+  const response = await axios.post(
+    `${this.apiUrl}/agregar`,
+    { productos: [{ id: productoId, cantidad, talle }] },
+    this.obtenerToken()
+  );
+  return response.data;
+}
 
-  async aumentarCantidad(productoId: number): Promise<Carrito> {
-    const response = await axios.post(
-      `${this.apiUrl}/sumar`,
-      { productoId },
-      this.obtenerToken()
-    );
-    return response.data;
-  }
+async eliminarDelCarrito(productoId: number, talle: string): Promise<Carrito> {
+  const response = await axios.delete(
+    `${this.apiUrl}/eliminar`,
+    {
+      ...this.obtenerToken(),
+      data: { productoId, talle }
+    }
+  );
+  return response.data;
+}
 
-  async disminuirCantidad(productoId: number): Promise<Carrito> {
-    const response = await axios.post(
-      `${this.apiUrl}/restar`,
-      { productoId },
-      this.obtenerToken()
-    );
-    return response.data;
-  }
+async aumentarCantidad(productoId: number, talle: string): Promise<Carrito> {
+  const response = await axios.post(
+    `${this.apiUrl}/sumar`,
+    { productoId, talle },
+    this.obtenerToken()
+  );
+  return response.data;
+}
+
+async disminuirCantidad(productoId: number, talle: string): Promise<Carrito> {
+  const response = await axios.post(
+    `${this.apiUrl}/restar`,
+    { productoId, talle },
+    this.obtenerToken()
+  );
+  return response.data;
+}
+
 }
