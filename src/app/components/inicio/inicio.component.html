@@ -50,7 +50,7 @@
 
 
     <div id="prendas-container">
-  <div class="prenda-card" *ngFor="let prenda of prendasFiltradas" >
+  <div class="prenda-card" *ngFor="let prenda of prendasFiltradas" (click)="verProducto(prenda.id)">
       <div class="prenda-imagen">
         <img *ngIf="prenda.imagen" [src]="prenda.imagen" alt="Imagen de la prenda" class="imagen-prenda">
       </div>

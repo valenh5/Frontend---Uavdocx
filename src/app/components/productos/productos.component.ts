@@ -26,6 +26,7 @@ export class ProductoComponent implements OnInit {
   carrito: any;
   precioTotal: any;
   router: any;
+
     constructor(public carritoService: CarritoService) {} 
 
 
@@ -39,8 +40,8 @@ usuarioLogueado: string | null = null;
 mostrarFiltro: boolean = false;
 categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
 categoriaFiltrar : string | null = null;
-precioMinimo: number | null = 0;
-precioMaximo: number | null = 0;
+precioMinimo: number = 1;
+precioMaximo: number = 1000;
 
 
 

@@ -41,20 +41,25 @@
       <button id="filtrar-txt" (click)="toggleFormulario()">FILTRAR</button>
       <span class="material-icons" (click)="toggleFormulario()">list</span>
     </div>
-    <div class="filtros" *ngIf="mostrarFiltro">
-      <div class="filtrarPrecios">  
-        <input type="number" placeholder="Minimo" [(ngModel)]="precioMinimo">
-        <input type="number" placeholder="Maximo" [(ngModel)]="precioMaximo">
+<div class="filtros" *ngIf="mostrarFiltro">
+  <div class="filtros-fila">
+    <div class="filtro-bloque">
+      <label for="precioMinimo">Precio</label>
+      <div class="filtro-precios">
+        <input type="number" id="precioMinimo" placeholder="Desde" [(ngModel)]="precioMinimo">
+        <input type="number" id="precioMaximo" placeholder="Hasta" [(ngModel)]="precioMaximo">
       </div>
-      
-      <div>
-          <select [(ngModel)]= "categoriaFiltrar" id="categoria">
-            <option value="" disabled selected hidden>Categoria</option>
-            <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
-          </select>
-      </div>
-      <button id="aplicar" (click)="filtrar()">Aplicar</button>
     </div>
+    <div class="filtro-bloque">
+      <label for="categoria">Tipo</label>
+      <select [(ngModel)]="categoriaFiltrar" id="categoria">
+        <option value="" disabled selected hidden>Tipo</option>
+        <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+      </select>
+    </div>
+    <button id="aplicar" (click)="filtrar()">Aplicar</button>
+  </div>
+</div>
   </div>
 
   <div id="prendas-container">

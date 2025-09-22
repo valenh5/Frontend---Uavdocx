@@ -385,37 +385,121 @@ footer {
   font-feature-settings: 'liga';
 }
 
-.filtros{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+
+.filtros {
+  display: flex;
+  justify-content: center;
+  background: #f7fafd;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 18px 0;
+  margin-top: 18px;
 }
 
-#filtrar-txt{
-   background: none;
+.filtros-fila {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+}
+
+.filtro-bloque {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filtro-bloque label {
+  font-size: 15px;
+  color: #222;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.filtro-precios {
+  display: flex;
+  gap: 8px;
+}
+
+.filtro-precios input[type="number"] {
+  width: 90px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  font-size: 15px;
+  transition: border 0.2s;
+}
+
+.filtro-precios input[type="number"]:focus {
+  border: 1.5px solid #007bff;
+  outline: none;
+}
+
+#categoria {
+  background-color: #fff;
+  color: #333;
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  min-width: 120px;
+}
+
+#categoria:focus {
+  border: 1.5px solid #007bff;
+  outline: none;
+}
+
+#aplicar {
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  padding: 0;
-  color: black;
-  font: inherit;
+  border-radius: 7px;
+  padding: 9px 22px;
+  font-weight: 600;
+  font-size: 15px;
   cursor: pointer;
+  margin-left: 12px;
+  transition: background 0.2s, transform 0.2s;
 }
 
-#aplicar{
-  color: rgb(58, 56, 56);
-  padding: 1%;
+#aplicar:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px) scale(1.04);
 }
 
-#categoria{
-  background-color: white;
-  color: black;
-  padding: 1%;
+.filtrar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-#boton-AgregarCarrito {
-  background-color: #333436;
-  color: white;
+#filtrar-txt {
+  background: #ffffff;
+  color: #000000;
   border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 15px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background 0.2s;
+}
+
+#filtrar-txt:hover {
+  background: #a1a1a1;
+}
+
+.material-icons {
+  color: #007bff;
+  background: #eaf1fb;
+  border-radius: 50%;
+  padding: 6px;
+  font-size: 26px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.material-icons:hover {
+  background: #a1a1a1;
 }
