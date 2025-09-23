@@ -8,7 +8,7 @@
 	<div *ngIf="cargando">Cargando producto...</div>
 	<ng-container *ngIf="!cargando && producto; else noProducto">
         <div>
-                    <img *ngIf="producto.imagen" [src]="producto.imagen" alt="Imagen de la prenda">
+                <img *ngIf="producto.imagen" [src]="producto.imagen" alt="Imagen de la prenda" class="producto-imagen">
 
         </div>
         <div>

@@ -103,7 +103,9 @@ async cargarProductos(): Promise<void> {
       clearInterval(this.intervalId);
     }
   }
-
+   verProducto(id: number): void {
+    window.location.href = `/producto/${id}`;
+  }
    
 
 

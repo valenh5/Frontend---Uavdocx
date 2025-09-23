@@ -1,28 +1,193 @@
+body, html {
+  background: #fff;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: left;
+  margin-top: 32px;
+  font-size: 2.2rem;
+  color: #222;
+  letter-spacing: 1px;
+}
+
 .usuarios-lista {
-  margin-top: 20px;
+  margin-top: 32px;
   display: flex;
   justify-content: center;
+  width: 100%;
+  overflow-x: unset;
 }
 
 table {
   border-collapse: collapse;
-  width: 80%;
+  width: 100%;
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 10px 16px;
+  border-bottom: 1px solid #eaeaea;
+  padding: 10px 6px;
   text-align: left;
+  word-break: break-word;
+  font-size: 0.8rem;
 }
 
 th {
-  background: #363636;
+  background: #222;
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
 tr:nth-child(even) {
-  background: #f5f5f5;
+  background: #fafafa;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.opciones {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.opciones button {
+  border: 1px solid #222;
+  background-color: #fff;
+  color: #222;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  outline: none;
+}
+
+.opciones button:hover {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #222;
+  cursor: pointer;
+}
+
+.tooltip-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.tooltip-confirmacion {
+  position: static;
+  min-width: 260px;
+  background: #fff;
+  border: 2px solid #222;
+  border-radius: 10px;
+  padding: 20px 32px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.tooltip-confirmacion span {
+  font-size: 1.05rem;
+  color: #222;
+  margin-bottom: 6px;
+}
+
+.tooltip-confirmacion button {
+  margin: 0 8px;
+  padding: 7px 18px;
+  border-radius: 5px;
+  border: none;
+  background: #222;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tooltip-confirmacion button:hover {
+  background: #fff;
+  color: #222;
+  border: 1px solid #222;
+}
+
+@media (max-width: 900px) {
+  .usuarios-lista {
+    margin-top: 12px;
+    overflow-x: unset;
+  }
+  table {
+    width: 100%;
+    min-width: unset;
+    font-size: 0.90rem;
+    display: table;
+    overflow-x: unset;
+  }
+  th, td {
+    padding: 8px 4px;
+    font-size: 0.90rem;
+    word-break: break-word;
+  }
+  .opciones {
+    flex-direction: column;
+    gap: 3px;
+  }
+  .opciones button {
+    font-size: 0.90rem;
+    padding: 5px 8px;
+    min-width: 70px;
+  }
+}
+
+@media (max-width: 600px) {
+  .usuarios-lista {
+    margin-top: 6px;
+    overflow-x: unset;
+  }
+  table {
+    width: 100%;
+    min-width: unset;
+    font-size: 0.80rem;
+    display: table;
+    overflow-x: unset;
+  }
+  th, td {
+    padding: 6px 2px;
+    font-size: 0.80rem;
+    word-break: break-word;
+    max-width: 80px;
+  }
+  .opciones {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .opciones button {
+    width: 100%;
+    font-size: 0.80rem;
+    padding: 4px 6px;
+    min-width: 60px;
+  }
+  h1 {
+    font-size: 1rem;
+    margin-top: 6px;
+  }
 }

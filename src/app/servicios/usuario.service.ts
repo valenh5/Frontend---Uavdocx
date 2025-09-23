@@ -6,6 +6,21 @@ import { environment } from '../../environments/enviroment';
 export class UsuarioService {
   private apiUrl = environment.apiUrl + '/usuarios';
 
+  async eliminarUsuario(id_usuario: number) {
+    const response = await axios.delete(`${this.apiUrl}/eliminar/${id_usuario}`, this.obtenerToken());
+    return response.data;
+  }
+
+  async cambiarVerificado(id_usuario: number) {
+    const response = await axios.post(`${this.apiUrl}/cambiar-estado-verificado/${id_usuario}`, {}, this.obtenerToken());
+    return response.data;
+  }
+
+  async cambiarAdmin(id_usuario: number) {
+    const response = await axios.post(`${this.apiUrl}/cambiar-estado-admin/${id_usuario}`, {}, this.obtenerToken());
+    return response.data;
+  }
+
   async verificarAdmin(id_usuario: number) {
     const response = await axios.get(`${this.apiUrl}/admin/${id_usuario}`);
     return response.data;
