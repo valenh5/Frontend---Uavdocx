@@ -258,7 +258,7 @@ footer {
 #prendas-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0;
+  gap: 5%;
   margin: 40px auto 0 auto;
   max-width: 1200px;
   width: 100%;
@@ -280,10 +280,11 @@ footer {
   transition: box-shadow 0.2s;
   height: 340px;
   overflow: hidden;
+  cursor:pointer
 }
 
 .prenda-card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 40px 160px #0000;
   z-index: 2;
 }
 
@@ -326,7 +327,6 @@ footer {
   color: #444;
 }
 
-/* ...existing code... */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -376,4 +376,9 @@ footer {
   color: #007bff;
   background-color: #f1f1f1;
 }
-/* ...existing code... */
+
+.ig{
+  width: 8%;
+  height: 15%;
+  margin-top: 8px;
+}

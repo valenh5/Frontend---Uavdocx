@@ -15,6 +15,7 @@
           <th>Admin</th>
           <th>Creado</th>
           <th>Actualizado</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +27,18 @@
           <td>{{ usuario.admin ? 'Sí' : 'No' }}</td>
           <td>{{ usuario.createdAt }}</td>
           <td>{{ usuario.updatedAt }}</td>
+          <td class="opciones">
+            <button (click)="cambiarVerificado(usuario.id)">Cambiar Verificado</button>
+            <button (click)="cambiarAdmin(usuario.id)">Cambiar Admin</button>
+            <button (click)="mostrarConfirmacion(usuario.id)">Eliminar</button>
+            <div *ngIf="mostrarTooltip && usuarioAEliminar === usuario.id" class="tooltip-overlay">
+  <div class="tooltip-confirmacion">
+    <span>¿Estás seguro?</span>
+    <button (click)="confirmarEliminarUsuario()">Sí</button>
+    <button (click)="cancelarEliminarUsuario()">No</button>
+  </div>
+</div>
+          </td>
         </tr>
       </tbody>
     </table>

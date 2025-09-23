@@ -31,7 +31,7 @@ export class AbmComponent implements OnInit {
 
   paginaActual = 1;
   limitePorPagina = 2;
-  totalPaginas = 2;
+  totalPaginas = 10;
     usuarioLogueado: string | null = null;
     esAdmin: boolean = false;
 

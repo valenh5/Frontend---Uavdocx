@@ -32,6 +32,7 @@
       <a href="/carrito" class="material-symbols-outlined">shopping_cart</a>
       <a href="/usuario" class="material-symbols-outlined">person</a>
       <a href="/reclamo" class="material-symbols-outlined">sentiment_extremely_dissatisfied</a>
+      <a href="/local" class="material-symbols-outlined">store</a>
     </div>
   </div>
 </nav>
@@ -50,7 +51,7 @@
 
 
     <div id="prendas-container">
-  <div class="prenda-card" *ngFor="let prenda of prendasFiltradas" >
+  <div class="prenda-card" *ngFor="let prenda of prendasFiltradas" (click)="verProducto(prenda.id)">
       <div class="prenda-imagen">
         <img *ngIf="prenda.imagen" [src]="prenda.imagen" alt="Imagen de la prenda" class="imagen-prenda">
       </div>
@@ -79,10 +80,11 @@
         <p class="titulo-footer">UAVDOCX</p>
         <p>Inicio</p>
         <p>Local</p>
+  <a href="https://www.instagram.com/uavdocx/" target="_blank" rel="noopener"><img class="ig" src="https://static.vecteezy.com/system/resources/previews/008/385/736/non_2x/instagram-social-media-icon-symbol-element-illustration-free-vector.jpg"></a>
       </div>
       <div>
         <p class="titulo-footer">CONTACTO</p>
-        <p>+54 9 11 2688-3073</p>
+        <p>+54 9 11 2894-6160</p>
         <p>uavdocx.gmail.com</p>
         <p>Provincia de Buenos Aires</p>
       </div>
