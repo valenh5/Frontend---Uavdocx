@@ -157,6 +157,7 @@ h2.titulo-productos {
   padding: 20px;
   justify-items: center;
   margin-top: 2%;
+  cursor: pointer;
 }
 
 .prenda-card {
@@ -451,21 +452,19 @@ footer {
 }
 
 #aplicar {
-  background-color: #007bff;
-  color: #fff;
+  background: #ffffff;
+  color: #000000;
   border: none;
-  border-radius: 7px;
-  padding: 9px 22px;
+  border-radius: 8px;
+  padding: 8px 18px;
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
-  margin-left: 12px;
-  transition: background 0.2s, transform 0.2s;
+  transition: background 0.2s;
 }
 
 #aplicar:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px) scale(1.04);
+  background: #a1a1a1;
 }
 
 .filtrar {

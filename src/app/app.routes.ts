@@ -12,6 +12,7 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { ReclamoComponent } from './components/reclamo/reclamo.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ReclamosComponent } from './components/reclamos/reclamos.component';
+import { LocalComponent } from './components/local/local.component';
 
 export const routes: Routes = [
   { path: '', component: inicio },
@@ -27,5 +28,6 @@ export const routes: Routes = [
   { path: 'usuario', component: UsuarioComponent },
   { path: 'reclamo', component: ReclamoComponent },
   { path: 'usuarios', component: UsuariosComponent },
-  { path: 'reclamos', component: ReclamosComponent }
+  { path: 'reclamos', component: ReclamosComponent },
+  { path: 'local', component: LocalComponent }
 ];

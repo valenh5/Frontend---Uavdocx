@@ -71,6 +71,13 @@ async filtrar() {
   }
 }
 
+async limpiarFiltro() {
+  this.categoriaFiltrar = null;
+  this.precioMinimo = 1;
+  this.precioMaximo = 1000;
+  await this.cargarProductos();
+}
+
 
 
   toggleFormulario(): void {

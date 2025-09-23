@@ -4,6 +4,17 @@
     gap: 16px;
 }
 
+.producto-imagen {
+  width: 80%;
+  height: 70%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  background: #f8f8f8;
+  display: block;
+  margin: 0 auto;
+}
+
 #nombre{
     font-size: 24px;
     font-weight: bold;

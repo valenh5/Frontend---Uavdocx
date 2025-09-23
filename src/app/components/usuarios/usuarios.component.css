@@ -18,11 +18,13 @@ h1 {
   margin-top: 32px;
   display: flex;
   justify-content: center;
+  width: 100%;
+  overflow-x: unset;
 }
 
 table {
   border-collapse: collapse;
-  width: 90%;
+  width: 100%;
   background: #fff;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   border-radius: 12px;
@@ -31,8 +33,10 @@ table {
 
 th, td {
   border-bottom: 1px solid #eaeaea;
-  padding: 14px 18px;
+  padding: 10px 6px;
   text-align: left;
+  word-break: break-word;
+  font-size: 0.8rem;
 }
 
 th {
@@ -127,24 +131,63 @@ tr:last-child td {
 }
 
 @media (max-width: 900px) {
+  .usuarios-lista {
+    margin-top: 12px;
+    overflow-x: unset;
+  }
   table {
     width: 100%;
-    font-size: 0.95rem;
+    min-width: unset;
+    font-size: 0.90rem;
+    display: table;
+    overflow-x: unset;
   }
   th, td {
-    padding: 10px 8px;
+    padding: 8px 4px;
+    font-size: 0.90rem;
+    word-break: break-word;
+  }
+  .opciones {
+    flex-direction: column;
+    gap: 3px;
+  }
+  .opciones button {
+    font-size: 0.90rem;
+    padding: 5px 8px;
+    min-width: 70px;
   }
 }
 
 @media (max-width: 600px) {
   .usuarios-lista {
-    margin-top: 16px;
+    margin-top: 6px;
+    overflow-x: unset;
   }
   table {
-    font-size: 0.85rem;
+    width: 100%;
+    min-width: unset;
+    font-size: 0.80rem;
+    display: table;
+    overflow-x: unset;
+  }
+  th, td {
+    padding: 6px 2px;
+    font-size: 0.80rem;
+    word-break: break-word;
+    max-width: 80px;
+  }
+  .opciones {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .opciones button {
+    width: 100%;
+    font-size: 0.80rem;
+    padding: 4px 6px;
+    min-width: 60px;
   }
   h1 {
-    font-size: 1.4rem;
-    margin-top: 18px;
+    font-size: 1rem;
+    margin-top: 6px;
   }
 }
