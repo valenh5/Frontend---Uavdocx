@@ -17,13 +17,14 @@ export class AbmComponent implements OnInit {
   prendas: any[] = [];
   prendasFiltradas: any[] = [];
   busqueda: string = '';
-  prendaNueva: any = {
-    nombre: '',
-    precio: '',
-    talles: { S: 0, M: 0, L: 0, XL: 0 },
-    categoria: '',
-    imagen: ''
-  };
+prendaNueva: any = {
+  nombre: '',
+  precio: '',
+  talles: { S: 0, M: 0, L: 0, XL: 0 },
+  categoria: '',
+  imagenPrincipal: '',
+  imagenesSecundarias: []
+};
 
   prendaEditando: any = null;
   mostrarFormulario: boolean = false;
@@ -73,7 +74,7 @@ export class AbmComponent implements OnInit {
     try {
       const response = await axios.get(`${apiUrl}/listarPrendas?page=${this.paginaActual}&limit=${this.limitePorPagina}`);
       this.prendas = response.data.data;
-        
+      this.totalPaginas = response.data.total ? Math.ceil(response.data.total / this.limitePorPagina) : 1;  
       this.prendasFiltradas = [...this.prendas];
     } catch (error) {
       console.error("Error al cargar prendas:", error);
@@ -82,6 +83,12 @@ export class AbmComponent implements OnInit {
 
 async crearPrenda(): Promise<void> {
   try {
+    if (typeof this.prendaNueva.imagenesSecundarias === 'string') {
+      this.prendaNueva.imagenesSecundarias = this.prendaNueva.imagenesSecundarias
+        .split(',')
+        .map((url: string) => url.trim())
+        .filter((url: string) => url.length > 0);
+    }
     const nuevaPrenda = await this.prendasService.agregarPrenda(this.prendaNueva);
     await this.cargarPrendas();
     alert(`Prenda creada: ${nuevaPrenda.nombre}`); 
@@ -90,7 +97,8 @@ async crearPrenda(): Promise<void> {
       precio: '',
       talles: { S: 0, M: 0, L: 0, XL: 0 },
       categoria: '',
-      imagen: ''
+      imagenPrincipal: '',
+      imagenesSecundarias: []
     };
     this.mostrarFormulario = false;
   } catch (error: any) {
@@ -100,28 +108,40 @@ async crearPrenda(): Promise<void> {
 }
 
   editarPrenda(prenda: any): void {
-    if (this.prendaEditando && this.prendaEditando.id === prenda.id) {
-      this.prendaEditando = null;
-    } else {
-      this.prendaEditando = { ...prenda, talles: { ...prenda.talles } };
-    }
+  if (this.prendaEditando && this.prendaEditando.id === prenda.id) {
+    this.prendaEditando = null;
+  } else {
+    this.prendaEditando = { 
+      ...prenda, 
+      talles: { ...prenda.talles },
+      imagenesSecundarias: Array.isArray(prenda.imagenesSecundarias) 
+        ? prenda.imagenesSecundarias.join(', ') 
+        : ''
+    };
   }
+}
 
-  async guardarCambios(): Promise<void> {
-    if (this.prendaEditando && this.prendaEditando.id !== undefined && this.prendaEditando.id !== 0) {
-      try {
-        await this.prendasService.actualizarPrenda(this.prendaEditando);
-        await this.cargarPrendas();
-        this.prendaEditando = null;
-        alert("Prenda editada");
-      } catch (error) {
-        console.error("Error al guardar cambios:", error);
-        alert("No tiene los permisos necesarios o falta iniciar sesión");
+async guardarCambios(): Promise<void> {
+  if (this.prendaEditando && this.prendaEditando.id !== undefined && this.prendaEditando.id !== 0) {
+    try {
+      if (typeof this.prendaEditando.imagenesSecundarias === 'string') {
+        this.prendaEditando.imagenesSecundarias = this.prendaEditando.imagenesSecundarias
+          .split(',')
+          .map((url: string) => url.trim())
+          .filter((url: string) => url.length > 0);
       }
-    } else {
-      alert("No se puede guardar cambios: ID inválido.");
+      await this.prendasService.actualizarPrenda(this.prendaEditando);
+      await this.cargarPrendas();
+      this.prendaEditando = null;
+      alert("Prenda editada");
+    } catch (error) {
+      console.error("Error al guardar cambios:", error);
+      alert("No tiene los permisos necesarios o falta iniciar sesión");
     }
+  } else {
+    alert("No se puede guardar cambios: ID inválido.");
   }
+}
 
   async eliminarPrenda(id: number): Promise<void> {
     try {

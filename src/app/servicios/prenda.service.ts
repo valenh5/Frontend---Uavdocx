@@ -20,8 +20,8 @@ export class PrendasService {
   private apiUrl = environment.apiUrl + "/prendas";
 
 
-  async getPrendas(): Promise<any> {
-    const response = await axios.get(`${this.apiUrl}/listarPrendas`, this.obtenerToken());
+  async getPrendas(paginaActual: number, limitePorPagina: number): Promise<any> {
+    const response = await axios.get(`${this.apiUrl}/listarPrendas?page=${paginaActual}&limit=${limitePorPagina}`);
     return response.data;
   }
 

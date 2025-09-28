@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import { CarritoService } from '../../servicios/carrito.service';
+import { PrendasService } from '../../servicios/prenda.service';
 import { Router } from '@angular/router';
 import axios from 'axios';
 
@@ -18,10 +19,18 @@ export class CompraComponent implements OnInit {
   usuarioLogueado: string | null | undefined;
   envioLocal: boolean = false;
   envio: number = 0;
-
+  paso: number = 1;
+  email: string = '';
+  mensajeFaltanDatos: string = '';
+  opcionEntrega: string = '';
+  nombreDestinatario: string = '';
+  direccionEntrega: string = '';
+  apellidoDestinatario: string = '';
+  telefonoDestinatario: string = '';
+  dniDestinatario: string = '';
   preferenceId: string | null = null;
   publicKey: string = 'APP_USR-97fcd1ee-745e-4751-a335-690ec9395bfe';
-  constructor(private carritoService: CarritoService, private router: Router) {
+  constructor(private carritoService: CarritoService, private router: Router, private PrendasService: PrendasService) {
   }
   
 
@@ -31,7 +40,20 @@ export class CompraComponent implements OnInit {
     await this.obtenerCarrito();
     await this.obtenerUsuarioLogueado();
     await this.calcularEnvio();
+    this.paso = 1;
   }
+
+async siguientePasoUno() {
+  if (this.email != null && this.email.trim() !== '') {
+    this.paso = 2;
+    await this.createPreference(); 
+  } else {
+    this.mensajeFaltanDatos = 'Por favor, ingrese un email válido.';
+    setTimeout(() => {
+      this.mensajeFaltanDatos = '';
+    }, 2000);
+  }
+}
 
 
      async calcularEnvio() {
@@ -54,7 +76,25 @@ export class CompraComponent implements OnInit {
       const response = await this.carritoService.obtenerCarrito();
 
       if (response && Array.isArray(response.productos)) {
-        this.carrito = response.productos;
+        const productosConDatos = await Promise.all(
+          response.productos.map(async (item: any) => {
+            try {
+              const prenda = await this.PrendasService.cargarPrenda(item.id);
+              return {
+                ...item,
+                nombre: prenda?.nombre ? `${prenda.nombre} (Talle ${item.talle})` : `Sin nombre (Talle ${item.talle})`,
+                imagen: prenda?.imagenPrincipal || '',
+              };
+            } catch (e) {
+              return {
+                ...item,
+                nombre: `Sin nombre (Talle ${item.talle})`,
+                imagen: '',
+              };
+            }
+          })
+        );
+        this.carrito = productosConDatos;
       } else {
         this.carrito = [];
       }
@@ -104,5 +144,9 @@ async createPreference() {
         preferenceId: this.preferenceId,
       }
     });
+  }
+
+      verProducto(id: number): void {
+    window.location.href = `/producto/${id}`;
   }
 }

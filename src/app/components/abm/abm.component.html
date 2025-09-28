@@ -39,8 +39,11 @@
   <a></a>
   <div class="prenda-card" *ngFor="let prenda of prendasFiltradas">
     <div class="prenda-imagen">
-      <img *ngIf="prenda.imagen" [src]="prenda.imagen" alt="Imagen de la prenda" class="imagen-prenda">
-    </div>
+  <img *ngIf="prenda.imagenPrincipal" [src]="prenda.imagenPrincipal" alt="Imagen principal" class="imagen-prenda">
+  <div *ngIf="prenda.imagenesSecundarias && prenda.imagenesSecundarias.length">
+    <img *ngFor="let img of prenda.imagenesSecundarias" [src]="img" alt="Imagen secundaria" style="width: 40px; margin: 2px;">
+  </div>
+</div>
     <div class="prenda-info">
       <h3>{{ prenda.nombre }}</h3>
       <p><strong>Precio:</strong> ${{ prenda.precio }}</p>
@@ -65,7 +68,9 @@
           <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
         </select>
 
-        <input type="text" [(ngModel)]="prendaEditando.imagen" placeholder="URL de la imagen">
+         <input type="text" [(ngModel)]="prendaEditando.imagenPrincipal" placeholder="URL imagen principal">
+  <input type="text" [(ngModel)]="prendaEditando.imagenesSecundarias" placeholder="URLs imágenes secundarias (separadas por coma)">
+
 
         <div class="form-actions">
           <button (click)="guardarCambios()">Guardar Cambios</button>
@@ -99,8 +104,8 @@
     <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
   </select>
 
-  <input type="text" [(ngModel)]="prendaNueva.imagen" placeholder="URL de la imagen">
-
+  <input type="text" [(ngModel)]="prendaNueva.imagenPrincipal" placeholder="URL imagen principal">
+  <input type="text" [(ngModel)]="prendaNueva.imagenesSecundarias" placeholder="URLs imágenes secundarias (separadas por coma)">
   <button id="crear" (click)="crearPrenda()">Guardar</button>
 </div>
 
