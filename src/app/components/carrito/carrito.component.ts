@@ -68,7 +68,7 @@ export class CarritoComponent implements OnInit {
               return {
                 ...item,
                 nombre: prenda?.nombre ? `${prenda.nombre} (Talle ${item.talle})` : `Sin nombre (Talle ${item.talle})`,
-                imagen: prenda?.imagen || '',
+                imagen: prenda?.imagenPrincipal || '',
               };
             } catch (e) {
               return {

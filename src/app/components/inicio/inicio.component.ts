@@ -13,7 +13,6 @@ const apiUrl = environment.apiUrl + "/prendas";
   selector: 'app-prendas',
   standalone: true,
   imports: [FormsModule, CommonModule, RouterModule],
-
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css']
 })
