@@ -20,6 +20,7 @@ export enum Talle {
     precio: number;
     talles: Record<Talle, number>;
     categoria: Categoria;
-    imagen: string;
+    imagenPrincipal: string;
+    imagenesSecundarias?: string[];
   }
   

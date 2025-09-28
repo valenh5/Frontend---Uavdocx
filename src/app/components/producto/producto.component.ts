@@ -7,18 +7,22 @@ import { PrendasService } from '../../servicios/prenda.service';
 import { Prenda } from '../../modelos/prenda';
 import { CarritoService } from '../../servicios/carrito.service';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment.prod';
+import axios from 'axios';
 
 @Component({
 	selector: 'app-producto-detalle',
 	standalone: true,
-	imports: [CommonModule, FormsModule],
+	imports: [CommonModule, FormsModule, RouterModule],
 	templateUrl: './producto.component.html',
 	styleUrls: ['./producto.component.css']
 })
 export class ProductoDetalleComponent implements OnInit {
 	mostrarGuiaTalles = false;
 	talleSeleccionado: string = '';
-
+	  usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
 	abrirGuiaTalles() {
 		this.mostrarGuiaTalles = true;
 	}
@@ -26,25 +30,51 @@ export class ProductoDetalleComponent implements OnInit {
 	cerrarGuiaTalles() {
 		this.mostrarGuiaTalles = false;
 	}
+
+	  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
 	producto: Prenda | null = null;
 	cargando: boolean = true;
 	mensajeExito: string = '';
   mensajeError: string = '';
   cantidad: number = 1;
+  apiUrl: string = environment.apiUrl + "/prendas";
+  prendas: Prenda[] = [];
+  paginaActual: number = 1;
+  limitePorPagina: number = 3
+  totalPaginas: number = 1;
+  prendasFiltradas: Prenda[] = [];
+    imagenSeleccionada: string | null = null;
+
 
 	constructor(private carritoService: CarritoService, private route: ActivatedRoute, private prendasService: PrendasService) {}
 
-	async ngOnInit() {
-		const id = Number(this.route.snapshot.paramMap.get('id'));
-		if (id) {
-			try {
-				this.producto = await this.prendasService.cargarPrenda(id);
-			} catch (e) {
-				this.producto = null;
-			}
-		}
-		this.cargando = false;
-	}
+async ngOnInit() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (id) {
+      try {
+        this.producto = await this.prendasService.cargarPrenda(id);
+        if (this.producto) {
+          this.imagenSeleccionada = this.producto.imagenPrincipal || null;
+        }
+      } catch (e) {
+        this.producto = null;
+      }
+    }
+    this.cargando = false;
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
+  }
+
+  seleccionarImagen(img: string) {
+    this.imagenSeleccionada = img;
+  }
 
 	volver() {
 		history.back();
@@ -71,7 +101,7 @@ async agregarAlCarrito() {
         }, 2000);
         return;
       }
-      await this.carritoService.agregarAlCarrito(this.producto.id, this.cantidad, this.talleSeleccionado); // <-- talle agregado
+      await this.carritoService.agregarAlCarrito(this.producto.id, this.cantidad, this.talleSeleccionado); 
       this.mensajeExito = 'Producto agregado al carrito correctamente';
       setTimeout(() => {
         this.mensajeExito = '';
@@ -84,4 +114,5 @@ async agregarAlCarrito() {
     }
   }
 }
+
 }

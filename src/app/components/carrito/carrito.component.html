@@ -35,4 +35,8 @@
   </li>
 </ul>
 
-<button class="compra" (click)="comprar()">Iniciar Compra</button>
+<div *ngIf="!carrito.length" class="carrito-vacio">
+  <p>El carrito está vacío. <a href="/productos">Ver productos</a></p>
+</div>
+
+<button [disabled]="!carrito.length" class="compra" (click)="comprar()">Iniciar Compra</button>

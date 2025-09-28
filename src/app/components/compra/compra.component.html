@@ -1,51 +1,129 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
-<h1>Compra</h1>
+<div class="error"*ngIf="mensajeFaltanDatos">{{ mensajeFaltanDatos }}</div>
 
-
-<ul>
-  <li class="producto"*ngFor="let item of carrito">
-    <span>{{ item.id }}</span>
-    <div class="cantidad-container">
-      <span class="cantidad-borde">
-      <span>{{ item.cantidad }}</span>
-      </span>
-    </div>
-    <span>${{ item.cantidad * item.precio }}</span>
-
+<ul class="linea-pasos">
+  <li>
+    <button class="paso deshabilitado" aria-disabled="true" tabindex="-1">
+      <div class="icono">
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+          <path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 2a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm-9.83-4L6 6H4"
+            stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 6h15l-1.68 7.39a2 2 0 0 1-1.96 1.61H8.53a2 2 0 0 1-1.97-1.61L6 6z"
+            stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="texto">Carrito</p>
+    </button>
+  </li>
+  <li class="conector"></li>
+  <li>
+    <button class="paso" [ngClass]="{'actual': paso === 1, 'deshabilitado': paso !== 1}" [attr.aria-disabled]="paso !== 1" [attr.tabindex]="paso !== 1 ? -1 : 0">
+      <div class="icono">
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+          <rect x="3" y="7" width="13" height="10" rx="2"
+            [attr.stroke]="paso === 1 ? '#1976d2' : '#888'" stroke-width="2"/>
+          <path d="M16 10h3.34a2 2 0 0 1 1.92 1.44l.7 2.1A2 2 0 0 1 20.07 16H19"
+            [attr.stroke]="paso === 1 ? '#1976d2' : '#888'" stroke-width="2"/>
+          <circle cx="7.5" cy="17.5" r="1.5"
+            [attr.fill]="paso === 1 ? '#1976d2' : '#888'"/>
+          <circle cx="17.5" cy="17.5" r="1.5"
+            [attr.fill]="paso === 1 ? '#1976d2' : '#888'"/>
+        </svg>
+      </div>
+      <p class="texto" [ngClass]="{'actual': paso === 1}">Entrega</p>
+    </button>
+  </li>
+  <li class="conector"></li>
+  <li>
+    <button class="paso" [ngClass]="{'actual': paso === 2, 'deshabilitado': paso !== 2}" [attr.aria-disabled]="paso !== 2" [attr.tabindex]="paso !== 2 ? -1 : 0">
+      <div class="icono">
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+          <rect x="2" y="5" width="20" height="14" rx="2"
+            [attr.stroke]="paso === 2 ? '#1976d2' : '#888'" stroke-width="2"/>
+          <path d="M2 10h20"
+            [attr.stroke]="paso === 2 ? '#1976d2' : '#888'" stroke-width="2"/>
+          <circle cx="7" cy="15" r="1"
+            [attr.fill]="paso === 2 ? '#1976d2' : '#888'"/>
+          <rect x="10" y="13" width="6" height="2" rx="1"
+            [attr.fill]="paso === 2 ? '#1976d2' : '#888'"/>
+        </svg>
+      </div>
+      <p class="texto" [ngClass]="{'actual': paso === 2}">Pago</p>
+    </button>
   </li>
 </ul>
 
-
-
-<div class="resumen">
-  <div class="envio-opciones">
-    <div class="envio-item">
-      <p class="envio-titulo">Medios de envio</p>
-      <input type="text" placeholder="Ingrese su codigo postal" class="envio-input" />
-      <button>+</button>
+<div *ngIf="paso === 1">
+  <div class="datos">
+    <div class="info-compra">
+      <h2>Datos de contacto</h2>
+      <input type="email" placeholder="Email" [(ngModel)]="email" />
     </div>
-    <div class="envio-item local">
-  <p class="envio-titulo">Nuestro Local</p>
-  <div class="local-checkbox-info">
-<input type="checkbox" id="localCheck" [(ngModel)]="envioLocal" (change)="calcularEnvio()"/>
-    <label for="localCheck" class="local-info">
-      Uavdocx - Store - 3014 Catamarca - Quilmes<br>
-      Horarios de atencion: Lun a Vie de 8:30 - 16:30 hs<br>
-      Sábado de 9:00 - 14:00 hs
-    </label>
+    <div class="info-compra">
+      <h2>Entrega</h2>
+      <div class="domicilio">
+        <h2>Envío a Domicilio</h2>
+        <label>
+          <input type="radio" name="entrega" [(ngModel)]="opcionEntrega" value="domicilio" />
+          MOTOMENSAJERIA ($2000)
+        </label>
+        <label>
+          <input type="radio" name="entrega" [(ngModel)]="opcionEntrega" value="sucursal" />
+          Correo Argentino Clasico - Envio a Domicilio ($0)
+        </label>
+        <label>
+          <input type="radio" name="entrega" [(ngModel)]="opcionEntrega" value="express" />
+          PUDO Argentina - Envío a Domicilio ($3500)
+        </label>
+        <label>
+          <input type="radio" name="entrega" [(ngModel)]="opcionEntrega" value="pickup" />
+          OCA Envio a Domicilio ($500)
+        </label>
+      </div>
+      <div class="retirar">
+        <h2>Retirar en Sucursal</h2>
+        <label>
+          <input type="radio" name="entrega" [(ngModel)]="opcionEntrega" value="retirar" />
+          Retirar en UAVDOCX (Gratis)
+        </label>
+      </div>
+    </div>
+    <div id="walletBrick_container"></div>
+  </div>
+  <button (click)="siguientePasoUno()">Siguiente</button>
+</div>
+
+
+
+
+<div class="entrega"*ngIf="paso === 2">
+  <div>
+    <div>
+      <h2>Datos de contacto</h2>
+      <p>{{ email }}</p>
+      <h2>Entrega</h2>
+      <p>{{ opcionEntrega }}</p>
+      <h2>Datos del destinatario</h2>
+      <input type="text" placeholder="Nombre" [(ngModel)]="nombreDestinatario" />
+      <input type="text" placeholder="Apellido" [(ngModel)]="apellidoDestinatario" />
+      <input type="text" placeholder="DNI" [(ngModel)]="dniDestinatario" />
+      <input type="text" placeholder="Teléfono" [(ngModel)]="telefonoDestinatario" />
+      <input type="text" placeholder="Direccion" [(ngModel)]="direccionEntrega" />
+      <h2>Pagar</h2>
+      <div id="walletBrick_container"></div>
+    </div>
+  </div>
+  <div class="productos">
+    <div *ngFor="let item of carrito" class="producto">
+      <img [src]="item.imagen" alt="{{ item.nombre }}" />
+      <div class="detalles">
+        <p class="nombre">{{ item.nombre }}</p>
+        <p class="cantidad">Precio: ${{ item.precio }}</p>
+      </div>
+    </div>
+    <div class="precios">
+      <p>Subtotal: ${{ precioTotal }}</p>
+      <p>Envío: ${{ envio }}</p>
+      <p>Total: ${{ precioTotal + envio }}</p>
+    </div>
   </div>
 </div>
-  </div>
-  <div>
-    <p *ngIf="carrito.length" class="subtotal">Subtotal: ${{ precioTotal }}</p>
-    <p class="envio">Envío: ${{ envio }}</p>
-    <p *ngIf="carrito.length" class="total">Total: ${{ precioTotal + envio }}</p>
-    <p *ngIf="!carrito.length && usuarioLogueado">El carrito está vacío.</p>
-    <p *ngIf="!usuarioLogueado">Inicia Sesion para tener carrito</p>
-  </div>
-
-<div id="walletBrick_container"></div>
-
-<button (click)="createPreference()" [disabled]="!carrito.length || !usuarioLogueado">
-  Pagar con Mercado Pago
-</button>
