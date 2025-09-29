@@ -38,6 +38,14 @@
         <h1>Compras</h1>
         <p>Compras realizadas por el usuario</p>
         <hr>
-        <p>No tienes compras. <a href="/carrito">Hacer una</a></p>
+        <p *ngIf="compras.length > 0">No tienes compras. <a href="/carrito">Hacer una</a></p>
+        <div *ngIf="compras.length > 0">
+            <ul>
+            <li *ngFor="let compra of compras" class="compra-card">
+                <p>ID de Compra: {{ compra.id }}</p>
+                <p>Fecha: {{ compra.fecha | date:'short' }}</p>
+                <p>Estado: {{ compra.estado }}</p>
+            </li>
+            </ul>
     </div>
 </div>

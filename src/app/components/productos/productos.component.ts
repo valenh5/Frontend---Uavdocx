@@ -4,6 +4,7 @@ import axios from 'axios';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
 import { CarritoService } from '../../servicios/carrito.service';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -12,7 +13,7 @@ const apiUrl = environment.apiUrl + "/prendas";
 @Component({
   selector: 'app-prendas',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
 
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.css']
@@ -26,12 +27,18 @@ export class ProductoComponent implements OnInit {
   carrito: any;
   precioTotal: any;
   router: any;
+    esAdminUsuario: boolean = false;
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
 
     constructor(public carritoService: CarritoService) {} 
 
 
     async ngOnInit(): Promise<void> {
     await this.cargarProductos();
+    await this.esAdmin();
 }
 paginaActual = 1;
 limitePorPagina = 3;

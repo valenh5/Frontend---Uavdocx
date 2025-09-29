@@ -14,7 +14,8 @@ import axios from 'axios';
   styleUrls: ['./compra.component.css']
 })
 export class CompraComponent implements OnInit {
-    carrito: any[] = [];
+  opcionEntregaTexto: string = '';
+  carrito: any[] = [];
   precioTotal: number = 0;
   usuarioLogueado: string | null | undefined;
   envioLocal: boolean = false;
@@ -23,6 +24,13 @@ export class CompraComponent implements OnInit {
   email: string = '';
   mensajeFaltanDatos: string = '';
   opcionEntrega: string = '';
+  opcionesEnvio: { [key: string]: number } = {
+    domicilio: 2000,
+    sucursal: 0,
+    express: 3500,
+    pickup: 500,
+    retirar: 0
+  };
   nombreDestinatario: string = '';
   direccionEntrega: string = '';
   apellidoDestinatario: string = '';
@@ -39,7 +47,7 @@ export class CompraComponent implements OnInit {
   async ngOnInit() {
     await this.obtenerCarrito();
     await this.obtenerUsuarioLogueado();
-    await this.calcularEnvio();
+    this.actualizarEnvioPorOpcion();
     this.paso = 1;
   }
 
@@ -55,16 +63,26 @@ async siguientePasoUno() {
   }
 }
 
+actualizarEnvioPorOpcion() {
+  const map: { [key: string]: string } = {
+    domicilio: 'MOTOMENSAJERIA',
+    sucursal: 'Correo Argentino Clasico',
+    express: 'PUDO Argentina',
+    pickup: 'OCA',
+    retirar: 'Retiro en UAVDOCX'
+  };
+  if (this.opcionEntrega && this.opcionesEnvio.hasOwnProperty(this.opcionEntrega)) {
+    this.envio = this.opcionesEnvio[this.opcionEntrega];
+    this.opcionEntregaTexto = map[this.opcionEntrega] || this.opcionEntrega;
+  } else {
+    this.envio = 0;
+    this.opcionEntregaTexto = '';
+  }
+}
 
-     async calcularEnvio() {
-    try {
-      const result = await this.carritoService.calcularEnvio(this.envioLocal);
-      this.envio = result.envio;
-    } catch (error) {
-      console.error('Error al calcular el envío:', error);
-      this.envioLocal = false; 
-      this.envio = 100;
-    }
+
+  async calcularEnvio() {
+    this.actualizarEnvioPorOpcion();
   }
     
   obtenerUsuarioLogueado() {
