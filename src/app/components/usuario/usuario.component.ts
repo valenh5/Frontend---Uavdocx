@@ -14,13 +14,18 @@ import { CompraService } from '../../servicios/compra.service';
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css'],   
 })
+
 export class UsuarioComponent implements OnInit {
   reclamos: Reclamo[] = [];
   compras: Compra[] = [];
   usuarioId: number = 0;
   reclamoId: number = 0;
 
-  constructor(private router: Router, private reclamoService: ReclamoService) {}
+  constructor(
+    private router: Router,
+    private reclamoService: ReclamoService,
+    private compraService: CompraService
+  ) {}
 
   ngOnInit(): void {
     this.nombre = localStorage.getItem('usuario') || '';
@@ -40,10 +45,10 @@ export class UsuarioComponent implements OnInit {
     }
   }
 
-  async cargarComprasUsuario(){
-    try{
-          this.compras = await CompraService.prototype.retornarCompras(this.usuarioId).then(response => response.data);
-    }catch(error){
+  async cargarComprasUsuario() {
+    try {
+      this.compras = await this.compraService.retornarCompras(this.usuarioId).then(response => response.data);
+    } catch (error) {
       console.error("Error al cargar compras del usuario:", error);
       this.compras = [];
     }

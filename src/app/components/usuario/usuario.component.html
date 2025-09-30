@@ -38,14 +38,22 @@
         <h1>Compras</h1>
         <p>Compras realizadas por el usuario</p>
         <hr>
-        <p *ngIf="compras.length > 0">No tienes compras. <a href="/carrito">Hacer una</a></p>
+        <p *ngIf="compras.length === 0">No tienes compras. <a href="/carrito">Hacer una</a></p>
         <div *ngIf="compras.length > 0">
             <ul>
-            <li *ngFor="let compra of compras" class="compra-card">
-                <p>ID de Compra: {{ compra.id }}</p>
-                <p>Fecha: {{ compra.fecha | date:'short' }}</p>
-                <p>Estado: {{ compra.estado }}</p>
-            </li>
+                        <li *ngFor="let compra of compras" class="reclamo-card">
+                                <p>Fecha: {{ compra.fecha | date:'short' }}</p>
+                                <p>Precio: {{ compra.precioTotal | currency:'ARS':'symbol':'1.2-2' }}</p>
+                                <div>
+                                    <p>Productos:</p>
+                                    <ul>
+                                        <li *ngFor="let producto of compra.productos">
+                                            {{ producto.nombre ? producto.nombre : (producto.descripcion || producto.id || producto | json) }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p class="reclamo-estado">Estado: {{ compra.estado }}</p>
+                        </li>
             </ul>
-    </div>
+        </div>
 </div>
