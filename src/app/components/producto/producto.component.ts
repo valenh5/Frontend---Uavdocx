@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -23,15 +21,8 @@ export class ProductoDetalleComponent implements OnInit {
 	talleSeleccionado: string = '';
 	  usuarioLogueado: string | null = null;
   esAdminUsuario: boolean = false;
-	abrirGuiaTalles() {
-		this.mostrarGuiaTalles = true;
-	}
 
-	cerrarGuiaTalles() {
-		this.mostrarGuiaTalles = false;
-	}
-
-	  esAdmin(): boolean {
+  esAdmin(): boolean {
     this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
     return this.esAdminUsuario;
   }
@@ -114,5 +105,13 @@ async agregarAlCarrito() {
     }
   }
 }
+
+abrirGuiaTalles() {
+    this.mostrarGuiaTalles = true;
+  }
+
+  cerrarGuiaTalles() {
+    this.mostrarGuiaTalles = false;
+  }
 
 }

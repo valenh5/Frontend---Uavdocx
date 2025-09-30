@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import { CarritoService } from '../../servicios/carrito.service';
 import { PrendasService } from '../../servicios/prenda.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import axios from 'axios';
 import { CompraService } from '../../servicios/compra.service';
 import { Compra } from '../../modelos/compra';
@@ -11,7 +11,7 @@ import { Compra } from '../../modelos/compra';
 @Component({
   selector: 'app-compra',
   standalone: true,
-  imports: [FormsModule, CommonModule], 
+  imports: [FormsModule, CommonModule, RouterModule], 
   templateUrl: './compra.component.html',
   styleUrls: ['./compra.component.css']
 })
@@ -19,7 +19,8 @@ export class CompraComponent implements OnInit {
   opcionEntregaTexto: string = '';
   carrito: any[] = [];
   precioTotal: number = 0;
-  usuarioLogueado: string | null | undefined;
+  usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
   envioLocal: boolean = false;
   envio: number = 0;
   paso: number = 1;
@@ -43,12 +44,15 @@ export class CompraComponent implements OnInit {
   constructor(private carritoService: CarritoService, private router: Router, private PrendasService: PrendasService, private CompraService: CompraService) {
   }
   
-
-
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
 
   async ngOnInit() {
     await this.obtenerCarrito();
     await this.obtenerUsuarioLogueado();
+    this.esAdmin();
     this.actualizarEnvioPorOpcion();
     this.paso = 1;
   }

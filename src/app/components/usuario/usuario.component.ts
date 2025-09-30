@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ReclamoService } from '../../servicios/reclamo.service';
 import { Reclamo } from '../../modelos/reclamo';
 import { Compra} from '../../modelos/compra';
@@ -10,7 +10,7 @@ import { CompraService } from '../../servicios/compra.service';
 @Component({
   selector: 'app-usuario',
   standalone: true,
-  imports: [CommonModule, FormsModule], 
+  imports: [CommonModule, FormsModule, RouterModule], 
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css'],   
 })
@@ -20,6 +20,8 @@ export class UsuarioComponent implements OnInit {
   compras: Compra[] = [];
   usuarioId: number = 0;
   reclamoId: number = 0;
+  usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
 
   constructor(
     private router: Router,
@@ -27,7 +29,18 @@ export class UsuarioComponent implements OnInit {
     private compraService: CompraService
   ) {}
 
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
+
   ngOnInit(): void {
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
     this.nombre = localStorage.getItem('usuario') || '';
     this.email = localStorage.getItem('email') || '';
     const id = localStorage.getItem('id_usuario');

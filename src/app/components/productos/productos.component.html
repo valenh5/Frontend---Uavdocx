@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<link rel="stylesheet" href="../navbar-global.css" />
 
 <nav class="navbar">
   <div class="navbar-container" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
@@ -48,7 +49,6 @@
           name="searchbar"
           [(ngModel)]="busqueda" (input)="realizarBusqueda()"
         />
-        <span *ngIf="usuarioLogueado"> {{ usuarioLogueado }}</span>
      </div>
       <div class="filtrar">
         <button id="filtrar-txt" (click)="toggleFormulario()">FILTRAR</button>

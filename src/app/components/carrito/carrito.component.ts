@@ -4,18 +4,20 @@ import { CommonModule } from '@angular/common';
 import { CarritoService } from '../../servicios/carrito.service';
 import { Router } from '@angular/router';
 import { PrendasService } from '../../servicios/prenda.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
   standalone: true,
-  imports: [FormsModule, CommonModule], 
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
   carrito: any[] = [];
   precioTotal: number = 0;
-  usuarioLogueado: string | null | undefined;
+  usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
   envioLocal: boolean = false;
   envio: number = 0;
 
@@ -25,9 +27,15 @@ export class CarritoComponent implements OnInit {
     private PrendasService: PrendasService
   ) {}
 
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
+
   async ngOnInit() {
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
     await this.obtenerCarrito();
-    await this.obtenerUsuarioLogueado();
     await this.calcularEnvio();
   }
 

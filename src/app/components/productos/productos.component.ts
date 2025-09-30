@@ -36,14 +36,20 @@ export class ProductoComponent implements OnInit {
     constructor(public carritoService: CarritoService) {} 
 
 
-    async ngOnInit(): Promise<void> {
+    usuarioLogueado: string | null = null;
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
     await this.cargarProductos();
-    await this.esAdmin();
 }
 paginaActual = 1;
 limitePorPagina = 3;
 totalPaginas = 1;
-usuarioLogueado: string | null = null;
 mostrarFiltro: boolean = false;
 categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
 categoriaFiltrar : string | null = null;

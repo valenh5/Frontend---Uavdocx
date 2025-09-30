@@ -102,7 +102,7 @@ span{
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
-  margin-top: 80px;
+  margin-top: 0;
 }
 
 .prenda-card {
@@ -261,15 +261,10 @@ button#borrar:hover {
   align-items: center;
   position: relative;
   max-width: 190px;
+  margin-top: 6%;
 }
 
-.group {
-  display: flex;
-  line-height: 28px;
-  align-items: center;
-  position: relative;
-  max-width: 190px;
-}
+
 
 .input {
   font-family: "Montserrat", sans-serif;
@@ -279,16 +274,16 @@ button#borrar:hover {
   box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
   border: 0;
   border-radius: 12px;
-  background-color: #16171d;
+  background-color: #fafafa;
   outline: none;
-  color: #bdbecb;
+  color: #000000;
   transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
   cursor: text;
   z-index: 0;
 }
 
 .input::placeholder {
-  color: #bdbecb;
+  color: #000000;
 }
 
 .input:hover {

@@ -1,5 +1,31 @@
 <title>Uavdocx ABM</title>
 
+<link rel="stylesheet" href="../navbar-global.css" />
+<nav class="navbar">
+  <div class="navbar-container" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+    <a href="/" class="navbar-logo" style="margin-left:0; text-align:left;">UAVDOCX</a>
+    <div class="navbar-menu">
+      <a href="/">Inicio</a>
+      <a href="/productos">Productos</a>
+      <a [routerLink]="usuarioLogueado ? '/usuario' : '/login'">Sesion</a>
+      <div *ngIf="esAdminUsuario" class="dropdown">
+        <a class="navbar-link dropdown-btn">Admin</a>
+        <div class="dropdown-content">
+          <a href="./usuarios">Usuarios</a>
+          <a href="./reclamos">Reclamos</a>
+          <a href="./abm">Prendas</a>
+        </div>
+      </div>
+    </div>
+    <div class="logos">
+      <a href="/carrito" class="material-symbols-outlined">shopping_cart</a>
+      <a href="/usuario" class="material-symbols-outlined">person</a>
+      <a href="/reclamo" class="material-symbols-outlined">sentiment_extremely_dissatisfied</a>
+      <a href="/local" class="material-symbols-outlined">store</a>
+    </div>
+  </div>
+</nav>
+
 <div *ngIf="!esAdmin">
   <h2 style="color: red;">NoNoNo solo los administradores pueden acceder a esta sección.</h2>
 </div>
@@ -19,7 +45,11 @@
 
     </div>
 
-    <div class="group">
+    
+  </div>
+</nav>
+
+<div class="group">
 
 
       <input
@@ -30,10 +60,7 @@
         name="searchbar"
         [(ngModel)]="busqueda" (input)="realizarBusqueda()"
       />
-      <span *ngIf="usuarioLogueado"> {{ usuarioLogueado }}</span>
     </div>
-  </div>
-</nav>
 
 <div id="prendas-container">
   <a></a>
