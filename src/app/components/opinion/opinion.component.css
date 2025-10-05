@@ -1,0 +1,143 @@
+/* From Uiverse.io by PriyanshuGupta28 */ 
+.rating {
+  display: inline-block;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  float: right;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.3s;
+}
+
+.rating label:before {
+  content: '\2605';
+  font-size: 30px;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  color: #6f00ff;
+  transition: color 0.3s;
+}
+
+.opinion-container {
+  max-width: 420px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(111,0,255,0.08);
+  padding: 32px 28px 24px 28px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #6f00ff;
+  margin-bottom: 24px;
+  font-size: 1.6rem;
+}
+
+.info {
+  background: #f7f5ff;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 22px;
+  font-size: 1rem;
+}
+
+ul {
+  margin: 0 0 0 18px;
+  padding: 0;
+}
+
+.formulario {
+  margin-top: 10px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 6px;
+  color: #6f00ff;
+  font-weight: 500;
+}
+
+textarea {
+  border: 1px solid #d1c4e9;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 60px;
+  background: #faf8ff;
+  transition: border 0.2s;
+}
+
+textarea:focus {
+  border: 1.5px solid #6f00ff;
+  outline: none;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  gap: 2px;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  cursor: pointer;
+  color: #ccc;
+  font-size: 2rem;
+  transition: color 0.2s;
+  padding: 0 2px;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  color: #6f00ff;
+}
+
+button[type="submit"] {
+  width: 100%;
+  background: linear-gradient(90deg, #6f00ff 60%, #a084ee 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(111,0,255,0.08);
+}
+
+button[type="submit"]:disabled {
+  background: #e0d7fa;
+  color: #bdbdbd;
+  cursor: not-allowed;
+}
+
+.error {
+    color: red;
+    background-color: #fdd;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 4px;
+    margin-top: 8%;
+}
