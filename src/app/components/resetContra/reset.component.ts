@@ -3,19 +3,33 @@ import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.component.html',
-  imports: [FormsModule, CommonModule], 
+  imports: [FormsModule, CommonModule, RouterModule], 
 })
 export class ResetComponent implements OnInit {
   nuevaContrasenia = '';
   token = '';
+  usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
 
   constructor(private route: ActivatedRoute, private usuarioService: UsuarioService) {}
 
-  ngOnInit() {
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
+
+  ngOnInit(): void {
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
     this.token = this.route.snapshot.paramMap.get('token') || '';
   }
 

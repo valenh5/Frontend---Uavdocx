@@ -1,25 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { ReclamoService } from '../../servicios/reclamo.service';
 
 @Component({
   selector: 'app-reclamos',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './reclamos.component.html',
   styleUrls: ['./reclamos.component.css']
 })
 export class ReclamosComponent implements OnInit {
   reclamos: any[] = [];
-    esAdmin: boolean = false;
-    constructor(private reclamoService: ReclamoService) {}
-    async ngOnInit() {
-        this.esAdmin = localStorage.getItem('esAdmin') === 'true';
-        if (this.esAdmin) {
-            await this.cargarReclamos();
-        }
+  usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
+
+  constructor(private reclamoService: ReclamoService) {}
+
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
+
+  async ngOnInit() {
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
+    if (this.esAdminUsuario) {
+      await this.cargarReclamos();
     }
+  }
 
   async cargarReclamos() {
     try {
@@ -28,6 +42,7 @@ export class ReclamosComponent implements OnInit {
       console.error('Error al cargar reclamos:', error);
     }
   }
+
   async eliminarReclamo(id: number) {
     try {
       await this.reclamoService.eliminarReclamo(id);
@@ -35,13 +50,14 @@ export class ReclamosComponent implements OnInit {
     } catch (error) {
       console.error('Error al eliminar reclamo:', error);
     }
+  }
+
+  async modificarReclamo(reclamo: any) {
+    try {
+      await this.reclamoService.actualizarReclamo(reclamo);
+      await this.cargarReclamos();
+    } catch (error) {
+      console.error('Error al modificar reclamo:', error);
     }
-    async modificarReclamo(reclamo: any) {
-        try {
-            await this.reclamoService.actualizarReclamo(reclamo);
-            await this.cargarReclamos();
-        } catch (error) {
-            console.error('Error al modificar reclamo:', error);
-        }
-    }
+  }
 }

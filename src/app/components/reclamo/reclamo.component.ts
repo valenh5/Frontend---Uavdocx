@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import axios from 'axios';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -15,7 +16,7 @@ import { Reclamo, Tipo, Estado } from '../../modelos/reclamo';
 @Component({
   selector: 'app-reclamos',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './reclamo.component.html',
   styleUrls: ['./reclamo.component.css']
 })
@@ -26,7 +27,13 @@ export class ReclamoComponent implements OnInit {
   cargando: boolean = false;
   error: string = '';
   exito: string = '';
+  esAdminUsuario: boolean = false;
+  usuarioLogueado: string | null = null;
 
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
   tipoOptions = Object.values(Tipo);
   categoriaOptions = Object.values(Estado);
 
@@ -35,11 +42,12 @@ export class ReclamoComponent implements OnInit {
 
   constructor(private reclamoService: ReclamoService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.usuarioNombre = localStorage.getItem('usuario');
     const id = localStorage.getItem('id_usuario');
     this.usuarioId = id ? parseInt(id) : null;
     this.nuevoReclamo.id_usuario = this.usuarioId ?? 0;
+    await this.esAdmin();
   }
 
  agregarReclamo() {

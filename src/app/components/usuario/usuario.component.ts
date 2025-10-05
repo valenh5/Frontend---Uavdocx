@@ -1,30 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ReclamoService } from '../../servicios/reclamo.service';
 import { Reclamo } from '../../modelos/reclamo';
+import { Compra} from '../../modelos/compra';
 import { CommonModule } from '@angular/common';
+import { CompraService } from '../../servicios/compra.service';
 
 @Component({
   selector: 'app-usuario',
   standalone: true,
-  imports: [CommonModule, FormsModule], 
+  imports: [CommonModule, FormsModule, RouterModule], 
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css'],   
 })
+
 export class UsuarioComponent implements OnInit {
   reclamos: Reclamo[] = [];
+  compras: Compra[] = [];
   usuarioId: number = 0;
   reclamoId: number = 0;
+  usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
 
-  constructor(private router: Router, private reclamoService: ReclamoService) {}
+  constructor(
+    private router: Router,
+    private reclamoService: ReclamoService,
+    private compraService: CompraService
+  ) {}
+
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
 
   ngOnInit(): void {
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
     this.nombre = localStorage.getItem('usuario') || '';
     this.email = localStorage.getItem('email') || '';
     const id = localStorage.getItem('id_usuario');
     this.usuarioId = id ? parseInt(id) : 0;
     this.cargarReclamosUsuario();
+    this.cargarComprasUsuario();
   }
 
   async cargarReclamosUsuario() {
@@ -33,6 +55,15 @@ export class UsuarioComponent implements OnInit {
     } catch (error) {
       console.error("Error al cargar reclamos del usuario:", error);
       this.reclamos = [];
+    }
+  }
+
+  async cargarComprasUsuario() {
+    try {
+      this.compras = await this.compraService.retornarCompras(this.usuarioId).then(response => response.data);
+    } catch (error) {
+      console.error("Error al cargar compras del usuario:", error);
+      this.compras = [];
     }
   }
   logeado: boolean = !!localStorage.getItem('token');

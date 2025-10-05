@@ -13,8 +13,20 @@ import { RouterModule } from '@angular/router';
 })
 
 export class LocalComponent implements OnInit {
-    
+  usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
+
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
+
   ngOnInit(): void {
-    
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
   }
 }
