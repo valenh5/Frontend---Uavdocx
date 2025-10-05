@@ -6,6 +6,7 @@ import { Reclamo } from '../../modelos/reclamo';
 import { Compra} from '../../modelos/compra';
 import { CommonModule } from '@angular/common';
 import { CompraService } from '../../servicios/compra.service';
+import { OpinionService } from '../../servicios/opinion.service';
 
 @Component({
   selector: 'app-usuario',
@@ -18,15 +19,21 @@ import { CompraService } from '../../servicios/compra.service';
 export class UsuarioComponent implements OnInit {
   reclamos: Reclamo[] = [];
   compras: Compra[] = [];
+  opiniones: any[] = [];
   usuarioId: number = 0;
   reclamoId: number = 0;
   usuarioLogueado: string | null = null;
   esAdminUsuario: boolean = false;
+  mensajeError: string = '';
+  reclamoIndex = 0;
+compraIndex = 0;
+opinionIndex = 0;
 
   constructor(
     private router: Router,
     private reclamoService: ReclamoService,
-    private compraService: CompraService
+    private compraService: CompraService,
+    private opinionService: OpinionService
   ) {}
 
   esAdmin(): boolean {
@@ -47,6 +54,7 @@ export class UsuarioComponent implements OnInit {
     this.usuarioId = id ? parseInt(id) : 0;
     this.cargarReclamosUsuario();
     this.cargarComprasUsuario();
+    this.cargarOpinionesUsuario();
   }
 
   async cargarReclamosUsuario() {
@@ -66,6 +74,16 @@ export class UsuarioComponent implements OnInit {
       this.compras = [];
     }
   }
+
+  async cargarOpinionesUsuario() {
+    try {
+      this.opiniones = await this.opinionService.obtenerOpinionesPorUsuario(this.usuarioId);
+    } catch (error) {
+      console.error("Error al cargar opiniones del usuario:", error);
+      this.opiniones = [];
+    }
+  }
+
   logeado: boolean = !!localStorage.getItem('token');
   nombre: string = '';
   email: string = '';
@@ -88,6 +106,19 @@ export class UsuarioComponent implements OnInit {
       this.cargarReclamosUsuario();
     } catch (error) {
       console.error("Error al eliminar reclamo:", error);
+    }
+  }
+
+  async opinar(compra: Compra){
+    const existe = await this.opinionService.verificarExistencia(compra.id);
+    if (!existe) {
+      this.router.navigate(['opinion', compra.id], { state: { compra } });
+    }else{
+      this.mensajeError = 'Ya existe una opinion para esta compra.';
+        setTimeout(() => {
+          this.mensajeError = '';
+        }, 2000);
+        return;
     }
   }
 }

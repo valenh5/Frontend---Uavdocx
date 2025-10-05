@@ -14,7 +14,10 @@ p {
 
 .info{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr ;
+  gap: 2rem;
+    align-items: flex-start;
+
 }
 
 h1 {
@@ -88,4 +91,53 @@ ul {
 .reclamo-estado {
   font-weight: bold;
   color: #000000;
+}
+
+.error {
+    color: red;
+    background-color: #fdd;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 4px;
+    margin-top: 0;
+}
+
+.carrusel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.carrusel-arrow {
+  background: #f3f4f8;
+  border: none;
+  border-radius: 50%;
+  width: 2.3rem;
+  height: 2.3rem;
+  font-size: 1.3rem;
+  color: #555;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrusel-arrow:hover {
+  background: #dbe2ef;
+  color: #222;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.carrusel ul {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.carrusel-section {
+  animation: fadeIn 0.3s;
 }

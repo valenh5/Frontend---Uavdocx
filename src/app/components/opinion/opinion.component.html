@@ -1,0 +1,44 @@
+<div *ngIf="mensajeExiste" class="error">{{ mensajeExiste }}</div>
+<div class="opinion-container">
+  <h1>Opinión sobre la compra</h1>
+  <div class="datos" *ngIf="compra; else sinDatos">
+    <div class="info">
+      <p><strong>Fecha:</strong> {{ compra.fecha | date:'short' }}</p>
+      <p><strong>Precio total:</strong> {{ compra.precioTotal | currency:'ARS':'symbol':'1.2-2' }}</p>
+      <p><strong>Estado:</strong> {{ compra.estado }}</p>
+      <p><strong>Productos:</strong></p>
+      <ul>
+        <li *ngFor="let producto of compra.productos">
+          {{ producto.nombre }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="formulario">
+    <form (ngSubmit)="enviarOpinion()" #opinionForm="ngForm">
+      <div class="form-group">
+        <label for="comentario">Comentario:</label>
+        <textarea id="comentario" name="comentario" [(ngModel)]="comentario" required placeholder="Escribe tu opinión..."></textarea>
+      </div>
+      <div class="form-group">
+        <label for="calificacion">Calificación:</label>
+        <div class="rating">
+          <input value="5" name="calificacion" id="star5" type="radio" [(ngModel)]="calificacion" required>
+          <label for="star5" title="Excelente"></label>
+          <input value="4" name="calificacion" id="star4" type="radio" [(ngModel)]="calificacion">
+          <label for="star4" title="Muy bueno"></label>
+          <input value="3" name="calificacion" id="star3" type="radio" [(ngModel)]="calificacion">
+          <label for="star3" title="Bueno"></label>
+          <input value="2" name="calificacion" id="star2" type="radio" [(ngModel)]="calificacion">
+          <label for="star2" title="Regular"></label>
+          <input value="1" name="calificacion" id="star1" type="radio" [(ngModel)]="calificacion">
+          <label for="star1" title="Malo"></label>
+        </div>
+      </div>
+      <button type="submit" [disabled]="!opinionForm.form.valid">Enviar Opinión</button>
+    </form>
+  </div>
+  <ng-template #sinDatos>
+    <p>No se encontraron datos de la compra.</p>
+  </ng-template>
+</div>
