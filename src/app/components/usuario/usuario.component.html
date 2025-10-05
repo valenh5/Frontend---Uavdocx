@@ -1,4 +1,28 @@
-
+<link rel="stylesheet" href="../navbar-global.css" />
+<nav class="navbar">
+  <div class="navbar-container" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+    <a href="/" class="navbar-logo" style="margin-left:0; text-align:left;">UAVDOCX</a>
+    <div class="navbar-menu">
+      <a href="/">Inicio</a>
+      <a href="/productos">Productos</a>
+      <a [routerLink]="usuarioLogueado ? '/usuario' : '/login'">Sesion</a>
+      <div *ngIf="esAdminUsuario" class="dropdown">
+        <a class="navbar-link dropdown-btn">Admin</a>
+        <div class="dropdown-content">
+          <a href="./usuarios">Usuarios</a>
+          <a href="./reclamos">Reclamos</a>
+          <a href="./abm">Prendas</a>
+        </div>
+      </div>
+    </div>
+    <div class="logos">
+      <a href="/carrito" class="material-symbols-outlined">shopping_cart</a>
+      <a href="/usuario" class="material-symbols-outlined">person</a>
+      <a href="/reclamo" class="material-symbols-outlined">sentiment_extremely_dissatisfied</a>
+      <a href="/local" class="material-symbols-outlined">store</a>
+    </div>
+  </div>
+</nav>
 
 <p>Inicio    -   Mi cuenta</p>
 
@@ -38,6 +62,22 @@
         <h1>Compras</h1>
         <p>Compras realizadas por el usuario</p>
         <hr>
-        <p>No tienes compras. <a href="/carrito">Hacer una</a></p>
-    </div>
+        <p *ngIf="compras.length === 0">No tienes compras. <a href="/carrito">Hacer una</a></p>
+        <div *ngIf="compras.length > 0">
+            <ul>
+                        <li *ngFor="let compra of compras" class="reclamo-card">
+                                <p>Fecha: {{ compra.fecha | date:'short' }}</p>
+                                <p>Precio: {{ compra.precioTotal | currency:'ARS':'symbol':'1.2-2' }}</p>
+                                <div>
+                                    <p>Productos:</p>
+                                    <ul>
+                                        <li *ngFor="let producto of compra.productos">
+                                            {{ producto.nombre ? producto.nombre : (producto.descripcion || producto.id || producto | json) }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p class="reclamo-estado">Estado: {{ compra.estado }}</p>
+                        </li>
+            </ul>
+        </div>
 </div>

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true, 
-  imports: [FormsModule], 
+  imports: [FormsModule, RouterModule], 
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit{
@@ -17,14 +17,22 @@ export class LoginComponent implements OnInit{
   pass_ingreso = '';
   emailReset = '';
   usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
+
   constructor(private usuarioService: UsuarioService,  private router: Router) {}
 
   obtenerUsuarioLogueado() {
     this.usuarioLogueado = localStorage.getItem('usuario');
   }
 
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
+
   async ngOnInit(): Promise<void> {
     this.obtenerUsuarioLogueado();
+    this.esAdmin();
   }
 
   async registrar() {

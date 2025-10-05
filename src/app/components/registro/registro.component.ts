@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
   standalone: true, 
-  imports: [FormsModule], 
+  imports: [FormsModule, RouterModule], 
   templateUrl: './registro.component.html',
 })
 export class RegistroComponent {
@@ -16,6 +16,8 @@ export class RegistroComponent {
   usuario_ingreso = '';
   pass_ingreso = '';
   emailReset = '';
+  usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
 
   constructor(private usuarioService: UsuarioService, private router: Router) {}
 
@@ -48,5 +50,19 @@ export class RegistroComponent {
     } catch (error: any) {
       alert(error.response?.data?.mensaje || 'Error al solicitar restablecimiento de contraseña');
     }
+  }
+
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
+
+  ngOnInit(): void {
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
   }
 }

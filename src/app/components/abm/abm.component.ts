@@ -3,13 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PrendasService } from '../../servicios/prenda.service';
 import axios from 'axios';
+import { RouterModule } from '@angular/router';
 
 const apiUrl = 'http://localhost:3000/prendas'; 
 
 @Component({
   selector: 'app-prendas',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './abm.component.html',
   styleUrls: ['./abm.component.css']
 })
@@ -34,8 +35,12 @@ prendaNueva: any = {
   limitePorPagina = 2;
   totalPaginas = 10;
     usuarioLogueado: string | null = null;
-    esAdmin: boolean = false;
+    esAdminUsuario: boolean = false;
 
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
 
       obtenerUsuarioLogueado() {
     this.usuarioLogueado = localStorage.getItem('usuario');
@@ -44,11 +49,11 @@ prendaNueva: any = {
   constructor(private prendasService: PrendasService) {}
 
   async ngOnInit(): Promise<void> {
-      this.esAdmin = localStorage.getItem('esAdmin') === 'true';
-      if (this.esAdmin) {
+      this.obtenerUsuarioLogueado();
+    this.esAdmin();
+      if (this.esAdminUsuario) {
     await this.cargarPrendas();
   }
-    this.obtenerUsuarioLogueado();
   }
 
   toggleFormulario(): void {

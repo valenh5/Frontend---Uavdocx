@@ -1,46 +1,58 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<nav class="navbar">
-  <div class="navbar-container">
-    <a href="/" class="navbar-logo">
-      UAVDOCX
-    </a>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<link rel="stylesheet" href="../navbar-global.css" />
 
+<nav class="navbar">
+  <div class="navbar-container" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+    <a href="/" class="navbar-logo" style="margin-left:0; text-align:left;">UAVDOCX</a>
+    
     <div class="navbar-menu">
       <a href="/">Inicio</a>
       <a href="/productos">Productos</a>
-      <a href="./login">Sesion</a>
-      <a *ngIf="usuarioLogueado" href="./abm">ABM</a>
+      <a [routerLink]="usuarioLogueado ? '/usuario' : '/login'">Sesion</a>
+      <div *ngIf="esAdminUsuario" class="dropdown">
+        <a class="navbar-link dropdown-btn">Admin</a>
+        <div class="dropdown-content">
+          <a href="./usuarios">Usuarios</a>
+          <a href="./reclamos">Reclamos</a>
+          <a href="./abm">Prendas</a>
+        </div>
+      </div>
     </div>
-
-    <div class="group">
-      <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
-        <g>
-          <path
-            d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-          ></path>
-        </g>
-      </svg>
-
-      <input
-        id="query"
-        class="input"
-        type="text"
-        placeholder="Buscar..."
-        name="searchbar"
-        [(ngModel)]="busqueda" (input)="realizarBusqueda()"
-      />
-      <span *ngIf="usuarioLogueado"> {{ usuarioLogueado }}</span>
+    <div class="logos">
+      <a href="/carrito" class="material-symbols-outlined">shopping_cart</a>
+      <a href="/usuario" class="material-symbols-outlined">person</a>
+      <a href="/reclamo" class="material-symbols-outlined">sentiment_extremely_dissatisfied</a>
+      <a href="/local" class="material-symbols-outlined">store</a>
     </div>
   </div>
 </nav>
 
+
+
+
 <main>
+
   <div class="encabezado">
-    <h1>Productos</h1>
-    <div class="filtrar">
-      <button id="filtrar-txt" (click)="toggleFormulario()">FILTRAR</button>
-      <span class="material-icons" (click)="toggleFormulario()">list</span>
-    </div>
+      <div style="margin-left:auto;" class="group">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+          <g>
+            <path
+              d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+            ></path>
+          </g>
+        </svg>
+        <input
+          id="query"
+          class="input"
+          type="text"
+          placeholder="Buscar..."
+          name="searchbar"
+          [(ngModel)]="busqueda" (input)="realizarBusqueda()"
+        />
+     </div>
+      <div class="filtrar">
+        <button id="filtrar-txt" (click)="toggleFormulario()">FILTRAR</button>
+      </div>
 <div class="filtros" *ngIf="mostrarFiltro">
   <div class="filtros-fila">
     <div class="filtro-bloque">

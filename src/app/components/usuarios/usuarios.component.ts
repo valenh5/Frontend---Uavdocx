@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './usuarios.component.html',
   styleUrls: ['./usuarios.component.css']
 })
@@ -14,15 +15,26 @@ export class UsuariosComponent implements OnInit {
   usuarios: any[] = [];
   mostrarTooltip: boolean = false;
   usuarioAEliminar: number | null = null;
+  usuarioLogueado: string | null = null;
+  esAdminUsuario: boolean = false;
 
   constructor(private usuarioService: UsuarioService) {}
-    esAdmin: boolean = false;
+
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
 
   async ngOnInit() {
-    this.esAdmin = localStorage.getItem('esAdmin') === 'true';
-      if (this.esAdmin) {
-    await this.cargarUsuarios();
-  }
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
+    if (this.esAdminUsuario) {
+      await this.cargarUsuarios();
+    }
   }
 
     mostrarConfirmacion(id: number) {

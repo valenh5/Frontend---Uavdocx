@@ -4,6 +4,7 @@ import axios from 'axios';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
 import { CarritoService } from '../../servicios/carrito.service';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -12,7 +13,7 @@ const apiUrl = environment.apiUrl + "/prendas";
 @Component({
   selector: 'app-prendas',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
 
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.css']
@@ -26,17 +27,29 @@ export class ProductoComponent implements OnInit {
   carrito: any;
   precioTotal: any;
   router: any;
+    esAdminUsuario: boolean = false;
+  esAdmin(): boolean {
+    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    return this.esAdminUsuario;
+  }
 
     constructor(public carritoService: CarritoService) {} 
 
 
-    async ngOnInit(): Promise<void> {
+    usuarioLogueado: string | null = null;
+
+  obtenerUsuarioLogueado() {
+    this.usuarioLogueado = localStorage.getItem('usuario');
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.obtenerUsuarioLogueado();
+    this.esAdmin();
     await this.cargarProductos();
 }
 paginaActual = 1;
 limitePorPagina = 3;
 totalPaginas = 1;
-usuarioLogueado: string | null = null;
 mostrarFiltro: boolean = false;
 categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
 categoriaFiltrar : string | null = null;
