@@ -18,12 +18,15 @@ export class OpinionComponent implements OnInit {
   calificacion: number = 0;
   comentario: string = '';
   mensajeExiste = '';
+  usuario = '';
 
   ngOnInit(): void {
     this.compra = history.state.compra;
   }
 
-
+  async obtenerUsuario(): Promise<void> {
+    this.usuario = localStorage.getItem('usuario') || '';
+  }
 
   async enviarOpinion(): Promise<void> {
     const existe = await this.opinionService.verificarExistencia(this.compra.id);
@@ -31,7 +34,8 @@ export class OpinionComponent implements OnInit {
     const opinion = {
       id_compra: this.compra.id,
       calificacion: this.calificacion,
-      comentario: this.comentario
+      comentario: this.comentario,
+      usuario: this.usuario
     };
     await this.opinionService.crearOpinion(opinion as any);
     }else{

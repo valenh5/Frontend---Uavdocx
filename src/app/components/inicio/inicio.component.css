@@ -1,3 +1,49 @@
+.opiniones {
+  background: #f7f9fa;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #0001;
+  padding: 2.5em 1.5em 2em 1.5em;
+  margin: 3em auto 2em auto;
+  max-width: 700px;
+  width: 100%;
+}
+.opiniones h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #000000;
+  margin-bottom: 1.2em;
+  font-weight: 700;
+}
+.opinion-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px #0002;
+  padding: 1.2em 1.5em 1em 1.5em;
+  margin-bottom: 1.2em;
+  transition: box-shadow 0.2s;
+  border-left: 4px solid #1976d2;
+}
+.opinion-card:last-child {
+  margin-bottom: 0;
+}
+.opinion-card p {
+  margin: 0.2em 0 0.7em 0;
+  font-size: 1.05rem;
+  color: #222;
+}
+.opinion-card strong {
+  color: #1976d2;
+}
+.opinion-card em {
+  color: #888;
+  font-size: 0.97em;
+}
+.opiniones > div[ng-reflect-ng-if] {
+  text-align: center;
+  color: #888;
+  font-size: 1.1em;
+  margin-bottom: 1.5em;
+}
 .pagina-btn {
   padding: 8px 16px;
   font-size: 16px;

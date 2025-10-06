@@ -107,6 +107,7 @@
                     </div>
                     <p>Calificación: {{ opiniones[opinionIndex].calificacion }} / 5</p>
                     <p>Comentario: {{ opiniones[opinionIndex].comentario }}</p>
+                    <button (click)="eliminarOpinion(opiniones[opinionIndex].id)" >Eliminar Opinion</button>
                 </li>
             </ul>
             <button class="carrusel-arrow" (click)="opinionIndex = (opinionIndex + 1) % opiniones.length">&#8594;</button>

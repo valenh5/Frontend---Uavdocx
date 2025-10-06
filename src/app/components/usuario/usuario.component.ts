@@ -75,6 +75,15 @@ opinionIndex = 0;
     }
   }
 
+  async eliminarOpinion(id: number) {
+    try {
+      await this.opinionService.eliminarOpinion(id);
+      this.cargarOpinionesUsuario();
+    } catch (error) {
+      console.error("Error al eliminar opinion:", error);
+    }
+  }
+
   async cargarOpinionesUsuario() {
     try {
       this.opiniones = await this.opinionService.obtenerOpinionesPorUsuario(this.usuarioId);
