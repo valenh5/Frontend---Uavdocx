@@ -1,141 +1,117 @@
 <title>Uavdocx ABM</title>
 
 <link rel="stylesheet" href="../navbar-global.css" />
-<nav class="navbar">
-  <div class="navbar-container" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
-    <a href="/" class="navbar-logo" style="margin-left:0; text-align:left;">UAVDOCX</a>
-    <div class="navbar-menu">
-      <a href="/">Inicio</a>
-      <a href="/productos">Productos</a>
-      <a [routerLink]="usuarioLogueado ? '/usuario' : '/login'">Sesion</a>
-      <div *ngIf="esAdminUsuario" class="dropdown">
-        <a class="navbar-link dropdown-btn">Admin</a>
-        <div class="dropdown-content">
-          <a href="./usuarios">Usuarios</a>
-          <a href="./reclamos">Reclamos</a>
-          <a href="./abm">Prendas</a>
-        </div>
-      </div>
-    </div>
-    <div class="logos">
-      <a href="/carrito" class="material-symbols-outlined">shopping_cart</a>
-      <a href="/usuario" class="material-symbols-outlined">person</a>
-      <a href="/reclamo" class="material-symbols-outlined">sentiment_extremely_dissatisfied</a>
-      <a href="/local" class="material-symbols-outlined">store</a>
-    </div>
-  </div>
-</nav>
-
-<div *ngIf="!esAdmin">
-  <h2 style="color: red;">NoNoNo solo los administradores pueden acceder a esta sección.</h2>
+<div *ngIf="!esAdminUsuario">
+  <h2 style="color: red;">No, solo los administradores pueden acceder a esta sección.</h2>
 </div>
-
-<div *ngIf="esAdmin">
+<div *ngIf="esAdminUsuario">
   <nav class="navbar">
-  <div class="navbar-container">
-    <a href="/" class="navbar-logo">
-      UAVDOCX
-    </a>
-
-    <div class="navbar-menu">
-      <a href="/">Inicio</a>
-      <a href="/productos">Productos</a>
-      <a href="./login">Sesion</a>
-      <a *ngIf="usuarioLogueado" href="./abm">ABM</a>
-
-    </div>
-
-    
-  </div>
-</nav>
-
-<div class="group">
-
-
-      <input
-        id="query"
-        class="input"
-        type="text"
-        placeholder="Buscar..."
-        name="searchbar"
-        [(ngModel)]="busqueda" (input)="realizarBusqueda()"
-      />
-    </div>
-
-<div id="prendas-container">
-  <a></a>
-  <div class="prenda-card" *ngFor="let prenda of prendasFiltradas">
-    <div class="prenda-imagen">
-  <img *ngIf="prenda.imagenPrincipal" [src]="prenda.imagenPrincipal" alt="Imagen principal" class="imagen-prenda">
-  <div *ngIf="prenda.imagenesSecundarias && prenda.imagenesSecundarias.length">
-    <img *ngFor="let img of prenda.imagenesSecundarias" [src]="img" alt="Imagen secundaria" style="width: 40px; margin: 2px;">
-  </div>
-</div>
-    <div class="prenda-info">
-      <h3>{{ prenda.nombre }}</h3>
-      <p><strong>Precio:</strong> ${{ prenda.precio }}</p>
-      <p><strong>Categoría:</strong> {{ prenda.categoria }}</p>
-
-      <div class="prenda-opciones">
-        <button class="opciones" id="editar" (click)="editarPrenda(prenda); $event.stopPropagation()">Editar</button>
-        <button class="opciones" id="borrar" (click)="eliminarPrenda(prenda.id); $event.stopPropagation()">Eliminar</button>
-      </div>
-
-
-      <div *ngIf="prendaEditando?.id === prenda.id" class="form-edicion">
-        <input type="text" [(ngModel)]="prendaEditando.nombre" placeholder="Nombre">
-        <input type="text" [(ngModel)]="prendaEditando.precio" placeholder="Precio">
-
-        <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
-          <label>{{ talle }}:</label>
-          <input type="number" [(ngModel)]="prendaEditando.talles[talle]" name="edit_talle_{{talle}}">
-        </div>
-
-        <select [(ngModel)]="prendaEditando.categoria">
-          <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
-        </select>
-
-         <input type="text" [(ngModel)]="prendaEditando.imagenPrincipal" placeholder="URL imagen principal">
-  <input type="text" [(ngModel)]="prendaEditando.imagenesSecundarias" placeholder="URLs imágenes secundarias (separadas por coma)">
-
-
-        <div class="form-actions">
-          <button (click)="guardarCambios()">Guardar Cambios</button>
-          <button (click)="prendaEditando = null">Cancelar</button>
+    <div class="navbar-container" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+      <a href="/" class="navbar-logo" style="margin-left:0; text-align:left;">UAVDOCX</a>
+      <div class="navbar-menu">
+        <a href="/">Inicio</a>
+        <a href="/productos">Productos</a>
+        <a [routerLink]="usuarioLogueado ? '/usuario' : '/login'">Sesion</a>
+        <div *ngIf="esAdminUsuario" class="dropdown">
+          <a class="navbar-link dropdown-btn">Admin</a>
+          <div class="dropdown-content">
+            <a href="./usuarios">Usuarios</a>
+            <a href="./reclamos">Reclamos</a>
+            <a href="./abm">Prendas</a>
+          </div>
         </div>
       </div>
+      <div class="logos">
+        <a href="/carrito" class="material-symbols-outlined">shopping_cart</a>
+        <a href="/usuario" class="material-symbols-outlined">person</a>
+        <a href="/reclamo" class="material-symbols-outlined">sentiment_extremely_dissatisfied</a>
+        <a href="/local" class="material-symbols-outlined">store</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="group">
+    <input
+      id="query"
+      class="input"
+      type="text"
+      placeholder="Buscar..."
+      name="searchbar"
+      [(ngModel)]="busqueda" (input)="realizarBusqueda()"
+    />
+  </div>
+
+  <div id="prendas-container">
+    <a></a>
+    <div class="prenda-card" *ngFor="let prenda of prendasFiltradas">
+      <div class="prenda-imagen">
+        <img *ngIf="prenda.imagenPrincipal" [src]="prenda.imagenPrincipal" alt="Imagen principal" class="imagen-prenda">
+        <div *ngIf="prenda.imagenesSecundarias && prenda.imagenesSecundarias.length">
+          <img *ngFor="let img of prenda.imagenesSecundarias" [src]="img" alt="Imagen secundaria" style="width: 40px; margin: 2px;">
+        </div>
+      </div>
+      <div class="prenda-info">
+        <h3>{{ prenda.nombre }}</h3>
+        <p><strong>Precio:</strong> ${{ prenda.precio }}</p>
+        <p><strong>Categoría:</strong> {{ prenda.categoria }}</p>
+
+        <div class="prenda-opciones">
+          <button class="opciones" id="editar" (click)="editarPrenda(prenda); $event.stopPropagation()">Editar</button>
+          <button class="opciones" id="borrar" (click)="eliminarPrenda(prenda.id); $event.stopPropagation()">Eliminar</button>
+        </div>
+
+        <div *ngIf="prendaEditando?.id === prenda.id" class="form-edicion">
+          <input type="text" [(ngModel)]="prendaEditando.nombre" placeholder="Nombre">
+          <input type="text" [(ngModel)]="prendaEditando.precio" placeholder="Precio">
+
+          <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
+            <label>{{ talle }}:</label>
+            <input type="number" [(ngModel)]="prendaEditando.talles[talle]" name="edit_talle_{{talle}}">
+          </div>
+
+          <select [(ngModel)]="prendaEditando.categoria">
+            <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+          </select>
+
+          <input type="text" [(ngModel)]="prendaEditando.imagenPrincipal" placeholder="URL imagen principal">
+          <input type="text" [(ngModel)]="prendaEditando.imagenesSecundarias" placeholder="URLs imágenes secundarias (separadas por coma)">
+
+          <div class="form-actions">
+            <button (click)="guardarCambios()">Guardar Cambios</button>
+            <button (click)="prendaEditando = null">Cancelar</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="paginacion">
-  <button (click)="paginaAnterior()" [disabled]="paginaActual === 1">Anterior</button>
-  <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
-  <button (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">Siguiente</button>
-</div>
-
-<button id="agregar" (click)="toggleFormulario()">Agregar Prenda</button>
-
-<div *ngIf="mostrarFormulario">
-  <h2>Agregar Nueva Prenda</h2>
-  <input type="text" [(ngModel)]="prendaNueva.nombre" placeholder="Nombre">
-  <input type="text" [(ngModel)]="prendaNueva.precio" placeholder="Precio">
-
-  <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
-    <label>{{ talle }}:</label>
-    <input type="number" [(ngModel)]="prendaNueva.talles[talle]" name="talle_{{talle}}">
+  <div class="paginacion">
+    <button (click)="paginaAnterior()" [disabled]="paginaActual === 1">Anterior</button>
+    <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+    <button (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">Siguiente</button>
   </div>
 
-  <select [(ngModel)]="prendaNueva.categoria">
-    <option value="" disabled selected hidden>Seleccione Categoria</option>
-    <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
-  </select>
+  <button id="agregar" (click)="toggleFormulario()">Agregar Prenda</button>
 
-  <input type="text" [(ngModel)]="prendaNueva.imagenPrincipal" placeholder="URL imagen principal">
-  <input type="text" [(ngModel)]="prendaNueva.imagenesSecundarias" placeholder="URLs imágenes secundarias (separadas por coma)">
-  <button id="crear" (click)="crearPrenda()">Guardar</button>
-</div>
+  <div *ngIf="mostrarFormulario">
+    <h2>Agregar Nueva Prenda</h2>
+    <input type="text" [(ngModel)]="prendaNueva.nombre" placeholder="Nombre">
+    <input type="text" [(ngModel)]="prendaNueva.precio" placeholder="Precio">
 
+    <div *ngFor="let talle of ['S', 'M', 'L', 'XL']">
+      <label>{{ talle }}:</label>
+      <input type="number" [(ngModel)]="prendaNueva.talles[talle]" name="talle_{{talle}}">
+    </div>
+
+    <select [(ngModel)]="prendaNueva.categoria">
+      <option value="" disabled selected hidden>Seleccione Categoria</option>
+      <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+    </select>
+
+    <input type="text" [(ngModel)]="prendaNueva.imagenPrincipal" placeholder="URL imagen principal">
+    <input type="text" [(ngModel)]="prendaNueva.imagenesSecundarias" placeholder="URLs imágenes secundarias (separadas por coma)">
+    <button id="crear" (click)="crearPrenda()">Guardar</button>
+  </div>
 </div>
 
 

@@ -59,15 +59,23 @@ export class CompraComponent implements OnInit {
   }
 
 async siguientePasoUno() {
-  if (this.email != null && this.email.trim() !== '') {
-    this.paso = 2;
-    await this.createPreference(); 
-  } else {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!this.email || !emailRegex.test(this.email)) {
     this.mensajeFaltanDatos = 'Por favor, ingrese un email válido.';
     setTimeout(() => {
       this.mensajeFaltanDatos = '';
     }, 2000);
+    return;
   }
+  if(this.opcionEntrega === '') {
+    this.mensajeFaltanDatos = 'Por favor, seleccione una opción de entrega.';
+    setTimeout(() => {
+      this.mensajeFaltanDatos = '';
+    }, 2000);
+    return;
+  }
+  this.paso = 2;
+  await this.createPreference();
 }
 
 actualizarEnvioPorOpcion() {
