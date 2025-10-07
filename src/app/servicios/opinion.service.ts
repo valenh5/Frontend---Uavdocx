@@ -42,9 +42,24 @@ export class OpinionService {
     }
 }
 
+async eliminarOpinion(id_opinion: number): Promise<void> {
+    await axios.delete(
+      `${this.apiUrl}/${id_opinion}`,
+      this.obtenerToken()
+    );
+  }
+
 async obtenerOpinionesPorUsuario(id_usuario: number): Promise<Opinion[]> {
     const response = await axios.get<Opinion[]>(
       `${this.apiUrl}/usuario/${id_usuario}`,
+      this.obtenerToken()
+    );
+    return response.data;
+  }
+
+  async obtenerTodasOpiniones(): Promise<Opinion[]> {
+    const response = await axios.get<Opinion[]>(
+      `${this.apiUrl}`,
       this.obtenerToken()
     );
     return response.data;

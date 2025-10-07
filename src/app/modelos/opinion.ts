@@ -3,4 +3,5 @@ export interface Opinion {
   id_compra: number;
   calificacion: number;
   comentario: string;
+  usuario: string;
 }

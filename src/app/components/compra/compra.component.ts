@@ -35,6 +35,7 @@ export class CompraComponent implements OnInit {
     retirar: 0
   };
   nombreDestinatario: string = '';
+  id_usuario: number = Number(localStorage.getItem('id_usuario')) || 0;
   direccionEntrega: string = '';
   apellidoDestinatario: string = '';
   telefonoDestinatario: string = '';
@@ -58,24 +59,32 @@ export class CompraComponent implements OnInit {
   }
 
 async siguientePasoUno() {
-  if (this.email != null && this.email.trim() !== '') {
-    this.paso = 2;
-    await this.createPreference(); 
-  } else {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!this.email || !emailRegex.test(this.email)) {
     this.mensajeFaltanDatos = 'Por favor, ingrese un email válido.';
     setTimeout(() => {
       this.mensajeFaltanDatos = '';
     }, 2000);
+    return;
   }
+  if(this.opcionEntrega === '') {
+    this.mensajeFaltanDatos = 'Por favor, seleccione una opción de entrega.';
+    setTimeout(() => {
+      this.mensajeFaltanDatos = '';
+    }, 2000);
+    return;
+  }
+  this.paso = 2;
+  await this.createPreference();
 }
 
 actualizarEnvioPorOpcion() {
   const map: { [key: string]: string } = {
     domicilio: 'MOTOMENSAJERIA',
-    sucursal: 'Correo Argentino Clasico',
-    express: 'PUDO Argentina',
+    sucursal: 'CORREOARGENTINO',
+    express: 'PUDO',
     pickup: 'OCA',
-    retirar: 'Retiro en UAVDOCX'
+    retirar: 'SUCURSAL'
   };
   if (this.opcionEntrega && this.opcionesEnvio.hasOwnProperty(this.opcionEntrega)) {
     this.envio = this.opcionesEnvio[this.opcionEntrega];
@@ -174,58 +183,50 @@ async createPreference() {
     window.location.href = `/producto/${id}`;
   }
 
-  async crearCompra() {
-    if (!this.email || !this.nombreDestinatario || !this.apellidoDestinatario || !this.dniDestinatario || !this.telefonoDestinatario || !this.direccionEntrega) {
-      this.mensajeFaltanDatos = 'Por favor, complete todos los datos del destinatario.';
-      setTimeout(() => {
-        this.mensajeFaltanDatos = '';
-      }, 2000);
-      return;
-    }
 
-   
-    let id_usuario = 0;
-    try {
-      const usuarioStr = localStorage.getItem('usuario');
-      if (usuarioStr) {
-        const usuario = JSON.parse(usuarioStr);
-        id_usuario = usuario.id || 0;
-      }
-    } catch (e) {
-      id_usuario = 0;
-    }
-
-    
-    const compra: Compra = {
-      id: 0, 
-      id_usuario: id_usuario,
-      productos: this.carrito,
-      precioTotal: this.precioTotal + this.envio,
-      estado: 'pendiente',
-      direccionEntrega: this.direccionEntrega,
-      nombreDestinatario: this.nombreDestinatario,
-      apellidoDestinatario: this.apellidoDestinatario,
-      telefonoDestinatario: this.telefonoDestinatario,
-      dniDestinatario: this.dniDestinatario,
-      email: this.email,
-      opcionEntrega: this.opcionEntregaTexto,
-      envio: this.envio,
-      fecha: new Date().toISOString()
-    };
-
-    try {
-      await this.CompraService.crearCompra(compra);
-      this.mensajeFaltanDatos = '¡Compra realizada con éxito!';
-      setTimeout(() => {
-        this.mensajeFaltanDatos = '';
-        this.router.navigate(['/']);
-      }, 2000);
-    } catch (error) {
-      this.mensajeFaltanDatos = 'Error al crear la compra.';
-      setTimeout(() => {
-        this.mensajeFaltanDatos = '';
-      }, 2000);
-      console.error('Error al crear la compra:', error);
-    }
+async crearCompra() {
+  if (!this.email || !this.nombreDestinatario || !this.apellidoDestinatario || !this.dniDestinatario || !this.telefonoDestinatario || !this.direccionEntrega) {
+    this.mensajeFaltanDatos = 'Por favor, complete todos los datos del destinatario.';
+    setTimeout(() => {
+      this.mensajeFaltanDatos = '';
+    }, 2000);
+    return;
   }
+
+  
+  const compra = {
+    id: 0,
+    idUsuario: this.id_usuario,
+    productos: this.carrito.map(item => ({
+      idPrenda: item.id, 
+      talle: item.talle,
+      cantidad: item.cantidad
+    })),
+    total: this.precioTotal + this.envio,
+    estado: 'pendiente',
+    direccion: this.direccionEntrega,
+    nombre: this.nombreDestinatario,
+    apellido: this.apellidoDestinatario,
+    telefono: this.telefonoDestinatario,
+    dni: this.dniDestinatario,
+    email: this.email,
+    envio: this.opcionEntregaTexto,
+    fecha: new Date().toISOString()
+  };
+
+  try {
+    await this.CompraService.crearCompra(compra);
+    this.mensajeFaltanDatos = '¡Compra realizada con éxito!';
+    setTimeout(() => {
+      this.mensajeFaltanDatos = '';
+      this.router.navigate(['/']);
+    }, 2000);
+  } catch (error) {
+    this.mensajeFaltanDatos = 'Error al crear la compra.';
+    setTimeout(() => {
+      this.mensajeFaltanDatos = '';
+    }, 2000);
+    console.error('Error al crear la compra:', error);
+  }
+}
 }
