@@ -53,7 +53,7 @@
             <ul>
                 <li *ngIf="compras[compraIndex]" class="reclamo-card">
                     <p>Fecha: {{ compras[compraIndex].fecha | date:'short' }}</p>
-                    <p>Precio: {{ compras[compraIndex].precioTotal | currency:'ARS':'symbol':'1.2-2' }}</p>
+                    <p>Precio: {{ compras[compraIndex].total | currency:'ARS':'symbol':'1.2-2' }}</p>
                     <div>
                         <ul>
                             <li *ngFor="let producto of compras[compraIndex].productos">
@@ -107,6 +107,7 @@
                     </div>
                     <p>Calificación: {{ opiniones[opinionIndex].calificacion }} / 5</p>
                     <p>Comentario: {{ opiniones[opinionIndex].comentario }}</p>
+                    <button (click)="eliminarOpinion(opiniones[opinionIndex].id)" >Eliminar Opinion</button>
                 </li>
             </ul>
             <button class="carrusel-arrow" (click)="opinionIndex = (opinionIndex + 1) % opiniones.length">&#8594;</button>

@@ -1,16 +1,15 @@
 export interface Compra {
   id: number;
-  id_usuario: number;
+  idUsuario: number;
   productos: any[];
-  precioTotal: number;
+  total: number;
   estado: string;
-  direccionEntrega: string;
-  nombreDestinatario: string;
-  apellidoDestinatario: string;
-  telefonoDestinatario: string;
-  dniDestinatario: string;
+  direccion: string;
+  nombre: string;
+  apellido: string;
+  telefono: string;
+  dni: string;
   email: string;
-  opcionEntrega: string;
-  envio: number;
+  envio: string; 
   fecha: string;
 }

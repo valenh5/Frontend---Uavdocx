@@ -62,6 +62,16 @@
     </div>
     
   </div>  
+
+  <div class="opiniones">
+    <h2>Opiniones de Clientes</h2>
+    <div *ngIf="opiniones.length === 0">No hay opiniones disponibles.</div>
+    <div *ngFor="let opinion of opiniones" class="opinion-card">
+      <p><strong>Calificación:</strong> {{ opinion.calificacion }} / 5</p>
+      <p>{{ opinion.comentario }}</p>
+      <p><em>Usuario: {{ opinion.usuario }}</em></p>
+    </div>
+  </div>
 </main>
 
 

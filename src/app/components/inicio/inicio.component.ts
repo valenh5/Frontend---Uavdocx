@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
 import axios from 'axios';
 import { RouterModule } from '@angular/router';
+import { OpinionService } from '../../servicios/opinion.service';
 
 
 const apiUrl = environment.apiUrl + "/prendas";
@@ -22,6 +23,7 @@ export class inicio implements OnInit {
 
   usuarioLogueado: string | null = null;
   esAdminUsuario: boolean = false;
+  opiniones: any[] = [];
 
   ofertas: string[] = [
     'Importado Premium',
@@ -57,12 +59,22 @@ async cargarProductos(): Promise<void> {
   }
 }
 
-  constructor() {}
+async cargarOpiniones(): Promise<void> {
+  try {
+    const response = await this.opinionService.obtenerTodasOpiniones();
+    this.opiniones = response || [];
+  } catch (error) {
+    console.error("Error al cargar opiniones:", error);
+  }
+}
+
+  constructor(private opinionService : OpinionService) {}
 
   async ngOnInit(): Promise<void> {
     this.obtenerUsuarioLogueado();
     this.iniciarCarrusel();
     this.cargarProductos();
+    this.cargarOpiniones();
     this.esAdmin();
   }
 
