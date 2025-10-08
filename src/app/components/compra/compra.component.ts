@@ -6,7 +6,7 @@ import { PrendasService } from '../../servicios/prenda.service';
 import { Router, RouterModule } from '@angular/router';
 import axios from 'axios';
 import { CompraService } from '../../servicios/compra.service';
-import { Compra } from '../../modelos/compra';
+import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
   selector: 'app-compra',
@@ -42,11 +42,11 @@ export class CompraComponent implements OnInit {
   dniDestinatario: string = '';
   preferenceId: string | null = null;
   publicKey: string = 'APP_USR-97fcd1ee-745e-4751-a335-690ec9395bfe';
-  constructor(private carritoService: CarritoService, private router: Router, private PrendasService: PrendasService, private CompraService: CompraService) {
+  constructor(private usuarioService: UsuarioService, private carritoService: CarritoService, private router: Router, private PrendasService: PrendasService, private CompraService: CompraService) {
   }
   
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 

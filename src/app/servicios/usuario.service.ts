@@ -6,6 +6,18 @@ import { environment } from '../../environments/enviroment';
 export class UsuarioService {
   private apiUrl = environment.apiUrl + '/usuarios';
 
+  esAdminDesdeToken(): boolean {
+  const token = localStorage.getItem('token');
+  if (!token) return false;
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.admin === true || payload.admin === 'true';
+  } catch {
+    return false;
+  }
+}
+
+
   async eliminarUsuario(id_usuario: number) {
     const response = await axios.delete(`${this.apiUrl}/eliminar/${id_usuario}`, this.obtenerToken());
     return response.data;

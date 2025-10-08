@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.component.html',
@@ -19,7 +20,7 @@ export class ResetComponent implements OnInit {
   constructor(private route: ActivatedRoute, private usuarioService: UsuarioService) {}
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 

@@ -3,6 +3,7 @@ import { UsuarioService } from '../../servicios/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
   standalone: true, 
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit{
   }
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 

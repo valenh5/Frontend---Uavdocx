@@ -53,7 +53,7 @@ export class RegistroComponent {
   }
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 

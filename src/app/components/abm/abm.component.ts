@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PrendasService } from '../../servicios/prenda.service';
 import axios from 'axios';
 import { RouterModule } from '@angular/router';
-
+import { UsuarioService } from '../../servicios/usuario.service';
 const apiUrl = 'http://localhost:3000/prendas'; 
 
 @Component({
@@ -38,7 +38,7 @@ prendaNueva: any = {
     esAdminUsuario: boolean = false;
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 
@@ -46,7 +46,7 @@ prendaNueva: any = {
     this.usuarioLogueado = localStorage.getItem('usuario');
   } 
 
-  constructor(private prendasService: PrendasService) {}
+  constructor(private prendasService: PrendasService, private usuarioService: UsuarioService) {}
 
   async ngOnInit(): Promise<void> {
       this.obtenerUsuarioLogueado();

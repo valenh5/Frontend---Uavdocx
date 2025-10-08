@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
 import { CarritoService } from '../../servicios/carrito.service';
 import { RouterModule } from '@angular/router';
+import { UsuarioService } from '../../servicios/usuario.service';
+
 
 
 
@@ -29,11 +31,11 @@ export class ProductoComponent implements OnInit {
   router: any;
     esAdminUsuario: boolean = false;
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 
-    constructor(public carritoService: CarritoService) {} 
+    constructor(public carritoService: CarritoService, private usuarioService: UsuarioService) {}
 
 
     usuarioLogueado: string | null = null;
