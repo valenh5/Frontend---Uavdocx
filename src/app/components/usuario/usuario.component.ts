@@ -7,6 +7,8 @@ import { Compra} from '../../modelos/compra';
 import { CommonModule } from '@angular/common';
 import { CompraService } from '../../servicios/compra.service';
 import { OpinionService } from '../../servicios/opinion.service';
+import { UsuarioService } from '../../servicios/usuario.service';
+
 
 @Component({
   selector: 'app-usuario',
@@ -33,11 +35,12 @@ opinionIndex = 0;
     private router: Router,
     private reclamoService: ReclamoService,
     private compraService: CompraService,
-    private opinionService: OpinionService
+    private opinionService: OpinionService,
+    private usuarioService: UsuarioService
   ) {}
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 

@@ -5,6 +5,8 @@ import { CarritoService } from '../../servicios/carrito.service';
 import { Router } from '@angular/router';
 import { PrendasService } from '../../servicios/prenda.service';
 import { RouterModule } from '@angular/router';
+import { UsuarioService } from '../../servicios/usuario.service';
+
 
 @Component({
   selector: 'app-carrito',
@@ -24,11 +26,12 @@ export class CarritoComponent implements OnInit {
   constructor(
     private carritoService: CarritoService,
     private router: Router,
-    private PrendasService: PrendasService
+    private PrendasService: PrendasService,
+    private usuarioService: UsuarioService
   ) {}
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 

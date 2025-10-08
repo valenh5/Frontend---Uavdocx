@@ -5,6 +5,8 @@ import { environment } from '../../../environments/enviroment';
 import axios from 'axios';
 import { RouterModule } from '@angular/router';
 import { OpinionService } from '../../servicios/opinion.service';
+import { UsuarioService } from '../../servicios/usuario.service';
+
 
 
 const apiUrl = environment.apiUrl + "/prendas";
@@ -68,7 +70,7 @@ async cargarOpiniones(): Promise<void> {
   }
 }
 
-  constructor(private opinionService : OpinionService) {}
+  constructor(private opinionService : OpinionService, private usuarioService: UsuarioService) {}
 
   async ngOnInit(): Promise<void> {
     this.obtenerUsuarioLogueado();
@@ -79,7 +81,7 @@ async cargarOpiniones(): Promise<void> {
   }
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 

@@ -7,7 +7,9 @@ import { CarritoService } from '../../servicios/carrito.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment.prod';
-import axios from 'axios';
+import { UsuarioService } from '../../servicios/usuario.service';
+
+
 
 @Component({
 	selector: 'app-producto-detalle',
@@ -23,7 +25,7 @@ export class ProductoDetalleComponent implements OnInit {
   esAdminUsuario: boolean = false;
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 
@@ -44,7 +46,7 @@ export class ProductoDetalleComponent implements OnInit {
     imagenSeleccionada: string | null = null;
 
 
-	constructor(private carritoService: CarritoService, private route: ActivatedRoute, private prendasService: PrendasService) {}
+	constructor(private carritoService: CarritoService, private route: ActivatedRoute, private prendasService: PrendasService, private usuarioService: UsuarioService) {}
 
 async ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));

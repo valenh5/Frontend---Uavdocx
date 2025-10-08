@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import axios from 'axios';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
 import { RouterModule } from '@angular/router';
+import { UsuarioService } from '../../servicios/usuario.service';
+
 
 
 
@@ -31,7 +32,7 @@ export class ReclamoComponent implements OnInit {
   usuarioLogueado: string | null = null;
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
   tipoOptions = Object.values(Tipo);
@@ -40,7 +41,7 @@ export class ReclamoComponent implements OnInit {
   usuarioNombre: string | null = '';
   usuarioId: number | null = null;
 
-  constructor(private reclamoService: ReclamoService) {}
+  constructor(private reclamoService: ReclamoService, private usuarioService: UsuarioService) {}
 
   async ngOnInit() {
     this.usuarioNombre = localStorage.getItem('usuario');

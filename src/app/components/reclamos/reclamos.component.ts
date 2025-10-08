@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReclamoService } from '../../servicios/reclamo.service';
+import { UsuarioService } from '../../servicios/usuario.service';
+
 
 @Component({
   selector: 'app-reclamos',
@@ -16,10 +18,10 @@ export class ReclamosComponent implements OnInit {
   usuarioLogueado: string | null = null;
   esAdminUsuario: boolean = false;
 
-  constructor(private reclamoService: ReclamoService) {}
+  constructor(private reclamoService: ReclamoService, private usuarioService: UsuarioService) {}
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 
