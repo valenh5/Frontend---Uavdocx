@@ -3,6 +3,7 @@ import { UsuarioService } from '../../servicios/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
   standalone: true, 
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit{
   }
 
   esAdmin(): boolean {
-    this.esAdminUsuario = localStorage.getItem('esAdmin') === 'true';
+    this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
 
@@ -45,50 +46,31 @@ export class LoginComponent implements OnInit{
   }
 
     async ingresar() {
-  try {
-    const respuesta = await this.usuarioService.comprobarUsuario(this.usuario_ingreso, this.pass_ingreso);
-    console.log('Respuesta login:', respuesta);
-    alert(respuesta.mensaje);
-    if (respuesta.token) {
-      localStorage.setItem('token', respuesta.token);
-      localStorage.setItem('usuario', this.usuario_ingreso);
+      try {
+        const respuesta = await this.usuarioService.comprobarUsuario(this.usuario_ingreso, this.pass_ingreso);
+        console.log('Respuesta login:', respuesta);
+        alert(respuesta.mensaje);
+        if (respuesta.token) {
+          localStorage.setItem('token', respuesta.token);
+          localStorage.setItem('usuario', this.usuario_ingreso);
 
-      const id_usuario = respuesta.id_usuario || respuesta.id || null;
-      console.log('id_usuario:', id_usuario);
-
-      let esAdmin = false;
-      if (id_usuario) {
-        try {
-          const adminRes = await this.usuarioService.verificarAdmin(id_usuario);
-          console.log('adminRes:', adminRes, typeof adminRes);
-
-          if (
-            adminRes === true || adminRes === 'true' ||
-            (typeof adminRes === 'object' &&
-              (adminRes.esAdmin === true ||
-                adminRes.admin === true ||
-                adminRes.esAdmin === 'true' ||
-                adminRes.admin === 'true'))
-          ) {
-            esAdmin = true;
+          const tokenParts = respuesta.token.split('.');
+          if (tokenParts.length === 3) {
+            const payload = JSON.parse(atob(tokenParts[1]));
+            const esAdmin = payload.admin === true || payload.admin === 'true';
+            localStorage.setItem('esAdmin', esAdmin ? 'true' : 'false');
+            if (payload.id) {
+              localStorage.setItem('id_usuario', payload.id.toString());
+            }
           }
-        } catch (e) {
-          console.log('Error en verificarAdmin:', e);
+
+          this.router.navigate(['']);
         }
+      } catch (error: any) {
+        console.log('Error en login:', error);
+        alert(error.response?.data?.mensaje || 'Error al ingresar usuario');
       }
-
-      localStorage.setItem('esAdmin', esAdmin ? 'true' : 'false');
-      if (id_usuario) {
-        localStorage.setItem('id_usuario', id_usuario.toString());
-      }
-
-      this.router.navigate(['']);
     }
-  } catch (error: any) {
-    console.log('Error en login:', error);
-    alert(error.response?.data?.mensaje || 'Error al ingresar usuario');
-  }
-}
 
   async solicitarReset() {
     try {
