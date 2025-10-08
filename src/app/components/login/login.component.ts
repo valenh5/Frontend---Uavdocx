@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit{
           if (tokenParts.length === 3) {
             const payload = JSON.parse(atob(tokenParts[1]));
             const esAdmin = payload.admin === true || payload.admin === 'true';
-            localStorage.setItem('esAdmin', esAdmin ? 'true' : 'false');
             if (payload.id) {
               localStorage.setItem('id_usuario', payload.id.toString());
             }

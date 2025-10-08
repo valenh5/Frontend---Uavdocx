@@ -136,9 +136,14 @@
       <input type="text" placeholder="Teléfono" [(ngModel)]="telefonoDestinatario" />
       <input type="text" placeholder= "Direccion" [(ngModel)]="direccionEntrega" />
   <h2>Pagar</h2>
-  <div id="walletBrick_container"></div>
-  <button (click)="crearCompra()">Finalizar compra</button>
-    </div>
+<div
+  id="walletBrick_container"
+  (click)="crearCompraYMostrarPago()"
+  [class.disabled]="!datosCompletos()"
+  [style.pointerEvents]="datosCompletos() ? 'auto' : 'none'"
+  style="cursor:pointer;">
+</div>
+</div>
   </div>
   <div class="productos">
     <div *ngFor="let item of carrito" class="producto">
