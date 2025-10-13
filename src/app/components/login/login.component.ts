@@ -9,6 +9,7 @@ import { Router, RouterModule } from '@angular/router';
   standalone: true, 
   imports: [FormsModule, RouterModule], 
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
   nombre_usuario = '';

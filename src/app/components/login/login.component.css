@@ -1,11 +1,11 @@
 #registroBox {
-  background-color: #c0c0c049;
+  background-color: #ffffff;
   max-width: 400px;
   margin: 60px auto;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  margin-top: 10%;
+  margin-top: 1%;
 }
 
 h2 {
