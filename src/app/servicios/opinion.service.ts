@@ -23,6 +23,7 @@ export class OpinionService {
       {
         calificacion: opinion.calificacion,
         comentario: opinion.comentario,
+        usuario: opinion.usuario,
         foto: (opinion as any).foto 
       },
       this.obtenerToken()

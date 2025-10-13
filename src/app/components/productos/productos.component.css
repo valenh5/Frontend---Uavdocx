@@ -311,37 +311,6 @@ h2.titulo-productos {
 }
 
 
-footer a{
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-}
-
-footer a:hover {
-  color: #007bff;
-  text-decoration: none;
-}
-footer span{
-  color: rgb(0, 0, 0);
-}
-
-footer {
-  margin-top: 12%;
-  background-color: #ffffff;
-  padding: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: #333;
-  position: relative;
-  
-}
-
-.footer-links{
-  margin-top: 2%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 2%;
-}
 
 .encabezado {
   display: grid;

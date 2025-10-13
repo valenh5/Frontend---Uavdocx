@@ -1,31 +1,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 <link rel="stylesheet" href="../navbar-global.css" />
 
-<nav class="navbar">
-  <div class="navbar-container" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
-    <a href="/" class="navbar-logo" style="margin-left:0; text-align:left;">UAVDOCX</a>
-    
-    <div class="navbar-menu">
-      <a href="/">Inicio</a>
-      <a href="/productos">Productos</a>
-      <a [routerLink]="usuarioLogueado ? '/usuario' : '/login'">Sesion</a>
-      <div *ngIf="esAdminUsuario" class="dropdown">
-        <a class="navbar-link dropdown-btn">Admin</a>
-        <div class="dropdown-content">
-          <a href="./usuarios">Usuarios</a>
-          <a href="./reclamos">Reclamos</a>
-          <a href="./abm">Prendas</a>
-        </div>
-      </div>
-    </div>
-    <div class="logos">
-      <a href="/carrito" class="material-symbols-outlined">shopping_cart</a>
-      <a href="/usuario" class="material-symbols-outlined">person</a>
-      <a href="/reclamo" class="material-symbols-outlined">sentiment_extremely_dissatisfied</a>
-      <a href="/local" class="material-symbols-outlined">store</a>
-    </div>
-  </div>
-</nav>
+
 
 
 
@@ -99,15 +75,3 @@
   </div>
 </main>
 
-<footer class="footer">
-  <div class="footer-container">
-    <span class="footer-logo">UAVDOCX</span>
-    <span class="footer-text">© 2025 UAVDOCX. Todos los derechos reservados.</span>
-    <div class="footer-links">
-      <a href="/" class="footer-link">Inicio</a>
-      <a href="/productos" class="footer-link">Productos</a>
-      <a href="/login" class="footer-link">Sesión</a>
-      <a href="/abm" class="footer-link">ABM</a>
-    </div>
-  </div>
-</footer>
