@@ -11,8 +11,21 @@ export class CompraService {
 
     apiUrl = environment.apiUrl + "/compras";
 
+    obtenerToken() {
+    const token = localStorage.getItem('token');
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  }
+
     retornarCompras(id: number) {
     return axios.get(`${this.apiUrl}/${id}`);
+    }
+
+    obtenerCompras(){
+    return axios.get(this.apiUrl, this.obtenerToken());
     }
 
     crearCompra(compra: Compra) {
