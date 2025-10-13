@@ -1,0 +1,30 @@
+<div *ngIf="esAdmin">
+<div class="compras-container">
+  <h2>Listado de Compras</h2>
+  <table *ngIf="compras.length > 0; else sinCompras">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Total</th>
+        <th>Estado</th>
+        <th>Fecha</th>
+        <th>Email</th>
+        <th>Dirección</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let compra of compras">
+        <td>{{ compra.id }}</td>
+        <td>${{ compra.total }}</td>
+        <td>{{ compra.estado }}</td>
+        <td>{{ compra.fecha | date:'short' }}</td>
+        <td>{{ compra.email }}</td>
+        <td>{{ compra.direccion }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #sinCompras>
+    <p>No hay compras registradas.</p>
+  </ng-template>
+</div>
+</div>

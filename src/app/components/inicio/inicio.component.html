@@ -2,40 +2,8 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
-<div class="announcement-bar">
-  <div class="announcement-track">
-    <span *ngFor="let oferta of ofertas; let i = index" [style.animation-delay]="(i * 4) + 's'">
-      {{ oferta }}
-    </span>
-  </div>
-</div>
 
-<nav class="navbar">
-  <div class="navbar-container navbar-column">
-    <a href="/" class="navbar-logo">
-      UAVDOCX
-    </a>
-    <div class="navbar-menu">
-  <a href="/">Inicio</a>
-  <a href="/productos">Productos</a>
-  <a [routerLink]="usuarioLogueado ? '/usuario' : '/login'">Sesion</a>
-  <div *ngIf="esAdminUsuario" class="dropdown">
-    <a class="navbar-link dropdown-btn">Admin</a>
-    <div class="dropdown-content">
-      <a href="./usuarios">Usuarios</a>
-      <a href="./reclamos">Reclamos</a>
-      <a href="./abm">Prendas</a>
-    </div>
-  </div>
-</div>
-    <div class="logos">
-      <a href="/carrito" class="material-symbols-outlined">shopping_cart</a>
-      <a href="/usuario" class="material-symbols-outlined">person</a>
-      <a href="/reclamo" class="material-symbols-outlined">sentiment_extremely_dissatisfied</a>
-      <a href="/local" class="material-symbols-outlined">store</a>
-    </div>
-  </div>
-</nav>
+
 <main>
   <div class="carrusel-container">  
     <button class="carrusel-btn carrusel-btn-prev" (click)="cambiarImagen(-1)">&#10094;</button>
@@ -69,37 +37,7 @@
     <div *ngFor="let opinion of opiniones" class="opinion-card">
       <p><strong>Calificación:</strong> {{ opinion.calificacion }} / 5</p>
       <p>{{ opinion.comentario }}</p>
-      <p><em>Usuario: {{ opinion.usuario }}</em></p>
     </div>
   </div>
 </main>
-
-
-
-
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-links">
-      <div>
-        <p class="titulo-footer">AYUDA</p>
-        <p>Preguntas Frecuentes</p>
-        <p>Política de Privacidad</p>
-        <p>Terminos y Condiciones</p>
-      </div>
-      <div>
-        <p class="titulo-footer">UAVDOCX</p>
-        <p>Inicio</p>
-        <p>Local</p>
-  <a href="https://www.instagram.com/uavdocx/" target="_blank" rel="noopener"><img class="ig" src="https://static.vecteezy.com/system/resources/previews/008/385/736/non_2x/instagram-social-media-icon-symbol-element-illustration-free-vector.jpg"></a>
-      </div>
-      <div>
-        <p class="titulo-footer">CONTACTO</p>
-        <p>+54 9 11 2894-6160</p>
-        <p>uavdocx.gmail.com</p>
-        <p>Provincia de Buenos Aires</p>
-      </div>
-    </div>
-      <span class="footer-text">© 2025 UAVDOCX. Todos los derechos reservados.</span>
-  </div>
-</footer>
 

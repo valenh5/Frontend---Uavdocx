@@ -2,8 +2,9 @@
     display: grid;
     grid-template-columns: 0.8fr 1fr;
     gap: 16px;
-    margin-top: 12%;
+    margin-top: 3%;
 }
+
 
 .producto-imagen {
   width: 80%;
