@@ -218,7 +218,8 @@ export class CompraComponent implements OnInit {
       dni: this.dniDestinatario,
       email: this.email,
       envio: this.opcionEntregaTexto,
-      fecha: new Date().toISOString()
+      fecha: new Date().toISOString(),
+      fechaEntrega: ''
     };
     try {
       await this.CompraService.crearCompra(compra);

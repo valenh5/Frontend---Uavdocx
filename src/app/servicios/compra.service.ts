@@ -31,4 +31,8 @@ export class CompraService {
     crearCompra(compra: Compra) {
     return axios.post(this.apiUrl, compra);
     }
+
+    modificarCompra(id: number, compra: Compra){
+      return axios.put(`${this.apiUrl}/modificar/${id}`, compra, this.obtenerToken())
+    }
 }
