@@ -12,5 +12,5 @@ export interface Compra {
   email: string;
   envio: string; 
   fecha: string;
-    fechaEntrega: string;
+  fechaEntrega: string | null;
 }
