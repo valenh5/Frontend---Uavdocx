@@ -266,40 +266,42 @@ h2.titulo-productos {
 
 #prendas-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 5%;
-  margin: 40px auto 0 auto;
-  max-width: 1200px;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 0;
+  margin: 0 auto 0 auto;
+  max-width: 100%;
   width: 100%;
   padding: 0;
-  margin-top: 18%;
+  margin-top: 2vw; 
 }
 
 .prenda-card {
   background: #fff;
   border: 1px solid #eee;
-  border-radius: 0;
-  margin: 0;
+  border-radius: 16px;
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  box-shadow: none;
-  transition: box-shadow 0.2s;
-  height: 340px;
+  box-shadow: 0 4px 24px #0001;
+  transition: box-shadow 0.2s, transform 0.2s;
+  height: 820px; 
+  width: 90%;
   overflow: hidden;
-  cursor:pointer
+  cursor: pointer;
+  position: relative;
 }
 
 .prenda-card:hover {
-  box-shadow: 0 40px 160px #0000;
+  box-shadow: 0 12px 48px #0002;
+  transform: translateY(-6px) scale(1.03);
   z-index: 2;
 }
 
 .prenda-imagen {
   width: 100%;
-  height: 220px;
+  height: 80%; 
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -315,7 +317,7 @@ h2.titulo-productos {
 }
 
 .prenda-info {
-  padding: 12px 10px 0 10px;
+  padding: 28px 24px 0 24px;
   text-align: left;
   flex: 1;
   display: flex;
@@ -324,14 +326,14 @@ h2.titulo-productos {
 }
 
 .prenda-info h3 {
-  font-size: 1.1rem;
+  font-size: 2.1rem;
   font-weight: 700;
-  margin: 0 0 8px 0;
+  margin: 0 0 18px 0;
   color: #222;
 }
 
 .prenda-info p {
-  font-size: 1rem;
+  font-size: 1.3rem;
   margin: 0;
   color: #444;
 }

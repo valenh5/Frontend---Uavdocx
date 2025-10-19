@@ -8,6 +8,7 @@
         <th>Total</th>
         <th>Estado</th>
         <th>Fecha</th>
+        <th>Fecha Entrega</th>
         <th>Email</th>
         <th>Dirección</th>
       </tr>
@@ -16,10 +17,25 @@
       <tr *ngFor="let compra of compras">
         <td>{{ compra.id }}</td>
         <td>${{ compra.total }}</td>
-        <td>{{ compra.estado }}</td>
+        <td>
+          <select [(ngModel)]="compra.estado">
+            <option value="pendiente">PENDIENTE</option>
+            <option value="pagada">PAGADA</option>
+            <option value="cancelada">CANECELADA</option>
+            <option value="entregada">ENTREGADA</option>
+          </select>
+        </td>
         <td>{{ compra.fecha | date:'short' }}</td>
+        <td>
+  <input
+    type="datetime-local"
+    [ngModel]="compra.fechaEntrega ? (compra.fechaEntrega | date:'yyyy-MM-ddTHH:mm') : null"
+    (ngModelChange)="compra.fechaEntrega = $event"
+  />
+</td>
         <td>{{ compra.email }}</td>
         <td>{{ compra.direccion }}</td>
+        <button (click)="modificarCompra(compra)">Modificar</button>
       </tr>
     </tbody>
   </table>

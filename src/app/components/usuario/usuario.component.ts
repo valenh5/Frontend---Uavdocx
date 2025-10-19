@@ -3,21 +3,19 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ReclamoService } from '../../servicios/reclamo.service';
 import { Reclamo } from '../../modelos/reclamo';
-import { Compra} from '../../modelos/compra';
+import { Compra } from '../../modelos/compra';
 import { CommonModule } from '@angular/common';
 import { CompraService } from '../../servicios/compra.service';
 import { OpinionService } from '../../servicios/opinion.service';
 import { UsuarioService } from '../../servicios/usuario.service';
 
-
 @Component({
   selector: 'app-usuario',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule], 
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './usuario.component.html',
-  styleUrls: ['./usuario.component.css'],   
+  styleUrls: ['./usuario.component.css'],
 })
-
 export class UsuarioComponent implements OnInit {
   reclamos: Reclamo[] = [];
   compras: Compra[] = [];
@@ -28,8 +26,12 @@ export class UsuarioComponent implements OnInit {
   esAdminUsuario: boolean = false;
   mensajeError: string = '';
   reclamoIndex = 0;
-compraIndex = 0;
-opinionIndex = 0;
+  compraIndex = 0;
+  opinionIndex = 0;
+
+  logeado: boolean = !!localStorage.getItem('token');
+  nombre: string = '';
+  email: string = '';
 
   constructor(
     private router: Router,
@@ -96,9 +98,6 @@ opinionIndex = 0;
     }
   }
 
-  logeado: boolean = !!localStorage.getItem('token');
-  nombre: string = '';
-  email: string = '';
   redirigirLogin() {
     this.router.navigate(['login']);
   }
@@ -121,16 +120,41 @@ opinionIndex = 0;
     }
   }
 
-  async opinar(compra: Compra){
+  async opinar(compra: Compra) {
     const existe = await this.opinionService.verificarExistencia(compra.id);
     if (!existe) {
       this.router.navigate(['opinion', compra.id], { state: { compra } });
-    }else{
+    } else {
       this.mensajeError = 'Ya existe una opinion para esta compra.';
-        setTimeout(() => {
-          this.mensajeError = '';
-        }, 2000);
-        return;
+      setTimeout(() => {
+        this.mensajeError = '';
+      }, 2000);
+      return;
     }
+  }
+
+  getProductosDeOpinion(opinion: any) {
+    const compra = this.compras.find(c => c.id === opinion.id_compra);
+    return compra ? compra.productos : [];
+  }
+
+  // Métodos para flechas
+  prevCompra() {
+    if (this.compraIndex > 0) this.compraIndex--;
+  }
+  nextCompra() {
+    if (this.compraIndex < this.compras.length - 1) this.compraIndex++;
+  }
+  prevReclamo() {
+    if (this.reclamoIndex > 0) this.reclamoIndex--;
+  }
+  nextReclamo() {
+    if (this.reclamoIndex < this.reclamos.length - 1) this.reclamoIndex++;
+  }
+  prevOpinion() {
+    if (this.opinionIndex > 0) this.opinionIndex--;
+  }
+  nextOpinion() {
+    if (this.opinionIndex < this.opiniones.length - 1) this.opinionIndex++;
   }
 }

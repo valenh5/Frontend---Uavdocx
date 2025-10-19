@@ -25,10 +25,7 @@
 			<option *ngFor="let t of tipoOptions" [value]="t">{{ t }}</option>
 		</select>
 	</div>
-		<div>
-			<label>Estado:</label>
-			<span>{{ nuevoReclamo.estado }}</span>
-		</div>
+
 	<button type="submit" [disabled]="cargando">Enviar Reclamo</button>
 </form>
 
