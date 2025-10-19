@@ -1,10 +1,6 @@
-<link rel="stylesheet" href="../navbar-global.css" />
-
-
 <p>Inicio    -   Mi cuenta</p>
 
 <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
-
 
 <div *ngIf="!logeado">
     <h1>Debe Iniciar Sesion</h1>
@@ -20,13 +16,18 @@
         <p>{{ email }}</p>
         <button (click)="cerrarSesion()">Cerrar Sesion</button>
     </div>
-        <div>
+    <div>
         <h1>Compras</h1>
         <p>Compras realizadas por el usuario</p>
         <hr>
         <p *ngIf="compras.length === 0">No tienes compras. <a href="/carrito">Hacer una</a></p>
         <div *ngIf="compras.length > 0" class="carrusel">
-            <button class="carrusel-arrow" (click)="compraIndex = (compraIndex - 1 + compras.length) % compras.length">&#8592;</button>
+            <button 
+                class="carrusel-arrow"
+                (click)="prevCompra()"
+                [disabled]="compraIndex === 0"
+                *ngIf="compras.length > 1"
+                aria-label="Anterior">&#8592;</button>
             <ul>
                 <li *ngIf="compras[compraIndex]" class="reclamo-card">
                     <p>Fecha: {{ compras[compraIndex].fecha | date:'short' }}</p>
@@ -42,9 +43,14 @@
                     <button (click)="opinar(compras[compraIndex])">Dejar Opinion</button>
                 </li>
             </ul>
-            <button class="carrusel-arrow" (click)="compraIndex = (compraIndex + 1) % compras.length">&#8594;</button>
+            <button 
+                class="carrusel-arrow"
+                (click)="nextCompra()"
+                [disabled]="compraIndex === compras.length - 1"
+                *ngIf="compras.length > 1"
+                aria-label="Siguiente">&#8594;</button>
         </div>
-     </div>
+    </div>
     <div>
         <h1>Reclamos</h1>
         <p>Reclamos realizados por el usuario</p>
@@ -53,7 +59,12 @@
             <p>No tienes reclamos. <a href="/reclamo">Hacer uno</a></p>
         </div>
         <div *ngIf="reclamos.length > 0" class="carrusel">
-            <button class="carrusel-arrow" (click)="reclamoIndex = (reclamoIndex - 1 + reclamos.length) % reclamos.length">&#8592;</button>
+            <button 
+                class="carrusel-arrow"
+                (click)="prevReclamo()"
+                [disabled]="reclamoIndex === 0"
+                *ngIf="reclamos.length > 1"
+                aria-label="Anterior">&#8592;</button>
             <ul>
                 <li *ngIf="reclamos[reclamoIndex]" class="reclamo-card">
                     <p>{{ reclamos[reclamoIndex].tipo }}</p>
@@ -62,22 +73,31 @@
                     <button (click)="eliminarReclamo(reclamos[reclamoIndex].id)">Eliminar Reclamo</button>
                 </li>
             </ul>
-            <button class="carrusel-arrow" (click)="reclamoIndex = (reclamoIndex + 1) % reclamos.length">&#8594;</button>
+            <button 
+                class="carrusel-arrow"
+                (click)="nextReclamo()"
+                [disabled]="reclamoIndex === reclamos.length - 1"
+                *ngIf="reclamos.length > 1"
+                aria-label="Siguiente">&#8594;</button>
         </div>
     </div>
-
-     <div>
-       <h1>Opiniones</h1>
+    <div>
+        <h1>Opiniones</h1>
         <p>Opiniones realizadas por el usuario</p>
         <hr>
         <p *ngIf="opiniones.length === 0">No tienes opiniones.</p>
         <div *ngIf="opiniones.length > 0" class="carrusel">
-            <button class="carrusel-arrow" (click)="opinionIndex = (opinionIndex - 1 + opiniones.length) % opiniones.length">&#8592;</button>
+            <button 
+                class="carrusel-arrow"
+                (click)="prevOpinion()"
+                [disabled]="opinionIndex === 0"
+                *ngIf="opiniones.length > 1"
+                aria-label="Anterior">&#8592;</button>
             <ul>
                 <li *ngIf="opiniones[opinionIndex]" class="reclamo-card">
                     <div>
                         <ul>
-                            <li *ngFor="let producto of compras[compraIndex].productos">
+                            <li *ngFor="let producto of getProductosDeOpinion(opiniones[opinionIndex])">
                                 {{ producto.nombre }}
                             </li>
                         </ul>
@@ -87,7 +107,12 @@
                     <button (click)="eliminarOpinion(opiniones[opinionIndex].id)" >Eliminar Opinion</button>
                 </li>
             </ul>
-            <button class="carrusel-arrow" (click)="opinionIndex = (opinionIndex + 1) % opiniones.length">&#8594;</button>
+            <button 
+                class="carrusel-arrow"
+                (click)="nextOpinion()"
+                [disabled]="opinionIndex === opiniones.length - 1"
+                *ngIf="opiniones.length > 1"
+                aria-label="Siguiente">&#8594;</button>
         </div>
-     </div>
+    </div>
 </div>

@@ -2,7 +2,7 @@
   transform: scale(0.8);
   transform-origin: top center;
   min-height: 100vh;
-  margin-top: 3%;
+  margin-top: -2%;
 }
 
 .navbar {
@@ -35,7 +35,6 @@ html{
     border: 1px solid red;
     border-radius: 4px;
     margin-bottom: 0%;
-    margin-top: 5rem;
 }
 
 
@@ -150,9 +149,9 @@ input[type="radio"] {
 }
 
 button {
-  background: #1976d2;
-  color: #fff;
-  border: none;
+  background: #ffffff;
+  color: #000000;
+  border: solid black 1px;
   border-radius: 5px;
   padding: 0.7em 2em;
   font-size: 1.1rem;
@@ -162,7 +161,8 @@ button {
   transition: background 0.2s;
 }
 button:hover:not(:disabled) {
-  background: #1257a8;
+  background: #000000;
+  color: #ffffff;
 }
 
 .datos {
@@ -173,10 +173,9 @@ button:hover:not(:disabled) {
 }
 .info-compra {
   flex: 1 1 300px;
-  background: #f7f9fa;
+  background: #ffffff;
   padding: 1.5em;
   border-radius: 8px;
-  box-shadow: 0 2px 8px #0001;
   margin-bottom: 1em;
 }
 .domicilio, .retirar {
@@ -205,7 +204,7 @@ button:hover:not(:disabled) {
 .precios {
   margin-top: 2em;
   padding-top: 1em;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #000000;
   font-size: 1.1rem;
 }
 .precios p {

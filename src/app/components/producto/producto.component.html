@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-<link rel="stylesheet" href="../navbar-global.css" />
 
 
 
@@ -44,15 +43,16 @@
       <div>
         <strong>Talle</strong>
         <div class="talles-fila">
-          <button 
-            *ngFor="let talle of (producto.talles | keyvalue)" 
-            type="button"
-            [class.talle-seleccionado]="talleSeleccionado === talle.key"
-            class="talle-cuadro"
-            (click)="talleSeleccionado = talle.key">
-            {{ talle.key }}
-          </button>
-        </div>
+  <button 
+    *ngFor="let talle of (producto.talles | keyvalue)" 
+    type="button"
+    [class.talle-seleccionado]="talleSeleccionado === talle.key"
+    class="talle-cuadro"
+    (click)="talleSeleccionado = talle.key">
+    {{ talle.key }} 
+    <span style="font-size: 0.9em; color: #888;">({{ talle.value }} disponibles)</span>
+  </button>
+</div>
       </div>
       <div class="guia-talles-container" (click)="abrirGuiaTalles()" tabindex="0" role="button" aria-label="Guía de talles">
         <span class="material-symbols-outlined">straighten</span>

@@ -59,12 +59,18 @@ export class ReclamoComponent implements OnInit {
     this.reclamoService.agregarReclamo(this.nuevoReclamo)
       .then(() => {
         this.exito = '¡Reclamo enviado correctamente!';
+        setTimeout(() => {
+          this.exito = '';
+        }, 2000);
         this.cargando = false;
         this.nuevoReclamo.descripcion = '';
         this.nuevoReclamo.tipo = Tipo.PRODUCTO;
       })
       .catch(() => {
-        this.error = 'Error al agregar reclamo';
+        this.error = 'Complete los campos correctamente.';
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
         this.cargando = false;
       });
   }

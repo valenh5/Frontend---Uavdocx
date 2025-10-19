@@ -218,7 +218,8 @@ export class CompraComponent implements OnInit {
       dni: this.dniDestinatario,
       email: this.email,
       envio: this.opcionEntregaTexto,
-      fecha: new Date().toISOString()
+      fecha: new Date().toISOString(),
+      fechaEntrega: null
     };
     try {
       await this.CompraService.crearCompra(compra);
@@ -228,6 +229,7 @@ export class CompraComponent implements OnInit {
         this.mensajeFaltanDatos = '';
       }, 2000);
     } catch (error) {
+      console.error(error);
       this.mensajeFaltanDatos = 'Error al crear la compra.';
       setTimeout(() => {
         this.mensajeFaltanDatos = '';
