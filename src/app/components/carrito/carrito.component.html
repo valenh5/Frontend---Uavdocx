@@ -1,43 +1,43 @@
 
-<main>
+<main class="carrito-main">
+  <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
 
-<div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
-
-<div class="carrito-header">
-  <span>Producto</span>
-  <span>Cantidad</span>
-  <span>Precio</span>
-  <span>Subtotal</span>
-  <span>Eliminar</span>
-</div>
-<ul>
-  <li class="producto" *ngFor="let item of carrito" >
-    <span>
-      <img (click)="verProducto(item.id)" *ngIf="item.imagen" [src]="item.imagen" alt="Imagen de {{item.nombre}}" style="cursor:pointer;width:40px;height:40px;object-fit:cover;margin-right:8px;vertical-align:middle;">
-      <span (click)="verProducto(item.id)" style="vertical-align:middle; cursor: pointer;">{{ item.nombre || item.id }}</span>
-    </span>
-    <div class="cantidad-container">
-      <span class="cantidad-borde">
-        <button class="cantidad" (click)="disminuirCantidad(item.id, item.talle)">-</button>
-        <span>{{ item.cantidad }}</span>
-        <button class="cantidad" (click)="aumentarCantidad(item.id, item.talle)">+</button>
+  <div class="carrito-header-line">
+    <span>Producto</span>
+    <span>Cantidad</span>
+    <span>Precio</span>
+    <span>Subtotal</span>
+    <span>Borrar</span>
+    <span></span>
+  </div>
+  <ul class="carrito-lista">
+    <li class="producto-linea" *ngFor="let item of carrito">
+      <span class="prod-nombre">
+        <img (click)="verProducto(item.id)" *ngIf="item.imagen" [src]="item.imagen" alt="Imagen de {{item.nombre}}" class="prod-img">
+        <span (click)="verProducto(item.id)" class="prod-link">{{ item.nombre || item.id }}</span>
       </span>
-    </div>
-    <span>${{ item.precio }}</span>
-    <span>${{ item.cantidad * item.precio }}</span>
-    <span>
-      <button (click)="eliminarDelCarrito(item.id, item.talle)" class="btn">
-        <svg viewBox="0 0 15 17.5" height="17.5" width="15" xmlns="http://www.w3.org/2000/svg" class="icon">
-          <path transform="translate(-2.5 -1.25)" d="M15,18.75H5A1.251,1.251,0,0,1,3.75,17.5V5H2.5V3.75h15V5H16.25V17.5A1.251,1.251,0,0,1,15,18.75ZM5,5V17.5H15V5Zm7.5,10H11.25V7.5H12.5V15ZM8.75,15H7.5V7.5H8.75V15ZM12.5,2.5h-5V1.25h5V2.5Z" id="Fill"></path>
-        </svg>
-      </button>
-    </span>
-  </li>
-</ul>
+      <div class="cantidad-container">
+        <span class="cantidad-borde">
+          <button class="cantidad-btn" (click)="disminuirCantidad(item.id, item.talle)">-</button>
+          <span>{{ item.cantidad }}</span>
+          <button class="cantidad-btn" (click)="aumentarCantidad(item.id, item.talle)">+</button>
+        </span>
+      </div>
+      <span class="prod-precio">${{ item.precio }}</span>
+      <span class="prod-subtotal">${{ item.cantidad * item.precio }}</span>
+      <span>
+        <button (click)="eliminarDelCarrito(item.id, item.talle)" class="btn-eliminar">
+          <svg viewBox="0 0 15 17.5" height="17.5" width="15" xmlns="http://www.w3.org/2000/svg" class="icon">
+            <path transform="translate(-2.5 -1.25)" d="M15,18.75H5A1.251,1.251,0,0,1,3.75,17.5V5H2.5V3.75h15V5H16.25V17.5A1.251,1.251,0,0,1,15,18.75ZM5,5V17.5H15V5Zm7.5,10H11.25V7.5H12.5V15ZM8.75,15H7.5V7.5H8.75V15ZM12.5,2.5h-5V1.25h5V2.5Z" id="Fill"></path>
+          </svg>
+        </button>
+      </span>
+    </li>
+  </ul>
 
-<div *ngIf="!carrito.length" class="carrito-vacio">
-  <p>El carrito está vacío. <a href="/productos">Ver productos</a></p>
-</div>
+  <div *ngIf="!carrito.length" class="carrito-vacio">
+    <p>El carrito está vacío. <a href="/productos">Ver productos</a></p>
+  </div>
 
-<button [disabled]="!carrito.length" class="compra" (click)="comprar()">Iniciar Compra</button>
+  <button [disabled]="!carrito.length" class="compra-btn" (click)="comprar()">Iniciar Compra</button>
 </main>

@@ -3,29 +3,26 @@
 
 
 
-<h1>Reclamo</h1>
-
-<div *ngIf="error" class="error">{{ error }}</div>
-<div *ngIf="exito" class="exito">{{ exito }}</div>
-
-
-<form (ngSubmit)="agregarReclamo()" #reclamoForm="ngForm">
-		<div>
+<div class="reclamo-limpio">
+	<h1>Reclamo</h1>
+	<div *ngIf="error" class="error">{{ error }}</div>
+	<div *ngIf="exito" class="exito">{{ exito }}</div>
+	<form class="form-limpio" (ngSubmit)="agregarReclamo()" #reclamoForm="ngForm">
+		<div class="form-group-limpio">
 			<label>Usuario:</label>
-			<span>{{ usuarioNombre }}</span>
+			<span class="dato-usuario">{{ usuarioNombre }}</span>
 		</div>
-		
-	<div>
-		<label>Descripción:</label>
-		<input type="text" [(ngModel)]="nuevoReclamo.descripcion" name="descripcion" required>
-	</div>
-	<div>
-		<label>Tipo:</label>
-		<select [(ngModel)]="nuevoReclamo.tipo" name="tipo" required>
-			<option *ngFor="let t of tipoOptions" [value]="t">{{ t }}</option>
-		</select>
-	</div>
-
-	<button type="submit" [disabled]="cargando">Enviar Reclamo</button>
-</form>
+		<div class="form-group-limpio">
+			<label>Descripción:</label>
+			<textarea [(ngModel)]="nuevoReclamo.descripcion" name="descripcion" required></textarea>
+		</div>
+		<div class="form-group-limpio">
+			<label>Tipo:</label>
+			<select [(ngModel)]="nuevoReclamo.tipo" name="tipo" required>
+				<option *ngFor="let t of tipoOptions" [value]="t">{{ t }}</option>
+			</select>
+		</div>
+		<button type="submit" [disabled]="cargando">Enviar Reclamo</button>
+	</form>
+</div>
 
