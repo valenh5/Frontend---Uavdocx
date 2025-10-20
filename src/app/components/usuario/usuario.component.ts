@@ -33,6 +33,10 @@ export class UsuarioComponent implements OnInit {
   nombre: string = '';
   email: string = '';
 
+  comprasAbierto: boolean = false;
+  reclamosAbierto: boolean = false;
+  opinionesAbierto: boolean = false;
+
   constructor(
     private router: Router,
     private reclamoService: ReclamoService,
@@ -44,6 +48,16 @@ export class UsuarioComponent implements OnInit {
   esAdmin(): boolean {
     this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
+  }
+
+  toggleCompras() {
+    this.comprasAbierto = !this.comprasAbierto;
+  }
+  toggleReclamos() {
+    this.reclamosAbierto = !this.reclamosAbierto;
+  }
+  toggleOpiniones() {
+    this.opinionesAbierto = !this.opinionesAbierto;
   }
 
   obtenerUsuarioLogueado() {
