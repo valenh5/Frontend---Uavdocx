@@ -43,16 +43,18 @@
       <div>
         <strong>Talle</strong>
         <div class="talles-fila">
-  <button 
-    *ngFor="let talle of (producto.talles | keyvalue)" 
-    type="button"
-    [class.talle-seleccionado]="talleSeleccionado === talle.key"
-    class="talle-cuadro"
-    (click)="talleSeleccionado = talle.key">
-    {{ talle.key }} 
-    <span style="font-size: 0.9em; color: #888;">({{ talle.value }} disponibles)</span>
-  </button>
-</div>
+          <button 
+            *ngFor="let talle of (producto.talles | keyvalue)" 
+            type="button"
+            [class.talle-seleccionado]="talleSeleccionado === talle.key"
+            [class.talle-sin-stock]="talle.value === 0"
+            class="talle-cuadro"
+            [disabled]="talle.value === 0"
+            (click)="talle.value > 0 && (talleSeleccionado = talle.key)">
+            <span [style.textDecoration]="talle.value === 0 ? 'line-through' : 'none'">{{ talle.key }}</span>
+            <span style="font-size: 0.9em; color: #888;">({{ talle.value }} disponibles)</span>
+          </button>
+        </div>
       </div>
       <div class="guia-talles-container" (click)="abrirGuiaTalles()" tabindex="0" role="button" aria-label="Guía de talles">
         <span class="material-symbols-outlined">straighten</span>
@@ -72,9 +74,10 @@
         </div>
         <button class="agregar-carrito" (click)="agregarAlCarrito()">Agregar al carrito</button>
         <button class="volver" (click)="volver()">Volver</button>
-        <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
-        <div *ngIf="mensajeExito" class="exito">{{ mensajeExito }}</div>
+
       </div>
+              <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
+        <div *ngIf="mensajeExito" class="exito">{{ mensajeExito }}</div>
     </div>
   </ng-container>
   <ng-template #noProducto>
