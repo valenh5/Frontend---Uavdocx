@@ -27,7 +27,7 @@
                 <span class="acordeon-arrow" [class.open]="comprasAbierto">&#9660;</span>
             </div>
             <div *ngIf="comprasAbierto">
-                <div *ngIf="compras.length === 0" class="empty">No tienes compras. <a href="/carrito">Hacer una</a></div>
+                <div *ngIf="compras.length === 0" class="empty">No tienes compras. <a>No tenes compras hechas.</a></div>
                 <div *ngIf="compras.length > 0" class="carrusel">
                     <button class="arrow" (click)="prevCompra()" [disabled]="compraIndex === 0" *ngIf="compras.length > 1" aria-label="Anterior">&#8592;</button>
                     <div class="card-simple" *ngIf="compras[compraIndex]">
@@ -64,7 +64,7 @@
                 <span class="acordeon-arrow" [class.open]="reclamosAbierto">&#9660;</span>
             </div>
             <div *ngIf="reclamosAbierto">
-                <div *ngIf="reclamos.length === 0" class="empty">No tienes reclamos. <a href="/reclamo">Hacer uno</a></div>
+                <div *ngIf="reclamos.length === 0" class="empty">No tienes reclamos. <a>No tenes reclamos hechos.</a></div>
                 <div *ngIf="reclamos.length > 0" class="carrusel">
                     <button class="arrow" (click)="prevReclamo()" [disabled]="reclamoIndex === 0" *ngIf="reclamos.length > 1" aria-label="Anterior">&#8592;</button>
                     <div class="card-simple" *ngIf="reclamos[reclamoIndex]">
@@ -93,7 +93,7 @@
                 <span class="acordeon-arrow" [class.open]="opinionesAbierto">&#9660;</span>
             </div>
             <div *ngIf="opinionesAbierto">
-                <div *ngIf="opiniones.length === 0" class="empty">No tienes opiniones.</div>
+                <div *ngIf="opiniones.length === 0" class="empty">No tienes opiniones.<a>No tenes opiniones hechas.</a></div>
                 <div *ngIf="opiniones.length > 0" class="carrusel">
                     <button class="arrow" (click)="prevOpinion()" [disabled]="opinionIndex === 0" *ngIf="opiniones.length > 1" aria-label="Anterior">&#8592;</button>
                     <div class="card-simple" *ngIf="opiniones[opinionIndex]">

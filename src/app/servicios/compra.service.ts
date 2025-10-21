@@ -33,6 +33,10 @@ export class CompraService {
     }
 
     modificarCompra(id: number, compra: Compra){
-      return axios.put(`${this.apiUrl}/modificar/${id}`, compra, this.obtenerToken())
+      const body = {
+        estado: compra.estado,
+        fechaEntrega: compra.fechaEntrega
+      };
+      return axios.put(`${this.apiUrl}/modificar/${id}`, body, this.obtenerToken())
     }
 }

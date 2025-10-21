@@ -2,7 +2,6 @@
   <h2 style="color: red;">No, solo los administradores pueden acceder a esta sección.</h2>
 </div>
 <div *ngIf="esAdminUsuario">
-
   <h1>Usuarios</h1>
   <div class="usuarios-lista">
     <table>
@@ -42,5 +41,10 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div *ngIf="total > limit" class="paginacion-modern">
+    <button class="pag-btn" (click)="cambiarPagina(page - 1)" [disabled]="page === 1">&#8592;</button>
+    <span class="pag-info">Página <strong>{{ page }}</strong> de <strong>{{ totalPaginas() }}</strong></span>
+    <button class="pag-btn" (click)="cambiarPagina(page + 1)" [disabled]="page === totalPaginas()">&#8594;</button>
   </div>
 </div>

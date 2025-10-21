@@ -27,11 +27,16 @@
         </td>
         <td>{{ compra.fecha | date:'short' }}</td>
         <td>
-  <input
-    type="datetime-local"
-    [ngModel]="compra.fechaEntrega ? (compra.fechaEntrega | date:'yyyy-MM-ddTHH:mm') : null"
-    (ngModelChange)="compra.fechaEntrega = $event"
-  />
+  <ng-container *ngIf="compra.fechaEntrega; else inputFecha">
+    {{ compra.fechaEntrega | date:'short' }}
+  </ng-container>
+  <ng-template #inputFecha>
+    <input
+      type="datetime-local"
+      [ngModel]="compra.fechaEntrega ? (compra.fechaEntrega | date:'yyyy-MM-ddTHH:mm') : null"
+      (ngModelChange)="onFechaEntregaChange(compra, $event)"
+    />
+  </ng-template>
 </td>
         <td>{{ compra.email }}</td>
         <td>{{ compra.direccion }}</td>

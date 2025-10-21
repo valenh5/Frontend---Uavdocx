@@ -47,12 +47,6 @@ export class UsuarioService {
     };
   }
 
-  async obtenerTodosUsuarios() {
-    const response = await axios.get(`${this.apiUrl}/todos`, this.obtenerToken());
-    return response.data;
-  }
-
-
   async registrarUsuario(nombre_usuario: string, email: string, contrasenia: string) {
     const response = await axios.post(`${this.apiUrl}/registro`, {
       usuario: nombre_usuario,
