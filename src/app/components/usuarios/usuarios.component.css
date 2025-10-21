@@ -22,6 +22,52 @@ h1 {
   overflow-x: unset;
 }
 
+.paginacion-modern {
+  margin: 32px auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  font-size: 1.1rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 12px 32px;
+  width: fit-content;
+}
+
+.pag-btn {
+  border: none;
+  background: #222;
+  color: #fff;
+  font-size: 1.3rem;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.pag-btn:disabled {
+  background: #eaeaea;
+  color: #aaa;
+  cursor: not-allowed;
+}
+.pag-btn:hover:not(:disabled) {
+  background: #fff;
+  color: #222;
+  border: 1px solid #222;
+}
+.pag-info {
+  font-size: 1.05rem;
+  color: #222;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;

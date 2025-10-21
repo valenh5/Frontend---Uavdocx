@@ -16,7 +16,7 @@ export class ComprasComponent {
   compras: any[] = [];
   esAdminUsuario: boolean = false;
 
-    esAdmin(): boolean {
+  esAdmin(): boolean {
     this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;
   }
@@ -35,11 +35,19 @@ export class ComprasComponent {
   }
 
   async modificarCompra(compra: any) {
-  try {
-    await this.compraService.modificarCompra(compra.id, compra);
-    this.cargarCompras();
-  } catch (error) {
-    console.error('Error al modificar la compra:', error);
+    try {
+      await this.compraService.modificarCompra(compra.id, compra);
+      await this.cargarCompras();
+      window.location.reload();
+    } catch (error) {
+      console.error('Error al modificar la compra:', error);
+    }
   }
+
+  async onFechaEntregaChange(compra: any, nuevaFecha: string) {
+  const fechaISO = new Date(nuevaFecha).toISOString();
+  compra.fechaEntrega = fechaISO;
+  compra.estado = 'entregada';
+  await this.modificarCompra(compra);
 }
 }
