@@ -152,6 +152,9 @@ h1 {
   .compra-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background-color: white;
+    color: #000000;
+    border: solid 1px #000000;
   }
   .compra-btn:hover:not(:disabled) {
     background: #fff;

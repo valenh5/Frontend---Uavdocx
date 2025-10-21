@@ -43,4 +43,11 @@
       </tr>
     </tbody>
   </table>
+  <div class="paginacion-container" *ngIf="total > limit">
+    <button class="paginacion-btn" [disabled]="page === 1" (click)="cambiarPagina(page - 1)">&laquo; Anterior</button>
+    <span class="paginacion-info">
+      Página {{ page }} de {{ totalPaginas() }}
+    </span>
+    <button class="paginacion-btn" [disabled]="page === totalPaginas()" (click)="cambiarPagina(page + 1)">Siguiente &raquo;</button>
+  </div>
 </div>

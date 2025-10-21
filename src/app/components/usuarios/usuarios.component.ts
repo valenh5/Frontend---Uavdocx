@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { UsuarioService } from '../../servicios/usuario.service';
+import axios from 'axios';
+import { environment } from '../../../environments/enviroment';
 
 @Component({
   selector: 'app-usuarios',
@@ -17,6 +19,9 @@ export class UsuariosComponent implements OnInit {
   usuarioAEliminar: number | null = null;
   usuarioLogueado: string | null = null;
   esAdminUsuario: boolean = false;
+  page: number = 1;
+  limit: number = 1;
+  total: number = 0;
 
   constructor(private usuarioService: UsuarioService ) {}
 
@@ -33,7 +38,7 @@ export class UsuariosComponent implements OnInit {
     this.obtenerUsuarioLogueado();
     this.esAdmin();
     if (this.esAdminUsuario) {
-      await this.cargarUsuarios();
+      await this.cargarUsuariosPaginados();
     }
   }
 
@@ -58,7 +63,7 @@ export class UsuariosComponent implements OnInit {
   async cambiarAdmin(id: number){
     try {
       await this.usuarioService.cambiarAdmin(id);
-      await this.cargarUsuarios();
+      await this.cargarUsuariosPaginados();
     } catch (error) {
       console.error('Error al cambiar rol de usuario:', error);
     }
@@ -67,7 +72,7 @@ export class UsuariosComponent implements OnInit {
   async cambiarVerificado(id: number){
     try {
       await this.usuarioService.cambiarVerificado(id);  
-      await this.cargarUsuarios();
+      await this.cargarUsuariosPaginados();
     } catch (error) {
       console.error('Error al cambiar estado de verificación de usuario:', error);
     }
@@ -76,17 +81,46 @@ export class UsuariosComponent implements OnInit {
   async eliminarUsuario(id: number){
     try {
       await this.usuarioService.eliminarUsuario(id);
-      await this.cargarUsuarios();
+      await this.cargarUsuariosPaginados();
     } catch (error) {
       console.error('Error al eliminar usuario:', error);
     }
   }
 
-  async cargarUsuarios() {
+  async cargarUsuariosPaginados() {
     try {
-      this.usuarios = await this.usuarioService.obtenerTodosUsuarios();
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${environment.apiUrl}/usuarios/todos`, {
+        params: {
+          page: this.page,
+          limit: this.limit
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      const res = response.data;
+      if (res && res.data) {
+        this.usuarios = res.data;
+        this.total = res.total;
+        this.page = res.page;
+        this.limit = res.limit;
+      } else {
+        this.usuarios = Array.isArray(res) ? res : [];
+        this.total = this.usuarios.length;
+      }
     } catch (error) {
       console.error('Error al cargar usuarios:', error);
     }
+  }
+
+  cambiarPagina(nuevaPagina: number) {
+    if (nuevaPagina < 1 || nuevaPagina > this.totalPaginas()) return;
+    this.page = nuevaPagina;
+    this.cargarUsuariosPaginados();
+  }
+
+  totalPaginas(): number {
+    return Math.ceil(this.total / this.limit);
   }
 }
