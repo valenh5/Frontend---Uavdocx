@@ -27,6 +27,9 @@ prendaNueva: any = {
   imagenesSecundarias: []
 };
 
+mensajeError: String = '';
+mensajeExito: String = '';
+
   prendaEditando: any = null;
   mostrarFormulario: boolean = false;
   categorias: string[] = ['JEAN', 'BUZO', 'CAMPERA', 'REMERA', 'SHORT', 'OTRO'];
@@ -96,7 +99,10 @@ async crearPrenda(): Promise<void> {
     }
     const nuevaPrenda = await this.prendasService.agregarPrenda(this.prendaNueva);
     await this.cargarPrendas();
-    alert(`Prenda creada: ${nuevaPrenda.nombre}`); 
+    this.mensajeExito = 'Prenda creada con éxito';
+      setTimeout(() => {
+        this.mensajeExito = '';
+      }, 2000); 
     this.prendaNueva = {
       nombre: '',
       precio: '',
@@ -108,7 +114,10 @@ async crearPrenda(): Promise<void> {
     this.mostrarFormulario = false;
   } catch (error: any) {
     console.error("Error al crear prenda:", error);
-    alert("No tiene los permisos necesarios o falta iniciar sesión");
+    this.mensajeError = 'Error al crear prenda: ' + (error.response?.data?.message || error.message);
+      setTimeout(() => {
+        this.mensajeError = '';
+      }, 2000); 
   }
 }
 
@@ -138,13 +147,22 @@ async guardarCambios(): Promise<void> {
       await this.prendasService.actualizarPrenda(this.prendaEditando);
       await this.cargarPrendas();
       this.prendaEditando = null;
-      alert("Prenda editada");
+      this.mensajeExito = 'Prenda editada con éxito';
+      setTimeout(() => {
+        this.mensajeExito = '';
+      }, 2000);
     } catch (error) {
       console.error("Error al guardar cambios:", error);
-      alert("No tiene los permisos necesarios o falta iniciar sesión");
+      this.mensajeError = 'Error al guardar cambios: ' + error;
+      setTimeout(() => {
+        this.mensajeError = '';
+      }, 2000);
     }
   } else {
-    alert("No se puede guardar cambios: ID inválido.");
+    this.mensajeError = "No se puede guardar cambios: ID inválido.";
+    setTimeout(() => {
+      this.mensajeError = '';
+    }, 2000);
   }
 }
 
@@ -152,10 +170,16 @@ async guardarCambios(): Promise<void> {
     try {
       await this.prendasService.eliminarPrenda(id);
       await this.cargarPrendas();
-      alert("Prenda eliminada");
+      this.mensajeExito = 'Prenda eliminada con éxito';
+      setTimeout(() => {
+        this.mensajeExito = '';
+      }, 2000);
     } catch (error) {
       console.error("Error al eliminar prenda:", error);
-      alert("No tiene los permisos necesarios o falta iniciar sesión");
+      this.mensajeError = 'Error al eliminar prenda: ' + error;
+      setTimeout(() => {
+        this.mensajeError = '';
+      }, 2000);
     }
   }
 

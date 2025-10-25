@@ -1,6 +1,7 @@
 <div *ngIf="esAdmin">
 <div class="compras-container">
   <h2>Listado de Compras</h2>
+  <button class="btn-pendiente"(click)="verificarPendientes()">Verificar Compras Pendientes Antiguas</button>
   <table *ngIf="compras.length > 0; else sinCompras">
     <thead>
       <tr>
@@ -18,12 +19,12 @@
         <td>{{ compra.id }}</td>
         <td>${{ compra.total }}</td>
         <td>
-          <select [(ngModel)]="compra.estado">
-            <option value="pendiente">PENDIENTE</option>
-            <option value="pagada">PAGADA</option>
-            <option value="cancelada">CANECELADA</option>
-            <option value="entregada">ENTREGADA</option>
-          </select>
+          <select [(ngModel)]="compra.estado" [disabled]="compra.estado === 'cancelada'">
+  <option value="pendiente">PENDIENTE</option>
+  <option value="pagada">PAGADA</option>
+  <option value="cancelada">CANCELADA</option>
+  <option value="entregada">ENTREGADA</option>
+</select>
         </td>
         <td>{{ compra.fecha | date:'short' }}</td>
         <td>
@@ -44,6 +45,11 @@
       </tr>
     </tbody>
   </table>
+<div *ngIf="total > limit" class="paginacion-modern">
+  <button class="pag-btn" (click)="cambiarPagina(page - 1)" [disabled]="page === 1">&#8592;</button>
+  <span class="pag-info">Página <strong>{{ page }}</strong> de <strong>{{ totalPaginas() }}</strong></span>
+  <button class="pag-btn" (click)="cambiarPagina(page + 1)" [disabled]="page === totalPaginas()">&#8594;</button>
+</div>
   <ng-template #sinCompras>
     <p>No hay compras registradas.</p>
   </ng-template>

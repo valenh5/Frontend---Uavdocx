@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.component.html',
+  styleUrls: ['./reset.component.css'],
   imports: [FormsModule, CommonModule, RouterModule], 
 })
 export class ResetComponent implements OnInit {
@@ -16,6 +17,10 @@ export class ResetComponent implements OnInit {
   token = '';
   usuarioLogueado: string | null = null;
   esAdminUsuario: boolean = false;
+  
+mensajeError: String = '';
+mensajeExito: String = '';
+
 
   constructor(private route: ActivatedRoute, private usuarioService: UsuarioService) {}
 
@@ -37,9 +42,15 @@ export class ResetComponent implements OnInit {
   async resetearContrasenia() {
     try {
       const respuesta = await this.usuarioService.resetearContrasenia(this.token, this.nuevaContrasenia);
-      alert(respuesta.mensaje);
+      this.mensajeExito = 'Solicitud enviada por mail';
+      setTimeout(() => {
+        this.mensajeExito = '';
+      }, 2000); 
     } catch (error: any) {
-      alert(error.response?.data?.mensaje || 'Error al restablecer contraseña front');
+      this.mensajeError = error.response?.data?.mensaje || 'Error al restablecer contraseña front';
+      setTimeout(() => {
+        this.mensajeError = '';
+      }, 2000);
     }
   }
 }

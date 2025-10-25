@@ -1,53 +1,198 @@
 .compras-container {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 2rem auto;
-  padding: 1.5rem;
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.compras-container h2 {
-  margin-bottom: 1.5rem;
-  color: #333;
-  text-align: center;
+h2 {
+  text-align: left;
+  margin-top: 32px;
+  font-size: 2.2rem;
+  color: #222;
+  letter-spacing: 1px;
+  width: 100%;
+  margin-bottom: 5%;
 }
 
 table {
-  width: 100%;
   border-collapse: collapse;
-  background: #fafafa;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 th, td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #e0e0e0;
-  text-align: left;
+  border-bottom: 1px solid #eaeaea;
+  padding: 10px 6px;
+  text-align: center;
+  word-break: break-word;
+  font-size: 0.8rem;
 }
 
 th {
-  background: #f0f0f0;
-  color: #222;
+  background: #222;
+  color: #fff;
   font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
-tr:hover {
-  background: #f5f7fa;
+tr:nth-child(even) {
+  background: #fafafa;
 }
 
-@media (max-width: 700px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
+tr:last-child td {
+  border-bottom: none;
+}
+
+button {
+  border: 1px solid #222;
+  background-color: #fff;
+  color: #222;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  outline: none;
+  margin-left: 0.5rem;
+}
+
+.btn-pendiente{
+  margin-bottom: 2%;
+}
+
+button:hover {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #222;
+  cursor: pointer;
+}
+
+select {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #bdbdbd;
+  background: #f5f5f5;
+  font-size: 0.95rem;
+}
+
+input[type="datetime-local"] {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #bdbdbd;
+  background: #f5f5f5;
+  font-size: 0.95rem;
+}
+
+.paginacion-modern {
+  margin: 32px auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  font-size: 1.1rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 12px 32px;
+  width: fit-content;
+}
+
+.pag-btn {
+  border: none;
+  background: #222;
+  color: #fff;
+  font-size: 1.3rem;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.pag-btn:disabled {
+  background: #eaeaea;
+  color: #aaa;
+  cursor: not-allowed;
+}
+.pag-btn:hover:not(:disabled) {
+  background: #fff;
+  color: #222;
+  border: 1px solid #222;
+}
+.pag-info {
+  font-size: 1.05rem;
+  color: #222;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+p {
+  text-align: center;
+  color: #888;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 900px) {
+  .compras-container {
+    padding: 1rem;
+  }
+  table {
+    width: 100%;
+    min-width: unset;
+    font-size: 0.90rem;
+    display: table;
+    overflow-x: unset;
   }
   th, td {
+    padding: 8px 4px;
+    font-size: 0.90rem;
+    word-break: break-word;
+  }
+  button {
+    font-size: 0.90rem;
+    padding: 5px 8px;
+    min-width: 70px;
+  }
+}
+
+@media (max-width: 600px) {
+  .compras-container {
     padding: 0.5rem;
   }
-  tr {
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #e0e0e0;
+  table {
+    width: 100%;
+    min-width: unset;
+    font-size: 0.80rem;
+    display: table;
+    overflow-x: unset;
   }
-  th {
-    background: none;
-    color: #555;
+  th, td {
+    padding: 6px 2px;
+    font-size: 0.80rem;
+    word-break: break-word;
+    max-width: 80px;
+  }
+  button {
+    width: 100%;
+    font-size: 0.80rem;
+    padding: 4px 6px;
+    min-width: 60px;
+  }
+  h2 {
+    font-size: 1rem;
+    margin-top: 6px;
   }
 }
