@@ -46,7 +46,6 @@ export class CompraComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private carritoService: CarritoService,
-    private router: Router,
     private PrendasService: PrendasService,
     private CompraService: CompraService
   ) {}

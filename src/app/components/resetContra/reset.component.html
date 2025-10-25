@@ -1,5 +1,8 @@
-<link rel="stylesheet" href="reset.component.css">
 
+  <div>
+    <p *ngIf="mensajeError" class="error">{{ mensajeError }}</p>
+    <p *ngIf="mensajeExito" class="exito">{{ mensajeExito }}</p>
+  </div>
 
 <div id="resetBox">
   <form class="form" (ngSubmit)="resetearContrasenia()">

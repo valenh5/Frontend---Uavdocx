@@ -97,3 +97,22 @@ h2 {
     padding: 24px 12px 20px 12px;
   }
 }
+
+.error {
+    color: red;
+    background-color: #fdd;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 4px;
+    margin-top: 2%;
+    max-width: 70%;
+}
+.exito {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 10px;
+    border: 1px solid #28a745;
+    border-radius: 4px;
+    margin-top: 2%;
+    max-width: 70%;
+}
