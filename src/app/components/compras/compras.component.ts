@@ -73,4 +73,13 @@ export class ComprasComponent {
     compra.estado = 'entregada';
     await this.modificarCompra(compra);
   }
+
+  async verificarPendientes() {
+    try {
+      await this.compraService.verificarPendientes();
+      await this.cargarCompras();
+    } catch (error) {
+      console.error('Error al verificar compras pendientes:', error);
+    }
+  }
 }

@@ -41,9 +41,13 @@ export class CompraService {
 
     modificarCompra(id: number, compra: Compra){
       const body = {
-        estado: compra.estado,
-        fechaEntrega: compra.fechaEntrega
-      };
+  estadoNuevo: compra.estado,
+  fechaEntrega: compra.fechaEntrega
+};
       return axios.put(`${this.apiUrl}/modificar/${id}`, body, this.obtenerToken())
+    }
+
+    verificarPendientes(){
+      return axios.post(`${this.apiUrl}/cancelar-pendientes-antiguas`, {}, this.obtenerToken());
     }
 }
