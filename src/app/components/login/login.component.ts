@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 
 
 @Component({
   selector: 'app-login',
   standalone: true, 
-  imports: [FormsModule, RouterModule], 
+  imports: [FormsModule, RouterModule, CommonModule], 
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -20,6 +22,8 @@ export class LoginComponent implements OnInit{
   emailReset = '';
   usuarioLogueado: string | null = null;
   esAdminUsuario: boolean = false;
+  mensajeError: String = '';
+mensajeExito: String = '';
 
   constructor(private usuarioService: UsuarioService,  private router: Router) {}
 
@@ -40,9 +44,15 @@ export class LoginComponent implements OnInit{
   async registrar() {
     try {
       const respuesta = await this.usuarioService.registrarUsuario(this.nombre_usuario, this.email, this.contrasenia);
-      alert(respuesta.mensaje);
+      this.mensajeExito = 'Registro exitoso';
+      setTimeout(() => {
+        this.mensajeExito = '';
+      }, 2000); 
     } catch (error: any) {
-      alert(error.response?.data?.mensaje || 'Error al registrar usuario');
+      this.mensajeError = error.response?.data?.mensaje || 'Error al registrar usuario';
+      setTimeout(() => {
+        this.mensajeError = '';
+      }, 2000);
     }
   }
 
@@ -50,7 +60,10 @@ export class LoginComponent implements OnInit{
       try {
         const respuesta = await this.usuarioService.comprobarUsuario(this.usuario_ingreso, this.pass_ingreso);
         console.log('Respuesta login:', respuesta);
-        alert(respuesta.mensaje);
+        this.mensajeExito = 'Inicio de Sesion exitoso';
+        setTimeout(() => {
+          this.mensajeExito = '';
+        }, 2000);
         if (respuesta.token) {
           localStorage.setItem('token', respuesta.token);
           localStorage.setItem('usuario', this.usuario_ingreso);
@@ -68,16 +81,25 @@ export class LoginComponent implements OnInit{
         }
       } catch (error: any) {
         console.log('Error en login:', error);
-        alert(error.response?.data?.mensaje || 'Error al ingresar usuario');
+        this.mensajeError = 'Error al ingresar usuario';
+      setTimeout(() => {
+        this.mensajeError = '';
+      }, 2000); 
       }
     }
 
   async solicitarReset() {
     try {
       const respuesta = await this.usuarioService.solicitarResetContrasenia(this.emailReset);
-      alert(respuesta.mensaje);
+      this.mensajeExito = 'Solicitud enviada exitosamente';
+      setTimeout(() => {
+        this.mensajeExito = '';
+      }, 2000); 
     } catch (error: any) {
-      alert(error.response?.data?.mensaje || 'Error al solicitar restablecimiento de contraseña');
+      this.mensajeError = error.response?.data?.mensaje || 'Error al solicitar restablecimiento de contraseña';
+      setTimeout(() => {
+        this.mensajeError = '';
+      }, 2000);
     }
   }
 }

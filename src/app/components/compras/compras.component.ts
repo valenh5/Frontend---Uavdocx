@@ -9,12 +9,15 @@ import { RouterModule } from '@angular/router';
   selector: 'app-compras',
   imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './compras.component.html',
-  styleUrl: './compras.component.css'
+  styleUrls: ['./compras.component.css']
 })
 export class ComprasComponent {
   constructor(public usuarioService: UsuarioService, public compraService: CompraService) {  }
   compras: any[] = [];
   esAdminUsuario: boolean = false;
+  page: number = 1;
+  limit: number = 5;
+  total: number = 0;
 
   esAdmin(): boolean {
     this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
@@ -27,27 +30,47 @@ export class ComprasComponent {
   }
 
   async cargarCompras(): Promise<void> {
-    try{
-      this.compras = (await this.compraService.obtenerCompras()).data;
-    }catch(error){
+    try {
+      const token = localStorage.getItem('token');
+      const response = await this.compraService.obtenerComprasPaginadas(this.page, this.limit, token);
+      const res = response.data;
+      if (res && res.data) {
+        this.compras = res.data;
+        this.total = res.total;
+        this.page = res.page;
+        this.limit = res.limit;
+      } else {
+        this.compras = Array.isArray(res) ? res : [];
+        this.total = this.compras.length;
+      }
+    } catch (error) {
       console.error('Error al cargar las compras:', error);
     }
+  }
+
+  totalPaginas(): number {
+    return Math.max(1, Math.ceil(this.total / this.limit));
+  }
+
+  async cambiarPagina(nuevaPagina: number) {
+    if (nuevaPagina < 1 || nuevaPagina > this.totalPaginas() || nuevaPagina === this.page) return;
+    this.page = nuevaPagina;
+    await this.cargarCompras();
   }
 
   async modificarCompra(compra: any) {
     try {
       await this.compraService.modificarCompra(compra.id, compra);
       await this.cargarCompras();
-      window.location.reload();
     } catch (error) {
       console.error('Error al modificar la compra:', error);
     }
   }
 
   async onFechaEntregaChange(compra: any, nuevaFecha: string) {
-  const fechaISO = new Date(nuevaFecha).toISOString();
-  compra.fechaEntrega = fechaISO;
-  compra.estado = 'entregada';
-  await this.modificarCompra(compra);
-}
+    const fechaISO = new Date(nuevaFecha).toISOString();
+    compra.fechaEntrega = fechaISO;
+    compra.estado = 'entregada';
+    await this.modificarCompra(compra);
+  }
 }

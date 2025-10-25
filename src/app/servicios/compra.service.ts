@@ -20,6 +20,13 @@ export class CompraService {
     };
   }
 
+  obtenerComprasPaginadas(page: number, limit: number, token: string | null) {
+  return axios.get(this.apiUrl, {
+    params: { page, limit },
+    headers: { Authorization: `Bearer ${token}` }
+  });
+}
+
     retornarCompras(id: number) {
     return axios.get(`${this.apiUrl}/${id}`);
     }

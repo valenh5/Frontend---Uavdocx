@@ -1,5 +1,7 @@
-
-
+  <div>
+    <p *ngIf="mensajeError" class="error">{{ mensajeError }}</p>
+    <p *ngIf="mensajeExito" class="exito">{{ mensajeExito }}</p>
+  </div>
 
 <div id="registroBox" >
   <form class="form" (ngSubmit)="ingresar()">

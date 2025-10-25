@@ -17,6 +17,11 @@
     />
   </div>
 
+  <div>
+    <p *ngIf="mensajeError" class="error">{{ mensajeError }}</p>
+    <p *ngIf="mensajeExito" class="exito">{{ mensajeExito }}</p>
+  </div>
+
   <div id="prendas-container">
     <a></a>
     <div class="prenda-card" *ngFor="let prenda of prendasFiltradas">
