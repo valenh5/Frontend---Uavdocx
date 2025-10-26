@@ -40,6 +40,15 @@ export class CarritoComponent implements OnInit {
     this.esAdmin();
     await this.obtenerCarrito();
     await this.calcularEnvio();
+    // Mostrar mensaje de error si fue redirigido por el guard
+    const mensaje = localStorage.getItem('mensajeError');
+    if (mensaje) {
+      this.mensajeError = mensaje;
+      setTimeout(() => {
+        this.mensajeError = '';
+        localStorage.removeItem('mensajeError');
+      }, 2000);
+    }
   }
 
   async calcularEnvio() {
@@ -140,6 +149,16 @@ async aumentarCantidad(productoId: number, talle: string) {
   }
 }
 
+async verificarStock(): Promise<boolean> {
+  try {
+    const stockDisponible = await this.carritoService.verificarStock();
+    return typeof stockDisponible === 'boolean' ? stockDisponible : !!stockDisponible;
+  } catch (error) {
+    console.error('Error al verificar stock:', error);
+    return false;
+  }
+}
+
   async disminuirCantidad(productoId: number, talle: string) { 
     try {
       const response = await this.carritoService.disminuirCantidad(productoId, talle);
@@ -152,7 +171,13 @@ async aumentarCantidad(productoId: number, talle: string) {
   }
 
   async comprar() {
-    await this.router.navigate(['/compra']);
+    const hay = await this.verificarStock();
+    if(hay){
+      await this.router.navigate(['/compra']);
+    }else{
+      this.mensajeError = 'No hay suficiente stock para completar la compra';
+      setTimeout(() => { this.mensajeError = ''; }, 2000);
+    }
   }
 
     verProducto(id: number): void {
