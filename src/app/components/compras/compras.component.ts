@@ -19,6 +19,21 @@ export class ComprasComponent {
   limit: number = 5;
   total: number = 0;
 
+  mostrarTooltip(compra: any) {
+    this.compras.forEach(c => c.mostrarTooltip = false);
+    compra.mostrarTooltip = true;
+  }
+
+  ocultarTooltip(compra: any) {
+    compra.mostrarTooltip = false;
+  }
+
+  async cancelarCompra(compra: any) {
+    compra.estado = 'cancelada';
+    compra.mostrarTooltip = false;
+    await this.modificarCompra(compra);
+  }
+
   esAdmin(): boolean {
     this.esAdminUsuario = this.usuarioService.esAdminDesdeToken();
     return this.esAdminUsuario;

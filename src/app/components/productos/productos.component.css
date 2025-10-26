@@ -99,9 +99,49 @@ body {
   color: #000000;
   text-decoration: none;
   font-size: 16px;
-  transition: color 0.3s ease;
-  
 }
+
+/* Responsive: móviles y tablets */
+@media (max-width: 900px) {
+  .navbar-container {
+    padding: 0 8px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  h2.titulo-productos {
+    font-size: 2em;
+    margin-bottom: 18px;
+  }
+  .pagina-btn {
+    width: 100%;
+    min-width: 90px;
+    font-size: 1em;
+    margin: 4px 0;
+  }
+  .navbar-menu a, .navbar-menu button {
+    font-size: 1em;
+    margin-left: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  h2.titulo-productos {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  .navbar-container {
+    gap: 4px;
+  }
+  .pagina-btn {
+    font-size: 0.98em;
+    min-width: 80px;
+  }
+  .navbar-menu a, .navbar-menu button {
+    font-size: 0.95em;
+    margin-left: 4px;
+  }
+}
+  
 
 .navbar-menu a:hover {
   color: #007bff;

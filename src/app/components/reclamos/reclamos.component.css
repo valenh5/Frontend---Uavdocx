@@ -93,3 +93,55 @@ span {
   font-size: 0.95em;
   color: #555;
 }
+
+/* Responsive: móviles y tablets */
+@media (max-width: 900px) {
+  .paginacion-container {
+    flex-direction: column;
+    gap: 6px;
+    align-items: stretch;
+  }
+  .paginacion-info {
+    font-size: 1em;
+    padding: 5px 8px;
+  }
+  table {
+    font-size: 0.95em;
+    overflow-x: auto;
+    display: block;
+    width: 100%;
+  }
+  th, td {
+    padding: 7px 4px;
+    font-size: 0.98em;
+  }
+  h1 {
+    font-size: 1.3em;
+  }
+  button, .paginacion-btn {
+    width: 100%;
+    min-width: 90px;
+    font-size: 1em;
+  }
+  select, input[type="datetime-local"], input[type="text"] {
+    width: 100%;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.1em;
+  }
+  .paginacion-container {
+    gap: 4px;
+  }
+  th, td {
+    padding: 5px 2px;
+    font-size: 0.95em;
+  }
+  button, .paginacion-btn {
+    font-size: 0.98em;
+    min-width: 80px;
+  }
+}
