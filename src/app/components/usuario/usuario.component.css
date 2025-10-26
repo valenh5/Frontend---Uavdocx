@@ -99,6 +99,36 @@ a{
   font-weight: 500;
   margin-right: 0.5rem;
 }
+
+/* Responsive: móviles y tablets */
+@media (max-width: 900px) {
+  .usuario-wrapper {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+  .usuario-header h1 {
+    font-size: 1.3rem;
+  }
+  .usuario-main {
+    gap: 1rem;
+  }
+  .usuario-card {
+    padding: 1rem 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .usuario-header h1 {
+    font-size: 1.1rem;
+  }
+  .usuario-card {
+    padding: 0.5rem 0.2rem;
+  }
+  .usuario-main {
+    gap: 0.5rem;
+  }
+}
+
 .estado {
   font-weight: 600;
   color: #000000;

@@ -20,19 +20,20 @@
         <td>${{ compra.total }}</td>
         <td>
           <select [(ngModel)]="compra.estado" [disabled]="compra.estado === 'cancelada'">
-  <option value="pendiente">PENDIENTE</option>
-  <option value="pagada">PAGADA</option>
-  <option value="cancelada">CANCELADA</option>
-  <option value="entregada">ENTREGADA</option>
+    <option value="pendiente">PENDIENTE</option>
+    <option value="pagada">PAGADA</option>
+    <option value="cancelada" disabled>CANCELADA</option>
+    <option value="entregada">ENTREGADA</option>
 </select>
         </td>
         <td>{{ compra.fecha | date:'short' }}</td>
         <td>
-  <ng-container *ngIf="compra.fechaEntrega; else inputFecha">
+  <ng-container *ngIf="compra.fechaEntrega; else inputFecha" >
     {{ compra.fechaEntrega | date:'short' }}
   </ng-container>
   <ng-template #inputFecha>
     <input
+    [disabled]="compra.estado === 'cancelada'"
       type="datetime-local"
       [ngModel]="compra.fechaEntrega ? (compra.fechaEntrega | date:'yyyy-MM-ddTHH:mm') : null"
       (ngModelChange)="onFechaEntregaChange(compra, $event)"
@@ -42,6 +43,14 @@
         <td>{{ compra.email }}</td>
         <td>{{ compra.direccion }}</td>
         <button (click)="modificarCompra(compra)">Modificar</button>
+        <button *ngIf="compra.estado !== 'cancelada'" (click)="mostrarTooltip(compra)">Cancelar</button>
+        <div *ngIf="compra.mostrarTooltip" class="tooltip-overlay">
+          <div class="tooltip-confirmacion">
+            <span>¿Está seguro que desea cancelar la compra?</span>
+            <button (click)="cancelarCompra(compra)">Sí, cancelar</button>
+            <button (click)="ocultarTooltip(compra)">No</button>
+          </div>
+        </div>
       </tr>
     </tbody>
   </table>

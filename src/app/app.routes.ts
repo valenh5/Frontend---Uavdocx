@@ -8,6 +8,7 @@ import { AbmComponent } from './components/abm/abm.component';
 import { inicio } from './components/inicio/inicio.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { CompraComponent } from './components/compra/compra.component';
+import { StockGuard } from './guards/stock.guard';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { ReclamoComponent } from './components/reclamo/reclamo.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
@@ -26,7 +27,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'abm', component: AbmComponent},
   { path: 'carrito', component: CarritoComponent },
-  { path: 'compra', component: CompraComponent },
+  { path: 'compra', component: CompraComponent, canActivate: [StockGuard] },
   { path: 'usuario', component: UsuarioComponent },
   { path: 'reclamo', component: ReclamoComponent },
   { path: 'usuarios', component: UsuariosComponent },

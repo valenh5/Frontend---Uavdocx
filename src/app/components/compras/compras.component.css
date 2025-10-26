@@ -99,12 +99,49 @@ input[type="datetime-local"] {
   align-items: center;
   gap: 18px;
   font-size: 1.1rem;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  padding: 12px 32px;
-  width: fit-content;
 }
+
+.tooltip-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.tooltip-confirmacion {
+  background: #fff;
+  padding: 24px 32px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.tooltip-confirmacion span {
+  font-size: 1.1rem;
+  color: #222;
+}
+.tooltip-confirmacion button {
+  margin: 0 8px;
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: none;
+  background: #222;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.tooltip-confirmacion button:hover {
+  background: #007bff;
+}
+ 
 
 .pag-btn {
   border: none;

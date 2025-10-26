@@ -70,4 +70,12 @@ async disminuirCantidad(productoId: number, talle: string): Promise<Carrito> {
   return response.data;
 }
 
+async verificarStock(): Promise<boolean> {
+  const response = await axios.get(
+    `${this.apiUrl}/verificar-stock`,
+    this.obtenerToken()
+  );
+  return response.data.disponible === true;
+}
+
 }
