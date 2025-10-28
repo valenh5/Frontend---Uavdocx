@@ -3,9 +3,11 @@
     <p *ngIf="mensajeExito" class="exito">{{ mensajeExito }}</p>
   </div>
 
+<p>Inicio - Mi Cuenta - Iniciar sesion</p>
+
 <div id="registroBox" >
   <form class="form" (ngSubmit)="ingresar()">
-    <h2 style="margin-bottom: 10px;">Log In</h2>
+    <h2 style="margin-bottom: 10px;">Iniciar sesión</h2>
     <span class="input-span">
       <label for="usuario" class="label">Usuario</label>
       <input
@@ -29,7 +31,7 @@
       />
     </span>
     <span class="span">
-      <a href="/sesion">¿Olvidaste tu contraseña?</a>
+      <a id="olvidar"href="/sesion">¿Olvidaste tu contraseña?</a>
     </span>
     <input class="submit" type="submit" value="Ingresar" />
     <span class="span">
