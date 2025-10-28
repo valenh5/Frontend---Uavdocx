@@ -45,7 +45,7 @@ export class inicio implements OnInit {
   animando: boolean = false;
   intervalId: any;
   paginaActual = 1;
-limitePorPagina = 8;
+limitePorPagina = 4;
 totalPaginas = 1;
 prendasFiltradas: any[] = []; 
     prendas: any[] = [];
