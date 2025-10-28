@@ -31,6 +31,10 @@ export class CompraService {
     return axios.get(`${this.apiUrl}/${id}`);
     }
 
+    obtenerEstadoPreferencia(preferenceId: string) {
+      return axios.get(`${environment.apiUrl}/compras/preference/${preferenceId}`);
+    }
+
     obtenerCompras(){
     return axios.get(this.apiUrl, this.obtenerToken());
     }

@@ -42,6 +42,7 @@ export class CompraComponent implements OnInit {
   dniDestinatario: string = '';
   preferenceId: string | null = null;
   publicKey: string = 'APP_USR-97fcd1ee-745e-4751-a335-690ec9395bfe';
+  estado = '';
 
   constructor(
     private usuarioService: UsuarioService,
@@ -49,6 +50,27 @@ export class CompraComponent implements OnInit {
     private PrendasService: PrendasService,
     private CompraService: CompraService
   ) {}
+
+  async verificarEstadoPreferencia(preferenceId: string) {
+  try {
+    const response = await this.CompraService.obtenerEstadoPreferencia(preferenceId);
+    const data = response.data;
+    console.log('Datos recibidos de la preferencia:', data); 
+    if (data.results && data.results.length > 0) {
+      const estado = data.results[0].status;
+      console.log('Estado de la preferencia:', estado); 
+      if (estado === 'approved') {
+        this.estado = 'aprobado';
+      } else {
+        this.estado = 'cancelado';
+      }
+    } else {
+      console.log('No se encontró información de la preferencia');
+    }
+  } catch (error) {
+    console.error('Error al verificar preferencia:', error);
+  }
+}
 
   datosCompletos(): boolean {
     return !!(
@@ -209,7 +231,7 @@ export class CompraComponent implements OnInit {
         cantidad: item.cantidad
       })),
       total: this.precioTotal + this.envio,
-      estado: 'pendiente',
+      estado: this.estado,
       direccion: this.direccionEntrega,
       nombre: this.nombreDestinatario,
       apellido: this.apellidoDestinatario,
@@ -221,8 +243,11 @@ export class CompraComponent implements OnInit {
       fechaEntrega: null
     };
     try {
-      await this.CompraService.crearCompra(compra);
       await this.createPreference();
+      if (this.preferenceId) {
+        await this.verificarEstadoPreferencia(this.preferenceId);
+      }
+      await this.CompraService.crearCompra(compra);
       this.mensajeFaltanDatos = '¡Compra creada! Ahora realiza el pago.';
       setTimeout(() => {
         this.mensajeFaltanDatos = '';
@@ -235,4 +260,6 @@ export class CompraComponent implements OnInit {
       }, 2000);
     }
   }
+  
 }
+
