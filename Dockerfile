@@ -2,26 +2,21 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm install
 
 COPY . .
-
-
 RUN npm run build --prod
-
-RUN ls -la /app/dist
 
 FROM httpd:alpine
 
 WORKDIR /usr/local/apache2/htdocs/
 
+COPY --from=build /app/dist/frontend/browser/browser/ ./
 
-COPY --from=build /app/dist/* /usr/local/apache2/htdocs/
+COPY apache.conf /usr/local/apache2/conf/extra/angular.conf
 
-RUN ls -la /usr/local/apache2/htdocs/  # Debug: listar contenido final
-
-
+RUN echo "Include conf/extra/angular.conf" >> /usr/local/apache2/conf/httpd.conf
 
 EXPOSE 80
 
