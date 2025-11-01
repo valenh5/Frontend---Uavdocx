@@ -17,7 +17,7 @@ FROM httpd:alpine
 WORKDIR /usr/local/apache2/htdocs/
 
 
-COPY --from=build /app/dist/* /usr/local/apache2/htdocs/
+COPY --from=build /app/dist/out-tsc /usr/local/apache2/htdocs/
 
 RUN ls -la /usr/local/apache2/htdocs/  # Debug: listar contenido final
 
