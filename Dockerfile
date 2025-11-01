@@ -2,11 +2,10 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm install
 
 COPY . .
-
 
 RUN npm run build --prod
 
@@ -16,12 +15,9 @@ FROM httpd:alpine
 
 WORKDIR /usr/local/apache2/htdocs/
 
+COPY --from=build /app/dist/frontend/browser/ ./
 
-COPY --from=build /app/dist/out-tsc /usr/local/apache2/htdocs/
-
-RUN ls -la /usr/local/apache2/htdocs/  # Debug: listar contenido final
-
-
+RUN ls -la /usr/local/apache2/htdocs/
 
 EXPOSE 80
 
