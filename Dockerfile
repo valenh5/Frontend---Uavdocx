@@ -14,9 +14,9 @@ WORKDIR /usr/local/apache2/htdocs/
 
 COPY --from=build /app/dist/frontend/browser/ ./
 
-COPY apache.conf /usr/local/apache2/conf/httpd.conf
+COPY apache.conf /usr/local/apache2/conf/extra/angular.conf
 
-RUN ls -la /usr/local/apache2/conf/
+RUN echo "Include conf/extra/angular.conf" >> /usr/local/apache2/conf/httpd.conf
 
 EXPOSE 80
 
