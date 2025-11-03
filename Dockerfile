@@ -14,6 +14,9 @@ WORKDIR /usr/local/apache2/htdocs/
 
 COPY --from=build /app/dist/frontend/browser/browser/ ./
 
+
+RUN sed -i '/^#LoadModule rewrite_module/s/^#//' /usr/local/apache2/conf/httpd.conf
+
 COPY apache.conf /usr/local/apache2/conf/extra/angular.conf
 
 RUN echo "Include conf/extra/angular.conf" >> /usr/local/apache2/conf/httpd.conf
