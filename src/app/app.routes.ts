@@ -35,4 +35,5 @@ export const routes: Routes = [
   { path: 'local', component: LocalComponent },
   { path: 'opinion/:id', component: OpinionComponent },
   { path: 'compras', component: ComprasComponent }
+  
 ];
