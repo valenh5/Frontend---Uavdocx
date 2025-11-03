@@ -20,7 +20,6 @@ import { ComprasComponent } from './components/compras/compras.component';
 export const routes: Routes = [
   { path: '', component: inicio },
   { path: 'sesion', component: RegistroComponent },
-
   { path: 'usuarios/resetear-contrasenia/:token', component: ResetComponent },
   { path: 'productos', component: ProductoComponent },
   { path: 'producto/:id', loadComponent: () => import('./components/producto/producto.component').then(m => m.ProductoDetalleComponent) },
