@@ -176,7 +176,7 @@ export class CompraComponent implements OnInit {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'https://uavdocx.policloudservices.ipm.edu.ar/create-preference',
+        'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
         {
           envio: this.envio,
           total: this.precioTotal + this.envio
