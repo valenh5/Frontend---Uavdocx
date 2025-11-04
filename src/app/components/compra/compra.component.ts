@@ -183,22 +183,23 @@ export class CompraComponent implements OnInit {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://uavdocx-backend-2nzhgo-1718e0-186-153-57-93.traefik.me/create-preference',
-        {
+  'http://uavdocx-backend-2nzhgo-1718e0-186-153-57-93.traefik.me/create-preference',
+  {
     envio: this.envio,
     nombre: this.nombreDestinatario,
     apellido: this.apellidoDestinatario,
     direccion: this.direccionEntrega,
     dni: this.dniDestinatario,
     telefono: this.telefonoDestinatario,
-    email: this.email
+    email: this.email,
+    total: this.precioTotal + this.envio 
   },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
       if (response.status === 200) {
         const data = response.data;
         this.preferenceId = data.preference_id;
