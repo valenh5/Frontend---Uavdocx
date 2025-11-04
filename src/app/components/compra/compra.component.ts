@@ -52,23 +52,7 @@ export class CompraComponent implements OnInit {
     private CompraService: CompraService
   ) {}
 
-  async verificarEstadoPreferencia(preferenceId: string) {
-    try {
-      const response = await this.CompraService.obtenerEstadoPreferencia(preferenceId);
-      const data = response.data;
-      if (data.results && data.results.length > 0) {
-        const estado = data.results[0].status;
-        if (estado === 'approved') {
-          this.estado = 'aprobado';
-          await this.crearCompraDespuesDePago();
-        } else {
-          this.estado = 'cancelado';
-        }
-      }
-    } catch (error) {
-      console.error('Error al verificar preferencia:', error);
-    }
-  }
+
 
   datosCompletos(): boolean {
     return !!(
@@ -211,7 +195,12 @@ export class CompraComponent implements OnInit {
     });
   }
 
-  async crearCompraDespuesDePago() {
+  async crearCompra() {
+    if (!this.datosCompletos()) {
+      this.mensajeFaltanDatos = 'Completa todos los datos antes de pagar.';
+      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
+      return;
+    }
     const compra = {
       id: 0,
       idUsuario: this.id_usuario,
@@ -221,7 +210,7 @@ export class CompraComponent implements OnInit {
         cantidad: item.cantidad
       })),
       total: this.precioTotal + this.envio,
-      estado: 'pagada',
+      estado: 'pendiente',
       direccion: this.direccionEntrega,
       nombre: this.nombreDestinatario,
       apellido: this.apellidoDestinatario,
