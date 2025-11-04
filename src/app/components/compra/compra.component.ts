@@ -183,7 +183,7 @@ export class CompraComponent implements OnInit {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        environment.apiUrl + '/create-preference',
+        'http://uavdocx-backend-2nzhgo-1718e0-186-153-57-93.traefik.me/create-preference',
         { envio: this.envio },
         {
           headers: {
