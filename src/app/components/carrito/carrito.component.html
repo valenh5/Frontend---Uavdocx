@@ -36,7 +36,7 @@
   </ul>
 
   <div *ngIf="!carrito.length" class="carrito-vacio">
-    <p>El carrito está vacío. <a href="/productos">Ver productos</a></p>
+    <p>El carrito está vacío. <a [routerLink]="['/productos']">Ver productos</a></p>
   </div>
 
   <button *ngIf="carrito.length" class="compra-btn" (click)="comprar()">Iniciar Compra</button>

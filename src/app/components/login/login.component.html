@@ -31,12 +31,12 @@
       />
     </span>
     <span class="span">
-      <a id="olvidar"href="/sesion">¿Olvidaste tu contraseña?</a>
+      <a id="olvidar"[routerLink]="['/sesion']">¿Olvidaste tu contraseña?</a>
     </span>
     <input class="submit" type="submit" value="Ingresar" />
     <span class="span">
       ¿No tenes cuenta?
-      <a href="/sesion">Registrate</a>
+      <a [routerLink]="['/sesion']">Registrate</a>
     </span>
   </form>
 </div>

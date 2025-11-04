@@ -5,7 +5,9 @@ import { PrendasService } from '../../servicios/prenda.service';
 import axios from 'axios';
 import { RouterModule } from '@angular/router';
 import { UsuarioService } from '../../servicios/usuario.service';
-const apiUrl = 'http://localhost:3000/prendas'; 
+import { environment } from '../../../environments/enviroment'; // importa el entorno
+
+const apiUrl = environment.apiUrl + '/prendas';
 
 @Component({
   selector: 'app-prendas',
