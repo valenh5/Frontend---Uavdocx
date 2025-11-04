@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://uavdocx.policloudservices.ipm.edu.ar/'
+  apiUrl: 'https://uavdocx-back.policloudservices.ipm.edu.ar'
 };
