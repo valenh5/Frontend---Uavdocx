@@ -5,6 +5,7 @@ import { CarritoService } from '../../servicios/carrito.service';
 import { PrendasService } from '../../servicios/prenda.service';
 import { Router, RouterModule } from '@angular/router';
 import axios from 'axios';
+import { environment } from '../../../environments/enviroment';
 import { CompraService } from '../../servicios/compra.service';
 import { UsuarioService } from '../../servicios/usuario.service';
 
@@ -179,26 +180,26 @@ export class CompraComponent implements OnInit {
   }
 
   async createPreference() {
-  try {
-    const token = localStorage.getItem('token');
-    const response = await axios.post(
-      'http://localhost:3000/create-preference',
-      { envio: this.envio },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(
+        environment.apiUrl + '/create-preference',
+        { envio: this.envio },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
+      );
+      if (response.status === 200) {
+        const data = response.data;
+        this.preferenceId = data.preference_id;
+        this.renderMercadoPagoButton();
       }
-    );
-    if (response.status === 200) {
-      const data = response.data;
-      this.preferenceId = data.preference_id;
-      this.renderMercadoPagoButton();
+    } catch (error) {
+      console.error('Error al crear la preferencia:', error);
     }
-  } catch (error) {
-    console.error('Error al crear la preferencia:', error);
   }
-}
 
   renderMercadoPagoButton() {
     if (!this.preferenceId) return;
