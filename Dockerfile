@@ -12,7 +12,8 @@ FROM httpd:alpine
 
 WORKDIR /usr/local/apache2/htdocs/
 
-COPY --from=build /app/dist/frontend/browser/browser/ ./
+COPY --from=build /app/dist/frontend/browser/ ./
+
 
 COPY apache.conf /usr/local/apache2/conf/extra/angular.conf
 
