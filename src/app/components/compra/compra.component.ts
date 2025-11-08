@@ -9,6 +9,7 @@ import { environment } from '../../../environments/enviroment';
 import { CompraService } from '../../servicios/compra.service';
 import { UsuarioService } from '../../servicios/usuario.service';
 
+
 @Component({
   selector: 'app-compra',
   standalone: true,
@@ -201,30 +202,50 @@ export class CompraComponent implements OnInit {
       setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
       return;
     }
-    const compra = {
-      id: 0,
-      idUsuario: this.id_usuario,
-      productos: this.carrito.map(item => ({
-        idPrenda: item.id,
-        talle: item.talle,
-        cantidad: item.cantidad
-      })),
-      total: this.precioTotal + this.envio,
-      estado: 'pendiente',
-      direccion: this.direccionEntrega,
-      nombre: this.nombreDestinatario,
-      apellido: this.apellidoDestinatario,
-      telefono: this.telefonoDestinatario,
-      dni: this.dniDestinatario,
-      email: this.email,
-      envio: this.opcionEntregaTexto,
-      fecha: new Date().toISOString(),
-      fechaEntrega: null
-    };
     try {
-      await this.CompraService.crearCompra(compra);
-      this.mensajeFaltanDatos = '¡Compra creada y pagada!';
-      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
+      const token = localStorage.getItem('token');
+      const prefResponse = await axios.post(
+        'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
+        {
+          envio: this.envio,
+          total: this.precioTotal + this.envio
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      if (prefResponse.status === 200 && prefResponse.data.preference_id) {
+        this.preferenceId = prefResponse.data.preference_id;
+        const compra = {
+          id: 0,
+          idUsuario: this.id_usuario,
+          productos: this.carrito.map(item => ({
+            idPrenda: item.id,
+            talle: item.talle,
+            cantidad: item.cantidad
+          })),
+          total: this.precioTotal + this.envio,
+          estado: 'pendiente',
+          direccion: this.direccionEntrega,
+          nombre: this.nombreDestinatario,
+          apellido: this.apellidoDestinatario,
+          telefono: this.telefonoDestinatario,
+          dni: this.dniDestinatario,
+          email: this.email,
+          envio: this.opcionEntregaTexto,
+          fecha: new Date().toISOString(),
+          fechaEntrega: null,
+          preference_id: this.preferenceId
+        };
+        await this.CompraService.crearCompra(compra);
+        this.mensajeFaltanDatos = '¡Compra creada! Esperando confirmación de pago.';
+        setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
+      } else {
+        this.mensajeFaltanDatos = 'Error al crear la preferencia de pago.';
+        setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
+      }
     } catch (error) {
       console.error(error);
       this.mensajeFaltanDatos = 'Error al crear la compra.';
