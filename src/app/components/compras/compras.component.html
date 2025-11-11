@@ -1,7 +1,6 @@
 <div *ngIf="esAdmin">
 <div class="compras-container">
   <h2>Listado de Compras</h2>
-  <button class="btn-pendiente"(click)="verificarPendientes()">Verificar Compras Pendientes Antiguas</button>
   <table *ngIf="compras.length > 0; else sinCompras">
     <thead>
       <tr>

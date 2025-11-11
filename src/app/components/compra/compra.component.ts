@@ -9,6 +9,7 @@ import { environment } from '../../../environments/enviroment';
 import { CompraService } from '../../servicios/compra.service';
 import { UsuarioService } from '../../servicios/usuario.service';
 
+
 @Component({
   selector: 'app-compra',
   standalone: true,
@@ -52,26 +53,7 @@ export class CompraComponent implements OnInit {
     private CompraService: CompraService
   ) {}
 
-  async verificarEstadoPreferencia(preferenceId: string) {
-  try {
-    const response = await this.CompraService.obtenerEstadoPreferencia(preferenceId);
-    const data = response.data;
-    console.log('Datos recibidos de la preferencia:', data); 
-    if (data.results && data.results.length > 0) {
-      const estado = data.results[0].status;
-      console.log('Estado de la preferencia:', estado); 
-      if (estado === 'approved') {
-        this.estado = 'aprobado';
-      } else {
-        this.estado = 'cancelado';
-      }
-    } else {
-      console.log('No se encontró información de la preferencia');
-    }
-  } catch (error) {
-    console.error('Error al verificar preferencia:', error);
-  }
-}
+
 
   datosCompletos(): boolean {
     return !!(
@@ -101,16 +83,12 @@ export class CompraComponent implements OnInit {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!this.email || !emailRegex.test(this.email)) {
       this.mensajeFaltanDatos = 'Por favor, ingrese un email válido.';
-      setTimeout(() => {
-        this.mensajeFaltanDatos = '';
-      }, 2000);
+      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
       return;
     }
     if (this.opcionEntrega === '') {
       this.mensajeFaltanDatos = 'Por favor, seleccione una opción de entrega.';
-      setTimeout(() => {
-        this.mensajeFaltanDatos = '';
-      }, 2000);
+      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
       return;
     }
     this.paso = 2;
@@ -183,8 +161,11 @@ export class CompraComponent implements OnInit {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://uavdocx-backend-2nzhgo-1718e0-186-153-57-93.traefik.me/create-preference',
-        { envio: this.envio },
+        'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
+        {
+          envio: this.envio,
+          total: this.precioTotal + this.envio
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -215,52 +196,60 @@ export class CompraComponent implements OnInit {
     });
   }
 
-  verProducto(id: number): void {
-    window.location.href = `/producto/${id}`;
-  }
-
-  async crearCompraYMostrarPago() {
+  async crearCompra() {
     if (!this.datosCompletos()) {
+      this.mensajeFaltanDatos = 'Completa todos los datos antes de pagar.';
+      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
       return;
     }
-    const compra = {
-      id: 0,
-      idUsuario: this.id_usuario,
-      productos: this.carrito.map(item => ({
-        idPrenda: item.id,
-        talle: item.talle,
-        cantidad: item.cantidad
-      })),
-      total: this.precioTotal + this.envio,
-      estado: this.estado,
-      direccion: this.direccionEntrega,
-      nombre: this.nombreDestinatario,
-      apellido: this.apellidoDestinatario,
-      telefono: this.telefonoDestinatario,
-      dni: this.dniDestinatario,
-      email: this.email,
-      envio: this.opcionEntregaTexto,
-      fecha: new Date().toISOString(),
-      fechaEntrega: null
-    };
     try {
-      await this.createPreference();
-      if (this.preferenceId) {
-        await this.verificarEstadoPreferencia(this.preferenceId);
+      const token = localStorage.getItem('token');
+      const prefResponse = await axios.post(
+        'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
+        {
+          envio: this.envio,
+          total: this.precioTotal + this.envio
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      if (prefResponse.status === 200 && prefResponse.data.preference_id) {
+        this.preferenceId = prefResponse.data.preference_id;
+        const compra = {
+          id: 0,
+          idUsuario: this.id_usuario,
+          productos: this.carrito.map(item => ({
+            idPrenda: item.id,
+            talle: item.talle,
+            cantidad: item.cantidad
+          })),
+          total: this.precioTotal + this.envio,
+          estado: 'pendiente',
+          direccion: this.direccionEntrega,
+          nombre: this.nombreDestinatario,
+          apellido: this.apellidoDestinatario,
+          telefono: this.telefonoDestinatario,
+          dni: this.dniDestinatario,
+          email: this.email,
+          envio: this.opcionEntregaTexto,
+          fecha: new Date().toISOString(),
+          fechaEntrega: null,
+          preference_id: this.preferenceId
+        };
+        await this.CompraService.crearCompra(compra);
+        this.mensajeFaltanDatos = '¡Compra creada! Esperando confirmación de pago.';
+        setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
+      } else {
+        this.mensajeFaltanDatos = 'Error al crear la preferencia de pago.';
+        setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
       }
-      await this.CompraService.crearCompra(compra);
-      this.mensajeFaltanDatos = '¡Compra creada! Ahora realiza el pago.';
-      setTimeout(() => {
-        this.mensajeFaltanDatos = '';
-      }, 2000);
     } catch (error) {
       console.error(error);
       this.mensajeFaltanDatos = 'Error al crear la compra.';
-      setTimeout(() => {
-        this.mensajeFaltanDatos = '';
-      }, 2000);
+      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
     }
   }
-  
 }
-
