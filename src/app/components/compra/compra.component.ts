@@ -162,44 +162,45 @@ export class CompraComponent implements OnInit {
     }
   }
 
-  async createPreference() {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post(
-        'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
-        {
-          envio: this.envio,
-          total: this.precioTotal + this.envio,
-          nombre: this.nombreDestinatario,
-          apellido: this.apellidoDestinatario,
-          direccion: this.direccionEntrega,
-          dni: this.dniDestinatario,
-          telefono: this.telefonoDestinatario,
-          email: this.email,
-          productos: this.carrito.map(item => ({
-            idPrenda: item.id,
-            talle: item.talle,
-            cantidad: item.cantidad
-          })),
-          id_usuario: this.id_usuario 
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+ async createPreference() {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.post(
+      'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
+      {
+        envio: this.envio,
+        opcionEntrega: this.opcionEntregaTexto,  
+        total: this.precioTotal + this.envio,
+        nombre: this.nombreDestinatario,
+        apellido: this.apellidoDestinatario,
+        direccion: this.direccionEntrega,
+        dni: this.dniDestinatario,
+        telefono: this.telefonoDestinatario,
+        email: this.email,
+        productos: this.carrito.map(item => ({
+          idPrenda: item.id,
+          talle: item.talle,
+          cantidad: item.cantidad
+        })),
+        id_usuario: this.id_usuario 
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
-      );
-      if (response.status === 200) {
-        const data = response.data;
-        this.preferenceId = data.preference_id;
-        this.renderMercadoPagoButton();
       }
-    } catch (error) {
-      console.error('Error al crear la preferencia:', error);
-      this.mensajeFaltanDatos = 'Error al crear la preferencia de pago';
-      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 3000);
+    );
+    if (response.status === 200) {
+      const data = response.data;
+      this.preferenceId = data.preference_id;
+      this.renderMercadoPagoButton();
     }
+  } catch (error) {
+    console.error('Error al crear la preferencia:', error);
+    this.mensajeFaltanDatos = 'Error al crear la preferencia de pago';
+    setTimeout(() => { this.mensajeFaltanDatos = ''; }, 3000);
   }
+}
 
   renderMercadoPagoButton() {
     if (!this.preferenceId) return;
