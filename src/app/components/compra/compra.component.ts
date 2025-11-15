@@ -45,6 +45,7 @@ export class CompraComponent implements OnInit {
   preferenceId: string | null = null;
   publicKey: string = 'APP_USR-97fcd1ee-745e-4751-a335-690ec9395bfe';
   estado = '';
+  preferenceCreated: boolean = false;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -52,8 +53,6 @@ export class CompraComponent implements OnInit {
     private PrendasService: PrendasService,
     private CompraService: CompraService
   ) {}
-
-
 
   datosCompletos(): boolean {
     return !!(
@@ -92,7 +91,13 @@ export class CompraComponent implements OnInit {
       return;
     }
     this.paso = 2;
-    await this.createPreference();
+  }
+
+  async verificarYCrearPreferencia() {
+    if (this.datosCompletos() && !this.preferenceCreated) {
+      this.preferenceCreated = true;
+      await this.createPreference();
+    }
   }
 
   actualizarEnvioPorOpcion() {
@@ -178,6 +183,11 @@ export class CompraComponent implements OnInit {
           })),
           id_usuario: this.id_usuario 
         },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
       );
       if (response.status === 200) {
         const data = response.data;
@@ -186,6 +196,8 @@ export class CompraComponent implements OnInit {
       }
     } catch (error) {
       console.error('Error al crear la preferencia:', error);
+      this.mensajeFaltanDatos = 'Error al crear la preferencia de pago';
+      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 3000);
     }
   }
 
@@ -201,47 +213,5 @@ export class CompraComponent implements OnInit {
         preferenceId: this.preferenceId,
       }
     });
-  }
-
-  async crearCompra() {
-    if (!this.datosCompletos()) {
-      this.mensajeFaltanDatos = 'Completa todos los datos antes de pagar.';
-      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
-      return;
-    }
-    if (!this.preferenceId) {
-      this.mensajeFaltanDatos = 'Error: Falta preferenceId. Intenta de nuevo.';
-      return;
-    }
-    try {
-      const compra = {
-        id: 0,
-        idUsuario: this.id_usuario,
-        productos: this.carrito.map(item => ({
-          idPrenda: item.id,
-          talle: item.talle,
-          cantidad: item.cantidad
-        })),
-        total: this.precioTotal + this.envio,
-        estado: 'pendiente',
-        direccion: this.direccionEntrega,
-        nombre: this.nombreDestinatario,
-        apellido: this.apellidoDestinatario,
-        telefono: this.telefonoDestinatario,
-        dni: this.dniDestinatario,
-        email: this.email,
-        envio: this.opcionEntregaTexto,
-        fecha: new Date().toISOString(),
-        fechaEntrega: null,
-        preference_id: this.preferenceId
-      };
-      await this.CompraService.crearCompra(compra);
-      this.mensajeFaltanDatos = '¡Compra creada! Esperando confirmación de pago.';
-      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
-    } catch (error) {
-      console.error(error);
-      this.mensajeFaltanDatos = 'Error al crear la compra.';
-      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
-    }
   }
 }

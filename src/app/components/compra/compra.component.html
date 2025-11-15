@@ -105,11 +105,11 @@
   <h2>Entrega</h2>
   <p>{{ opcionEntregaTexto }}</p>
       <h2>Datos del destinatario</h2>
-      <input type="text" placeholder="Nombre" [(ngModel)]="nombreDestinatario" />
-      <input type="text" placeholder="Apellido" [(ngModel)]="apellidoDestinatario" />
-      <input type="text" placeholder="DNI" [(ngModel)]="dniDestinatario" />
-      <input type="text" placeholder="Teléfono" [(ngModel)]="telefonoDestinatario" />
-      <input type="text" placeholder= "Direccion" [(ngModel)]="direccionEntrega" />
+<input type="text" placeholder="Nombre" [(ngModel)]="nombreDestinatario" (ngModelChange)="verificarYCrearPreferencia()" />
+<input type="text" placeholder="Apellido" [(ngModel)]="apellidoDestinatario" (ngModelChange)="verificarYCrearPreferencia()" />
+<input type="text" placeholder="DNI" [(ngModel)]="dniDestinatario" (ngModelChange)="verificarYCrearPreferencia()" />
+<input type="text" placeholder="Teléfono" [(ngModel)]="telefonoDestinatario" (ngModelChange)="verificarYCrearPreferencia()" />
+<input type="text" placeholder= "Direccion" [(ngModel)]="direccionEntrega" (ngModelChange)="verificarYCrearPreferencia()" />
   <h2>Pagar</h2>
 <div
   id="walletBrick_container"
