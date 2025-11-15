@@ -161,24 +161,24 @@ export class CompraComponent implements OnInit {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-  'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
-  {
-    envio: this.envio,
-    total: this.precioTotal + this.envio,
-    nombre: this.nombreDestinatario,
-    apellido: this.apellidoDestinatario,
-    direccion: this.direccionEntrega,
-    dni: this.dniDestinatario,
-    telefono: this.telefonoDestinatario,
-    email: this.email,
-    productos: this.carrito.map(item => ({
-      idPrenda: item.id,
-      talle: item.talle,
-      cantidad: item.cantidad
-    })),
-    idUsuario: this.id_usuario
-  },
-);
+        'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
+        {
+          envio: this.envio,
+          total: this.precioTotal + this.envio,
+          nombre: this.nombreDestinatario,
+          apellido: this.apellidoDestinatario,
+          direccion: this.direccionEntrega,
+          dni: this.dniDestinatario,
+          telefono: this.telefonoDestinatario,
+          email: this.email,
+          productos: this.carrito.map(item => ({
+            idPrenda: item.id,
+            talle: item.talle,
+            cantidad: item.cantidad
+          })),
+          id_usuario: this.id_usuario 
+        },
+      );
       if (response.status === 200) {
         const data = response.data;
         this.preferenceId = data.preference_id;
