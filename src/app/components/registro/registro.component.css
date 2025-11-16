@@ -166,3 +166,96 @@ body {
 .span a {
   color: var(--clr);
 }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  #registroBox {
+    margin-left: 3%;
+  }
+
+  .form {
+    max-width: 280px;
+  }
+
+  .form input[type="text"],
+  .form input[type="email"],
+  .form input[type="password"],
+  .submit {
+    width: 280%;
+  }
+}
+
+@media (max-width: 768px) {
+  #registroBox {
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  p {
+    margin-left: 5%;
+  }
+
+  .form {
+    max-width: 100%;
+  }
+
+  .form input[type="text"],
+  .form input[type="email"],
+  .form input[type="password"],
+  .submit {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .error,
+  .exito {
+    max-width: 90%;
+    margin-left: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  #registroBox {
+    margin-top: 3%;
+    margin-left: 4%;
+    margin-right: 4%;
+  }
+
+  p {
+    margin-left: 4%;
+    font-size: 0.85rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+
+  .form {
+    gap: 0.8rem;
+  }
+
+  .form input[type="text"],
+  .form input[type="email"],
+  .form input[type="password"] {
+    padding: 0.85rem 0.65rem;
+    font-size: 0.95rem;
+  }
+
+  .submit {
+    padding: 0.85rem 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  .error,
+  .exito {
+    max-width: 92%;
+    margin-left: 4%;
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}

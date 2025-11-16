@@ -1,7 +1,7 @@
 <div *ngIf="!esAdminUsuario">
   <h2 style="color: red;">No, solo los administradores pueden acceder a esta sección.</h2>
 </div>
-<div *ngIf="esAdminUsuario">
+<div *ngIf="esAdminUsuario" class="reclamos-container">
   
   <h1>Reclamos</h1>
   <table>
@@ -44,10 +44,10 @@
     </tbody>
   </table>
   <div class="paginacion-container" *ngIf="total > limit">
-    <button class="paginacion-btn" [disabled]="page === 1" (click)="cambiarPagina(page - 1)">&laquo; Anterior</button>
+    <button class="paginacion-btn" [disabled]="page === 1" (click)="cambiarPagina(page - 1)">&laquo; </button>
     <span class="paginacion-info">
       Página {{ page }} de {{ totalPaginas() }}
     </span>
-    <button class="paginacion-btn" [disabled]="page === totalPaginas()" (click)="cambiarPagina(page + 1)">Siguiente &raquo;</button>
+    <button class="paginacion-btn" [disabled]="page === totalPaginas()" (click)="cambiarPagina(page + 1)"> &raquo;</button>
   </div>
 </div>

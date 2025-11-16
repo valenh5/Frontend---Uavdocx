@@ -1,100 +1,71 @@
-body, html {
-  background: #fff;
-  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-  color: #222;
-  margin: 0;
-  padding: 0;
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.usuarios-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  margin-top: 80px;
 }
 
 h1 {
   text-align: left;
-  margin-top: 32px;
-  font-size: 2.2rem;
-  color: #222;
-  letter-spacing: 1px;
+  font-size: 2rem;
+  color: #111;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  margin-bottom: 32px;
 }
 
 .usuarios-lista {
-  margin-top: 32px;
+  margin-top: 0;
   display: flex;
   justify-content: center;
   width: 100%;
   overflow-x: unset;
 }
 
-.paginacion-modern {
-  margin: 32px auto 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 18px;
-  font-size: 1.1rem;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  padding: 12px 32px;
-  width: fit-content;
-}
-
-.pag-btn {
-  border: none;
-  background: #222;
-  color: #fff;
-  font-size: 1.3rem;
-  border-radius: 50%;
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, color 0.2s;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-.pag-btn:disabled {
-  background: #eaeaea;
-  color: #aaa;
-  cursor: not-allowed;
-}
-.pag-btn:hover:not(:disabled) {
-  background: #fff;
-  color: #222;
-  border: 1px solid #222;
-}
-.pag-info {
-  font-size: 1.05rem;
-  color: #222;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-
 table {
   border-collapse: collapse;
   width: 100%;
-  background: #fff;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  background: white;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   border-radius: 12px;
   overflow: hidden;
 }
 
 th, td {
-  border-bottom: 1px solid #eaeaea;
-  padding: 10px 6px;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 12px;
   text-align: left;
-  word-break: break-word;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
 }
 
 th {
-  background: #222;
+  background: #111;
   color: #fff;
   font-weight: 600;
-  text-align: center;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-size: 0.85rem;
+  padding: 18px 12px;
+}
+
+tbody tr {
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: #f8f9fa;
 }
 
 tr:nth-child(even) {
   background: #fafafa;
+}
+
+tr:nth-child(even):hover {
+  background: #f0f1f2;
 }
 
 tr:last-child td {
@@ -107,133 +78,242 @@ tr:last-child td {
   justify-content: center;
   align-items: center;
   position: relative;
+  flex-wrap: wrap;
 }
 
 .opciones button {
-  border: 1px solid #222;
-  background-color: #fff;
-  color: #222;
-  padding: 6px 14px;
+  border: 2px solid #000;
+  background-color: #000;
+  color: #fff;
+  padding: 8px 16px;
   border-radius: 6px;
-  font-size: 0.95rem;
-  transition: background 0.2s, color 0.2s, border 0.2s;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
   outline: none;
+  margin: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.opciones button:hover {
-  background-color: #222;
-  color: #fff;
-  border: 1px solid #222;
-  cursor: pointer;
+.opciones button:hover:not(:disabled) {
+  background-color: #fff;
+  color: #000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .tooltip-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.25);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .tooltip-confirmacion {
-  position: static;
-  min-width: 260px;
   background: #fff;
-  border: 2px solid #222;
+  padding: 24px 32px;
   border-radius: 10px;
-  padding: 20px 32px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-  z-index: 1001;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
 }
 
 .tooltip-confirmacion span {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: #222;
-  margin-bottom: 6px;
 }
 
 .tooltip-confirmacion button {
   margin: 0 8px;
-  padding: 7px 18px;
-  border-radius: 5px;
+  padding: 8px 18px;
+  border-radius: 6px;
   border: none;
-  background: #222;
+  background: #000;
   color: #fff;
-  font-weight: 500;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .tooltip-confirmacion button:hover {
   background: #fff;
+  color: #000;
+  border: 2px solid #000;
+}
+
+.paginacion-modern {
+  margin: 32px auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  font-size: 1.1rem;
+}
+
+.pag-btn {
+  border: none;
+  background: #000;
+  color: #fff;
+  font-size: 1.3rem;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 0;
+}
+
+.pag-btn:disabled {
+  background: #eaeaea;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.pag-btn:hover:not(:disabled) {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+}
+
+.pag-info {
+  font-size: 1.05rem;
   color: #222;
-  border: 1px solid #222;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
-@media (max-width: 900px) {
-  .usuarios-lista {
-    margin-top: 12px;
-    overflow-x: unset;
+@media (max-width: 1024px) {
+  .usuarios-container {
+    padding: 32px 16px;
+    margin-top: 70px;
   }
-  table {
-    width: 100%;
-    min-width: unset;
-    font-size: 0.90rem;
-    display: table;
-    overflow-x: unset;
+
+  h1 {
+    font-size: 1.75rem;
   }
+
   th, td {
-    padding: 8px 4px;
-    font-size: 0.90rem;
-    word-break: break-word;
+    padding: 14px 10px;
+    font-size: 0.9rem;
   }
-  .opciones {
-    flex-direction: column;
-    gap: 3px;
-  }
+
   .opciones button {
-    font-size: 0.90rem;
-    padding: 5px 8px;
-    min-width: 70px;
+    padding: 7px 14px;
+    font-size: 0.8rem;
   }
 }
 
-@media (max-width: 600px) {
-  .usuarios-lista {
-    margin-top: 6px;
-    overflow-x: unset;
+@media (max-width: 768px) {
+  .usuarios-container {
+    padding: 24px 12px;
+    margin-top: 60px;
   }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
   table {
-    width: 100%;
-    min-width: unset;
-    font-size: 0.80rem;
-    display: table;
-    overflow-x: unset;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
+
   th, td {
-    padding: 6px 2px;
-    font-size: 0.80rem;
-    word-break: break-word;
-    max-width: 80px;
+    padding: 12px 8px;
+    font-size: 0.85rem;
+    min-width: 100px;
   }
-  .opciones {
-    flex-direction: column;
-    gap: 2px;
-  }
-  .opciones button {
-    width: 100%;
-    font-size: 0.80rem;
-    padding: 4px 6px;
+
+  th:first-child,
+  td:first-child {
     min-width: 60px;
   }
+
+  .opciones {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .opciones button {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    margin: 2px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .usuarios-container {
+    padding: 16px 8px;
+  }
+
   h1 {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 10px 6px;
+    font-size: 0.75rem;
+    min-width: 80px;
+  }
+
+  th:first-child,
+  td:first-child {
+    min-width: 50px;
+  }
+
+  .opciones button {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+    margin: 2px;
+  }
+
+  .paginacion-modern {
+    margin-top: 24px;
+    gap: 12px;
+  }
+
+  .pag-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+
+  .pag-info {
+    font-size: 0.9rem;
+  }
+
+  .tooltip-confirmacion {
+    padding: 20px 24px;
+    max-width: 90%;
+  }
+
+  .tooltip-confirmacion span {
     font-size: 1rem;
-    margin-top: 6px;
+  }
+
+  .tooltip-confirmacion button {
+    padding: 7px 16px;
+    font-size: 0.9rem;
   }
 }
