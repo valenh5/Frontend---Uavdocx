@@ -2,6 +2,20 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
 }
 
 /* Responsive: móviles y tablets */
@@ -10,7 +24,7 @@
         font-size: 15px;
     }
     body {
-        padding: 0 4px;
+        padding: 0;
     }
     table {
         font-size: 0.95em;

@@ -141,33 +141,32 @@ a{
 
 .carrusel {
   display: flex;
-  align-items: stretch;
+  align-items: center;
+  justify-content: center;
   gap: 1.2rem;
   margin-bottom: 0;
 }
 .arrow {
-  background: #e9eff6;
+  background: transparent;
   border: none;
-  border-radius: 50%;
   width: 2.2rem;
   height: 2.2rem;
-  font-size: 1.2rem;
-  color: #3b7ddd;
+  font-size: 1.5rem;
+  color: #000;
   cursor: pointer;
-  box-shadow: 0 1px 4px rgba(44,62,80,0.04);
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
 }
 .arrow:disabled {
-  opacity: 0.5;
+  opacity: 0.3;
   cursor: not-allowed;
 }
 .arrow:hover:not(:disabled) {
-  background: #dbe2ef;
-  color: #2d3a4a;
-  box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+  opacity: 0.7;
+  transform: scale(1.1);
 }
 
 .card-simple {
@@ -233,18 +232,122 @@ a{
 @media (max-width: 700px) {
   .usuario-wrapper {
     max-width: 100%;
-    padding: 0 0.3rem;
+    padding: 0 0.5rem;
   }
   .usuario-main {
     grid-template-columns: 1fr;
     gap: 1.2rem;
   }
   .usuario-card {
-    padding: 1.2rem 0.7rem;
+    padding: 1.2rem 0.8rem;
   }
   .card-simple {
-    padding: 0.8rem 0.5rem;
+    padding: 1rem 0.8rem;
     min-width: 0;
+    width: 100%;
+  }
+  .carrusel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .arrow {
+    flex-shrink: 0;
+    width: auto;
+    min-width: 40px;
+    height: auto;
+    padding: 0.3rem;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .usuario-wrapper {
+    padding: 0 1rem;
+  }
+  .usuario-header h1 {
+    font-size: 1.8rem;
+  }
+  .usuario-card {
+    padding: 1.5rem 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .usuario-wrapper {
+    padding: 0 0.8rem;
+    margin: 1.5rem auto;
+  }
+  .usuario-header h1 {
+    font-size: 1.5rem;
+  }
+  .breadcrumb {
+    font-size: 0.85rem;
+  }
+  .usuario-card h2 {
+    font-size: 1.15rem;
+  }
+  .datos-list > div,
+  .card-row {
+    font-size: 0.95rem;
+  }
+  .btn-primary,
+  .btn-secondary {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
+  .carrusel {
+    gap: 0.8rem;
+  }
+  .card-simple {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .usuario-wrapper {
+    padding: 0 0.5rem;
+    margin: 1rem auto;
+  }
+  .usuario-header h1 {
+    font-size: 1.3rem;
+  }
+  .breadcrumb {
+    font-size: 0.8rem;
+  }
+  .usuario-card {
+    padding: 1rem 0.7rem;
+  }
+  .usuario-card h2 {
+    font-size: 1.05rem;
+  }
+  .datos-list > div,
+  .card-row {
+    font-size: 0.9rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+  .btn-primary,
+  .btn-secondary {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+    width: 100%;
+  }
+  .card-simple {
+    padding: 0.8rem 0.6rem;
+    min-width: 0;
+  }
+  .arrow {
+    font-size: 1.2rem;
+  }
+  .acordeon-header h2 {
+    font-size: 1rem;
+  }
+  .error-card {
+    font-size: 0.9rem;
+    padding: 0.7rem 0.8rem;
   }
 }
 

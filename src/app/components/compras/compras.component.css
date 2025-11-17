@@ -1,52 +1,63 @@
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
 .compras-container {
-  max-width: 900px;
-  margin: 2rem auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  margin-top: 80px;
 }
 
 h2 {
   text-align: left;
-  margin-top: 32px;
-  font-size: 2.2rem;
-  color: #222;
-  letter-spacing: 1px;
-  width: 100%;
-  margin-bottom: 5%;
+  font-size: 2rem;
+  color: #111;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  margin-bottom: 32px;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
-  background: #fff;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  background: white;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   border-radius: 12px;
   overflow: hidden;
 }
 
 th, td {
-  border-bottom: 1px solid #eaeaea;
-  padding: 10px 6px;
-  text-align: center;
-  word-break: break-word;
-  font-size: 0.8rem;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 12px;
+  text-align: left;
+  font-size: 0.95rem;
 }
 
 th {
-  background: #222;
+  background: #111;
   color: #fff;
   font-weight: 600;
-  text-align: center;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-size: 0.85rem;
+  padding: 18px 12px;
+}
+
+tbody tr {
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: #f8f9fa;
 }
 
 tr:nth-child(even) {
   background: #fafafa;
+}
+
+tr:nth-child(even):hover {
+  background: #f0f1f2;
 }
 
 tr:last-child td {
@@ -54,42 +65,83 @@ tr:last-child td {
 }
 
 button {
-  border: 1px solid #222;
-  background-color: #fff;
-  color: #222;
-  padding: 6px 14px;
+  border: 2px solid #000;
+  background-color: #000;
+  color: #fff;
+  padding: 8px 16px;
   border-radius: 6px;
-  font-size: 0.95rem;
-  transition: background 0.2s, color 0.2s, border 0.2s;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
   outline: none;
-  margin-left: 0.5rem;
+  margin: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .btn-pendiente{
   margin-bottom: 2%;
 }
 
-button:hover {
-  background-color: #222;
-  color: #fff;
-  border: 1px solid #222;
-  cursor: pointer;
+button:hover:not(:disabled) {
+  background-color: #fff;
+  color: #000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 select {
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  border: 1px solid #bdbdbd;
-  background: #f5f5f5;
-  font-size: 0.95rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+select:hover:not(:disabled) {
+  border-color: #000;
+}
+
+select:focus {
+  outline: none;
+  border-color: #000;
+}
+
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 input[type="datetime-local"] {
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  border: 1px solid #bdbdbd;
-  background: #f5f5f5;
-  font-size: 0.95rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+}
+
+input[type="datetime-local"]:hover:not(:disabled) {
+  border-color: #000;
+}
+
+input[type="datetime-local"]:focus {
+  outline: none;
+  border-color: #000;
+}
+
+input[type="datetime-local"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .paginacion-modern {
@@ -182,54 +234,127 @@ p {
   margin-top: 2rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .compras-container {
-    padding: 1rem;
+    padding: 32px 16px;
+    margin-top: 70px;
   }
-  table {
-    width: 100%;
-    min-width: unset;
-    font-size: 0.90rem;
-    display: table;
-    overflow-x: unset;
+
+  h2 {
+    font-size: 1.75rem;
   }
+
   th, td {
-    padding: 8px 4px;
-    font-size: 0.90rem;
-    word-break: break-word;
+    padding: 14px 10px;
+    font-size: 0.9rem;
   }
+
   button {
-    font-size: 0.90rem;
-    padding: 5px 8px;
-    min-width: 70px;
+    padding: 7px 14px;
+    font-size: 0.8rem;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .compras-container {
-    padding: 0.5rem;
+    padding: 24px 12px;
+    margin-top: 60px;
   }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
   table {
-    width: 100%;
-    min-width: unset;
-    font-size: 0.80rem;
-    display: table;
-    overflow-x: unset;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
+
   th, td {
-    padding: 6px 2px;
-    font-size: 0.80rem;
-    word-break: break-word;
-    max-width: 80px;
+    padding: 12px 8px;
+    font-size: 0.85rem;
+    min-width: 100px;
   }
-  button {
-    width: 100%;
-    font-size: 0.80rem;
-    padding: 4px 6px;
+
+  th:first-child,
+  td:first-child {
     min-width: 60px;
   }
+
+  button {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    margin: 2px;
+  }
+
+  select,
+  input[type="datetime-local"] {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .compras-container {
+    padding: 16px 8px;
+  }
+
   h2 {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 10px 6px;
+    font-size: 0.75rem;
+    min-width: 80px;
+  }
+
+  th:first-child,
+  td:first-child {
+    min-width: 50px;
+  }
+
+  button {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+    margin: 2px;
+  }
+
+  select,
+  input[type="datetime-local"] {
+    padding: 5px 8px;
+    font-size: 0.75rem;
+  }
+
+  .paginacion-modern {
+    margin-top: 24px;
+    gap: 12px;
+  }
+
+  .pag-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+
+  .pag-info {
+    font-size: 0.9rem;
+  }
+
+  .tooltip-confirmacion {
+    padding: 20px 24px;
+    max-width: 90%;
+  }
+
+  .tooltip-confirmacion span {
     font-size: 1rem;
-    margin-top: 6px;
+  }
+
+  .tooltip-confirmacion button {
+    padding: 7px 16px;
+    font-size: 0.9rem;
   }
 }

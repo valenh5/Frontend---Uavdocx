@@ -66,7 +66,7 @@
           <button class="cerrar-popup" (click)="cerrarGuiaTalles()">Cerrar</button>
         </div>
       </div>
-      <div style="display: flex; align-items: center; gap: 12px; margin-top: 18px;">
+      <div class="botones-container">
         <div class="cantidad-selector">
           <button type="button" class="cantidad-btn" (click)="bajarCantidad()">-</button>
           <div class="cantidad-valor">{{ cantidad }}</div>
@@ -74,7 +74,6 @@
         </div>
         <button class="agregar-carrito" (click)="agregarAlCarrito()">Agregar al carrito</button>
         <button class="volver" (click)="volver()">Volver</button>
-
       </div>
               <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
         <div *ngIf="mensajeExito" class="exito">{{ mensajeExito }}</div>

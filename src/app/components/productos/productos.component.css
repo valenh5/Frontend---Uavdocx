@@ -635,3 +635,266 @@ h2.titulo-productos {
   margin-top: 8px;
   text-align: center;
 }
+
+/* Responsive mejorado */
+@media (max-width: 1024px) {
+  .encabezado {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .group {
+    max-width: 100%;
+    margin-left: 0 !important;
+  }
+
+  .filtrar {
+    justify-content: center;
+  }
+
+  #prendas-container {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .filtros-fila {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 120px;
+  }
+
+  .navbar-container {
+    padding: 0 16px;
+  }
+
+  .navbar-menu {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .navbar-menu a {
+    font-size: 14px;
+  }
+
+  h2.titulo-productos {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .encabezado {
+    padding: 12px;
+  }
+
+  .group {
+    max-width: 100%;
+  }
+
+  .input {
+    height: 36px;
+    font-size: 14px;
+  }
+
+  #filtrar-txt {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .filtros {
+    padding: 16px 12px;
+  }
+
+  .filtros-fila {
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .filtro-bloque {
+    width: 100%;
+  }
+
+  .filtro-precios {
+    width: 100%;
+  }
+
+  .filtro-precios input[type="number"] {
+    width: 100%;
+    flex: 1;
+  }
+
+  #categoria {
+    width: 100%;
+  }
+
+  #aplicar {
+    width: 100%;
+  }
+
+  #prendas-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .prenda-card {
+    max-width: 100%;
+  }
+
+  .prenda-info h3 {
+    font-size: 18px;
+  }
+
+  .prenda-info p {
+    font-size: 14px;
+  }
+
+  .paginacion {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pagina-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    margin: 4px;
+  }
+
+  .dropdown-content {
+    min-width: 140px;
+  }
+
+  .dropdown-content a {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 140px;
+  }
+
+  main {
+    padding: 20px 10px;
+    margin-top: 30px;
+  }
+
+  .navbar-logo {
+    font-size: 22px;
+  }
+
+  .navbar-menu {
+    gap: 8px;
+  }
+
+  .navbar-menu a {
+    font-size: 13px;
+  }
+
+  h2.titulo-productos {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+  }
+
+  .encabezado {
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .input {
+    height: 34px;
+    font-size: 13px;
+    padding-left: 2rem;
+  }
+
+  .search-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    left: 0.7rem;
+  }
+
+  #filtrar-txt {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+
+  .filtros {
+    padding: 12px 8px;
+  }
+
+  .filtro-bloque label {
+    font-size: 14px;
+  }
+
+  .filtro-precios input[type="number"],
+  #categoria {
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+
+  #aplicar {
+    padding: 7px 14px;
+    font-size: 14px;
+  }
+
+  #prendas-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .prenda-card {
+    max-width: 100%;
+  }
+
+  .prenda-info {
+    padding: 16px;
+  }
+
+  .prenda-info h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .prenda-info p {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .paginacion {
+    margin-top: 20px;
+    gap: 6px;
+  }
+
+  .pagina-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+    margin: 2px;
+  }
+
+  .dropdown-btn {
+    font-size: 13px;
+  }
+
+  .dropdown-content {
+    min-width: 120px;
+  }
+
+  .dropdown-content a {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .material-icons {
+    font-size: 22px;
+    padding: 5px;
+  }
+}

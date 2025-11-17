@@ -45,6 +45,7 @@ export class CompraComponent implements OnInit {
   preferenceId: string | null = null;
   publicKey: string = 'APP_USR-97fcd1ee-745e-4751-a335-690ec9395bfe';
   estado = '';
+  preferenceCreated: boolean = false;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -52,8 +53,6 @@ export class CompraComponent implements OnInit {
     private PrendasService: PrendasService,
     private CompraService: CompraService
   ) {}
-
-
 
   datosCompletos(): boolean {
     return !!(
@@ -92,7 +91,13 @@ export class CompraComponent implements OnInit {
       return;
     }
     this.paso = 2;
-    await this.createPreference();
+  }
+
+  async verificarYCrearPreferencia() {
+    if (this.datosCompletos() && !this.preferenceCreated) {
+      this.preferenceCreated = true;
+      await this.createPreference();
+    }
   }
 
   actualizarEnvioPorOpcion() {
@@ -157,30 +162,45 @@ export class CompraComponent implements OnInit {
     }
   }
 
-  async createPreference() {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post(
-        'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
-        {
-          envio: this.envio,
-          total: this.precioTotal + this.envio
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+ async createPreference() {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.post(
+      'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
+      {
+        envio: this.envio,
+        opcionEntrega: this.opcionEntregaTexto,  
+        total: this.precioTotal + this.envio,
+        nombre: this.nombreDestinatario,
+        apellido: this.apellidoDestinatario,
+        direccion: this.direccionEntrega,
+        dni: this.dniDestinatario,
+        telefono: this.telefonoDestinatario,
+        email: this.email,
+        productos: this.carrito.map(item => ({
+          idPrenda: item.id,
+          talle: item.talle,
+          cantidad: item.cantidad
+        })),
+        id_usuario: this.id_usuario 
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
-      );
-      if (response.status === 200) {
-        const data = response.data;
-        this.preferenceId = data.preference_id;
-        this.renderMercadoPagoButton();
       }
-    } catch (error) {
-      console.error('Error al crear la preferencia:', error);
+    );
+    if (response.status === 200) {
+      const data = response.data;
+      this.preferenceId = data.preference_id;
+      this.renderMercadoPagoButton();
     }
+  } catch (error) {
+    console.error('Error al crear la preferencia:', error);
+    this.mensajeFaltanDatos = 'Error al crear la preferencia de pago';
+    setTimeout(() => { this.mensajeFaltanDatos = ''; }, 3000);
   }
+}
 
   renderMercadoPagoButton() {
     if (!this.preferenceId) return;
@@ -194,62 +214,5 @@ export class CompraComponent implements OnInit {
         preferenceId: this.preferenceId,
       }
     });
-  }
-
-  async crearCompra() {
-    if (!this.datosCompletos()) {
-      this.mensajeFaltanDatos = 'Completa todos los datos antes de pagar.';
-      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
-      return;
-    }
-    try {
-      const token = localStorage.getItem('token');
-      const prefResponse = await axios.post(
-        'https://uavdocx-back.policloudservices.ipm.edu.ar/create-preference',
-        {
-          envio: this.envio,
-          total: this.precioTotal + this.envio
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-      if (prefResponse.status === 200 && prefResponse.data.preference_id) {
-        this.preferenceId = prefResponse.data.preference_id;
-        const compra = {
-          id: 0,
-          idUsuario: this.id_usuario,
-          productos: this.carrito.map(item => ({
-            idPrenda: item.id,
-            talle: item.talle,
-            cantidad: item.cantidad
-          })),
-          total: this.precioTotal + this.envio,
-          estado: 'pendiente',
-          direccion: this.direccionEntrega,
-          nombre: this.nombreDestinatario,
-          apellido: this.apellidoDestinatario,
-          telefono: this.telefonoDestinatario,
-          dni: this.dniDestinatario,
-          email: this.email,
-          envio: this.opcionEntregaTexto,
-          fecha: new Date().toISOString(),
-          fechaEntrega: null,
-          preference_id: this.preferenceId
-        };
-        await this.CompraService.crearCompra(compra);
-        this.mensajeFaltanDatos = '¡Compra creada! Esperando confirmación de pago.';
-        setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
-      } else {
-        this.mensajeFaltanDatos = 'Error al crear la preferencia de pago.';
-        setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
-      }
-    } catch (error) {
-      console.error(error);
-      this.mensajeFaltanDatos = 'Error al crear la compra.';
-      setTimeout(() => { this.mensajeFaltanDatos = ''; }, 2000);
-    }
   }
 }
